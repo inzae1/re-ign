@@ -1,0 +1,8 @@
+# 지도 이미지 생성 기록
+
+도구: 내장 image_gen. 참고 화면을 스타일 참조로 입력하여 새 지도 생성.
+파일: east-asia-map.png. 생성 이후 그림 자체에 대한 후처리 없음. 지도는 실제 지형과 다른 표현이 있는 임시 미술 에셋임.
+
+최종 프롬프트:
+
+Use case: stylized-concept. Create a single GAME MAP BACKGROUND ASSET, not a screenshot or UI mockup. Use the supplied image only as visual style reference: rich detailed 1990s strategy-game pixel art terrain, jewel blue ocean, tiny pine forests and mountain ranges, sandy coastlines, gold-outlined political territories. Landscape 1200x1020 ratio (20:17). East Asia map focusing Korean peninsula, with north up. Geography composition is REQUIRED for existing interactive overlay: mainland China fills left third and northern quarter; Korea connects at x=52%, y=20%, extends south to x=58%, y=80%; Korea overall occupies x=40%-68%, y=20%-82%. Japanese islands visible at right and lower right, China yellow ochre territory, Korea lavender purple, Russia muted sage green at upper right, Japan coral pink. Painted terrain still readable under political colors. Korean city small palace/building icons centered exactly at these map-percent locations: Pyongyang (44%,40%), Wonsan (59%,40%), Seoul (50%,58%), Busan (64%,77%). Four city icons only, small tile-size Korean traditional tiled roof walled palaces, no huge monuments. Additional small mountains, farmland, trees, rivers and lightly dotted routes. A few tiny period steamships in ocean. Crisp pixel clusters, rich texture and luminous colors like reference. NO TEXT, NO LETTERS, NO LABELS, NO UI, NO frame, no legends, no portrait, no buttons. Asset will be displayed 440px wide on portrait mobile, so terrain must have clear readable silhouette and city icons. Do not create a mobile screenshot; only map painting filling entire image.

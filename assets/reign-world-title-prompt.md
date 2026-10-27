@@ -1,0 +1,9 @@
+# REIGN title background
+
+Saved asset: `reign-world-title.png`.
+
+Generated with the built-in image_gen tool. A newly generated background, not an edit of the old Korea map. The artwork is a stylized world atlas for the title screen, not the gameplay geography dataset. UI title and prompt are rendered separately in HTML/CSS.
+
+## Final generation prompt
+
+Use case: stylized-concept. Asset type: production background artwork for REIGN, a cute pixel-art historical strategy roguelike title screen. Generate a brand new polished VERTICAL 2:3 illustration, no typography whatsoever. A miniature late nineteenth-century WORLD ATLAS floating in a deep midnight teal ocean: recognizable shapes of Europe, Africa, Asia and the Americas arranged across the composition, no country favored, no Korea closeup. Small charming pixel castles, red-roof European cities, East Asian palace roofs, North African domes, forests and snowy mountains along the outer continental coasts. A few tiny steamships and sailing ships follow delicately dotted trade routes across the oceans. High-quality handcrafted 16-bit pixel art, crisp square pixels, restrained navy teal moss sage and muted amber palette, luminous warm pinprick port lights, atmospheric nightfall. Composition designed for a portrait mobile game splash: the top 15 percent is quiet dark sea; a broad calm dark teal ocean opening in the upper middle, roughly x20-80% y20-44%, left empty for a code-rendered title; continents curve and cluster mostly along the lateral edges and middle/lower half, intricate miniature scenery from y42 to y76, bottom 20 percent quieter dark ocean for a flashing start prompt. Elegant strategic world scale, visually charming and mysterious, not a parchment map, no desk, no people, no interface, no frames, no buttons, no text, no letters, no numbers, no flags, no logos, no watermark. All landmasses and scenery must be drawn as pixel art, not smooth vector or photorealistic.
