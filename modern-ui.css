@@ -66,3 +66,113 @@ dialog{width:min(92vw,430px);padding:22px;border:1px solid #ffffff26;border-radi
 .title-bottom p{color:#a8c4c8}.title-edition{color:#80a6ad}
 @media(min-width:800px){.title-art{background-position:center,center;background-size:cover,contain}.title-hero{top:18%}.title-hero h1{font-size:100px}.title-bottom{bottom:12%}}
 @media(max-height:650px){.title-hero{top:15%}.title-hero h1{margin:12px 0}.title-bottom{bottom:65px}}
+#national-crisis{margin:10px 12px 0;padding:11px 12px;border:1px solid #f8a78155;border-radius:12px;background:#503735;color:#fff0df}#national-crisis[hidden]{display:none}#national-crisis strong{display:block;font-size:14px;font-weight:600;margin:4px 0}#national-crisis p{font-size:11px;line-height:1.65;color:#f2cfc1;margin:4px 0}#national-crisis small{font-size:9px;color:#d5af9c}#game[data-view=war] #national-crisis,#game[data-view=diplomacy] #national-crisis{display:none}
+
+/* Preserve the proportions of the sourced historical flags. */
+.country-flag{object-fit:contain;image-rendering:auto;background:#f3f0e8}
+#national-hud #emblem{object-fit:contain}
+.country-flag.flag-pair{display:inline-flex;align-items:center;gap:2px;background:#152d38}
+.flag-pair>img{width:calc(50% - 1px);height:100%;min-width:0;object-fit:contain;image-rendering:auto}
+
+/* Decisions take priority over supporting reports on portrait screens. */
+#national-hud{border-radius:16px}
+#national-hud header,#game[data-war=active] #national-hud header{padding:4px 10px;min-height:48px}
+#national-hud h1{font-size:16px}
+#national-hud #date{font-size:11px;margin-top:1px}
+#national-hud #emblem{width:30px;height:21px}
+#national-hud #help{width:44px;height:44px;background:transparent}
+#combat-alert{min-height:44px;background:transparent;padding:0 8px}
+#national-hud #resources{padding:5px 0 8px}
+#resources>div{padding:0 10px}
+#national-hud #resources b{font-size:18px;line-height:1.25}
+#national-hud #resources span{font-size:11px}
+#national-hud #resources progress{margin-top:3px;height:3px}
+#command-dock{bottom:94px;max-height:min(58dvh,calc(100dvh - 180px));border-radius:20px}
+#dock-toggle{min-height:44px;flex-shrink:0;padding:10px 14px 6px;font-size:13px}
+.dock-body{max-height:none;flex:1;min-height:0;scroll-padding-top:8px}
+#command-dock .goal{padding:6px 13px;gap:0;font-size:10px;align-items:center}
+#command-dock #timeline{display:none}
+#command-dock .decision{padding:10px 13px}
+#command-dock h2{font-size:19px;line-height:1.4}
+#command-dock .eyebrow{font-size:11px;margin-bottom:4px}
+#command-dock #decision-body{font-size:12px;line-height:1.55;margin:6px 0 10px}
+#command-dock .choice,#game[data-war=active] #command-dock .choice{min-height:68px;padding:9px 11px;gap:9px}
+#command-dock .choice>span:not(.sprite):not(.arrow){flex:1;min-width:0}
+#command-dock .choice strong{font-size:14px;line-height:1.4}
+#command-dock .choice .effect-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+#command-dock .choice .effect-chip{font-size:11px;line-height:1.4;padding:2px 5px;border-radius:5px;background:#ffffff09;color:#c4d3db}
+#command-dock .choice .effect-chip.gain{color:#a0efd0;background:#8be4ca12}
+#command-dock .choice .effect-chip.loss{color:#ffb1a9;background:#ff9a9210}
+#command-dock .policy-note{display:none}
+#command-dock .event-context{margin:8px 0 0;padding:0;border:0;background:transparent}
+.event-context summary{min-height:44px;display:flex;align-items:center;color:var(--ui-muted);font-size:12px;cursor:pointer}
+.event-context summary:before{content:'＋';margin-right:6px;color:var(--ui-accent)}
+.event-context[open] summary:before{content:'−'}
+.event-context p{font-size:12px;line-height:1.65}
+.history-source{min-height:44px;display:inline-flex;align-items:center;font-size:12px}
+#command-dock .upkeep{font-size:11px;line-height:1.55;padding-top:7px}
+#command-dock #last{font-size:11px;line-height:1.55}
+#command-dock footer{padding:4px 10px 8px;gap:4px}
+#command-dock footer button{min-height:44px;min-width:52px;padding:8px 5px;font-size:11px}
+#command-dock #save-note{font-size:10px;text-align:center}
+#history-news{padding:0 13px 8px}
+.news-card{background:#1d3541;border:1px solid var(--ui-line);border-radius:10px;color:var(--ui-text);padding:4px 10px}
+.news-card summary{min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.news-card small{color:var(--ui-muted);font-size:10px}
+.news-card strong{font-size:12px}
+.news-card .history-source,.news-card p{color:var(--ui-muted)}
+#war-status,#game[data-war=active] #war-status{margin:0 13px 10px;padding:9px 10px}
+#war-status strong{font-size:12px}
+#war-status p{font-size:11px;line-height:1.5;margin:4px 0}
+.war-open{min-height:44px}
+#command-dock .war-subtabs button{min-height:44px}
+#command-dock .strategy-action small{font-size:12px;line-height:1.5}
+#command-dock .screen-warning{font-size:12px;padding:9px 10px;margin-bottom:9px}
+#command-dock .screen-warning>.strategy-action{min-height:44px;margin-top:6px;padding:8px 10px}
+#command-dock .screen-warning>.strategy-action small{display:none}
+#map-controls{top:140px}
+#map-controls button,#map-controls button:last-child,#map-controls button:nth-last-child(-n+2){min-width:44px;min-height:44px}
+#map-view-toggle{min-height:44px}
+#war-toast{top:125px;pointer-events:none}
+#resources .resource-change{position:absolute;right:8px;top:5px;padding:4px 6px;border-radius:7px;background:#132833;font-size:14px!important;font-weight:650;pointer-events:none;animation:resource-float 1.8s ease-out forwards;z-index:2}
+#resources .resource-change.gain{color:#a0efd0}
+#resources .resource-change.loss{color:#ffb1a9}
+.map-city.damaged:after{border-color:#ed9b92;background:#643b3ce8}
+.map-city.damaged{color:#ffd0c6}
+.map-city.damaged:before{content:'! ';color:#ff9a92}
+@keyframes resource-float{0%{opacity:0;translate:0 7px}15%,65%{opacity:1}100%{opacity:0;translate:0 -20px}}
+@media(min-width:800px){#command-dock{max-height:70dvh}#map-controls{top:140px}}
+@media(max-height:650px){#command-dock{max-height:calc(100dvh - 235px)}#command-dock .choice,#game[data-war=active] #command-dock .choice{min-height:62px;padding:7px 10px}#command-dock .decision{padding:8px 11px}#command-dock h2{font-size:17px}#command-dock #decision-body{font-size:12px;margin:4px 0 7px}#command-dock .goal{display:none}#command-dock .event-context summary{min-height:44px}}
+@media(prefers-reduced-motion:reduce){#resources .resource-change{animation:none}}
+@media(max-height:650px){#game[data-event=false][data-ended=false] #decision-body{display:none}}
+
+/* Readable type and solid surfaces keep the atlas behind the controls. */
+:root{--ui-panel:#142530;--ui-muted:#bed0da}
+#command-dock,#national-hud{background:var(--ui-panel)}
+#command-dock #decision-body{font-size:14px;line-height:1.65;color:#d6e2e8}
+#command-dock .choice .effect-chip{font-size:13px;line-height:1.35;padding:2px 5px;font-variant-numeric:tabular-nums}
+#command-dock .choice .effect-chip.gain{background:#244a40;color:#b0f3d6}
+#command-dock .choice .effect-chip.loss{background:#49333c;color:#ffc3ba}
+#command-dock .choice .effect-chips{gap:4px;margin-top:5px}
+#command-dock .choice strong{font-size:15px}
+#command-dock .eyebrow{font-size:12px;color:#a3ebd3}
+#national-hud #date,#national-hud #resources span{font-size:12px;color:#c6d6df}
+.event-context summary,.quarter-details summary{min-height:44px;display:flex;align-items:center;font-size:13px;color:#c4d6df;cursor:pointer}
+.quarter-details summary:before{content:'＋';margin-right:6px;color:var(--ui-accent)}
+.quarter-details[open] summary:before{content:'−'}
+.quarter-details{border-top:1px solid var(--ui-line);margin-top:3px}
+#command-dock .quarter-details .upkeep{padding:0 0 6px;text-align:left;font-size:12px;line-height:1.65;color:#d1dfe6}
+#command-dock .quarter-details #last{font-size:13px;color:#d7ebe6;background:#1e373f}
+#command-dock .event-context p{font-size:13px;line-height:1.7;color:#d0dee6}
+.event-context small{font-size:12px;color:#e1cb9e}
+#command-dock .history-source{font-size:13px;color:#ebd39d}
+#command-dock .choice .unavailable{font-size:12px;color:#ffc3ba}
+#command-dock .strategy-action small,#command-dock .foreign-note,#command-dock .compact-impact{font-size:13px;line-height:1.6;color:#cbdbe3}
+#command-dock .war-meters .strategic-meter{font-size:12px;color:#cbdbe3}
+#national-crisis p{font-size:13px;color:#ffe0d1}
+#national-crisis small{font-size:12px;color:#ecd0bf}
+.news-card small{font-size:12px;color:#c4d6df}
+.news-card strong{font-size:13px}
+.news-card p,#war-status p{font-size:13px;color:#d0dfe7}
+#command-dock footer button{font-size:12px;color:#c6d7df}
+@media(max-height:650px){#command-dock #decision-body{font-size:13px;line-height:1.55}#command-dock .choice strong{font-size:14px}#command-dock .choice .effect-chip{font-size:12px}#command-dock .choice,#game[data-war=active] #command-dock .choice{padding:7px 9px}}

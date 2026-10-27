@@ -1,0 +1,167 @@
+[
+  {
+    "id": "korea",
+    "file": "Flag of Korea (1899).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Korea_(1899).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Korea_%281899%29.svg",
+    "author": "Lumia1234",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "97e0df8cfbe2d3eeedaad0454cfb4896845663402e33e3cd7477dd56f5c2873e",
+    "bytes": 3652
+  },
+  {
+    "id": "qing",
+    "file": "Flag of China (1889–1912).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_China_(1889%E2%80%931912).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Flag_of_China_%281889%E2%80%931912%29.svg",
+    "author": "Original: zh:清朝政府 Vector:  Sodacan",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "d543652386810308fe568ced9de449dffe673a5cf8cb74553a76626c67648f76",
+    "bytes": 181984
+  },
+  {
+    "id": "russia",
+    "file": "Flag of Russia.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg",
+    "author": "Peter the Great",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "eb1dbd977fdb824dcae7767ce9ec3a023e41158e81b5f524772609ddcb622025",
+    "bytes": 200
+  },
+  {
+    "id": "japan",
+    "file": "Flag of Japan (1870–1999).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Japan_(1870%E2%80%931999).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Japan_%281870%E2%80%931999%29.svg",
+    "author": "kahusi - (Talk)",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "3bb8a45a5c5456df14ea13394c874d662fa08d8c1c1e55dc55134fb2d2f50973",
+    "bytes": 212
+  },
+  {
+    "id": "britain",
+    "file": "Flag of the United Kingdom (3-5).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(3-5).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg",
+    "author": "Original: Acts of Union 1800 Vector:  Yaddah",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "b93bb15033d6c2219f290121d40c0a741765bd4b077ebcf5a5b0d917ff725a28",
+    "bytes": 477
+  },
+  {
+    "id": "france",
+    "file": "Flag of France.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_France.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg",
+    "author": "Original: Unknown Vector:  SKopp",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "e949902c7677422d88137d385b9edbe91323470c7933824cc968aca3965fc37c",
+    "bytes": 193
+  },
+  {
+    "id": "germany",
+    "file": "Flag of Germany (1867–1918).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Germany_(1867%E2%80%931918).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Germany_%281867%E2%80%931918%29.svg",
+    "author": "Original: Adolf Soetbeer, Otto von Bismarck Vector:  B1mbo, Madden",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "6571eb6423bfe57942c89f989cf95238dc56e90a4072580750160552f4d9150d",
+    "bytes": 180
+  },
+  {
+    "id": "usa",
+    "file": "Flag of the United States (1896–1908).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_(1896%E2%80%931908).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Flag_of_the_United_States_%281896%E2%80%931908%29.svg",
+    "author": "No machine-readable author provided. Jacobolus assumed (based on copyright claims).",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "0dfc9f7d5b8e1ef1f596356e21af10b486c40a83da01f361d90459b29e0f44e7",
+    "bytes": 2986
+  },
+  {
+    "id": "usa46",
+    "file": "Flag of the United States (1908–1912).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_(1908%E2%80%931912).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Flag_of_the_United_States_%281908%E2%80%931912%29.svg",
+    "author": "No machine-readable author provided. Jacobolus assumed (based on copyright claims).",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "170d29df363d61f7951305a2845ba6777181ef926aed708b93f8572479eaf2ce",
+    "bytes": 2987
+  },
+  {
+    "id": "italy",
+    "file": "Flag of Italy (1861-1946) crowned.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Italy_(1861-1946)_crowned.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Italy_%281861-1946%29_crowned.svg",
+    "author": "F l a n k e r",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "d7679f9390d67320a5a5b2a3eeebef7ddf68954592fa0811ca43696707aa8066",
+    "bytes": 128437
+  },
+  {
+    "id": "austria",
+    "file": "Flag of the Habsburg Monarchy.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_Habsburg_Monarchy.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_the_Habsburg_Monarchy.svg",
+    "author": "ThrashedParanoid and Peregrine981.",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "90526cda3e3240f189c776274108f49fe46a4bc83af28317793759e00f4d6549",
+    "bytes": 164
+  },
+  {
+    "id": "hungary",
+    "file": "Flag of Hungary (1896-1915; angels; 3-2 aspect ratio).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Hungary_(1896-1915%3B_angels%3B_3-2_aspect_ratio).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/81/Flag_of_Hungary_%281896-1915%3B_angels%3B_3-2_aspect_ratio%29.svg",
+    "author": "Thommy",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "780ffe4808cf88877965c0f5c07fe7bc6f9d8fc4f9622a3d3577aceaefafa461",
+    "bytes": 2131312
+  },
+  {
+    "id": "ottoman",
+    "file": "Flag of the Ottoman Empire (1844–1922).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_Ottoman_Empire_(1844%E2%80%931922).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_the_Ottoman_Empire_%281844%E2%80%931922%29.svg",
+    "author": "User:Orwellianist",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "7ff6e694d31e48144ce36c67bed5a4e1742d5e6924cad50ca760b594b3d49822",
+    "bytes": 489
+  },
+  {
+    "id": "siam",
+    "file": "Flag of Siam (1855).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Siam_(1855).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Siam_%281855%29.svg",
+    "author": "Xiengyod & Sodacan \n\n\niThe source code of this  SVG is valid.\n  This  vector image was created with Inkscape .",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "b9149602fb94c09f553411791f0eb34613c01e4afdde0233b476ccaa78bd8283",
+    "bytes": 65788
+  },
+  {
+    "id": "brazil",
+    "file": "Flag of Brazil (1889–1960).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Brazil_(1889%E2%80%931960).svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Brazil_%281889%E2%80%931960%29.svg",
+    "author": "Raimundo Teixeira Mendes",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "4fe5746b128101524c3422d4bef92e0e21a0b4e155c8a92270f7047c7820808b",
+    "bytes": 4011
+  }
+]

@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 60" shape-rendering="crispEdges"><rect x="0" y="0" width="96" height="60" fill="#fff8e9"/><circle cx="48" cy="30" r="17" fill="#be3348"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700">
+<rect fill="#fff" height="700" width="1000"/>
+<circle fill="#b0313f" cx="490" cy="350" r="210"/>
+</svg>
