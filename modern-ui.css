@@ -273,3 +273,30 @@ dialog{width:min(92vw,430px);padding:22px;border:1px solid #ffffff26;border-radi
 @media(max-width:360px){#command-dock .choice .effect-chip{font-size:12px}.action-budget,#command-dock .operation-grid .strategy-action .action-budget{font-size:13px}#command-dock .strategy-action strong{font-size:14px}}
 .state-supporting #history-news{padding:0;margin-top:8px}
 #game[data-war=active] #war-status{display:none}
+/* A closed panel has no layout or focus targets, including during season changes. */
+#command-dock[hidden],#game[data-view=map] #command-dock{display:none!important}
+#game[data-view=map] #map-actions button{box-shadow:none}
+.war-scoreboard{padding:13px;border:1px solid #ffffff20;border-radius:15px;background:#10242e;margin-bottom:12px}
+.war-matchup{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.war-team{min-width:0}.war-team-name{display:flex;align-items:center;gap:7px;color:#d9e8ee;font-size:13px;font-weight:600;min-width:0}.war-team-name img{width:25px;height:18px;object-fit:contain}.war-team-name>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.war-team-value{display:flex;align-items:baseline;gap:7px;margin:6px 0}.war-team-value strong{font-size:32px;font-weight:750;line-height:1.2;letter-spacing:-1px;color:#bcf4e1}.war-team.enemy .war-team-value strong{color:#ffa9b3}.war-team-value small{font-size:10px;color:#b4c9d4}
+.war-team progress{display:block;width:100%;height:5px;border:0;border-radius:4px}.war-team progress::-webkit-progress-value{background:#8be4ca}.war-team.enemy progress::-webkit-progress-value{background:#f58f9f}
+.war-logistics{display:flex;gap:16px;padding-top:11px;margin-top:11px;border-top:1px solid #ffffff13}.war-logistics>span{display:flex;align-items:center;gap:7px;color:#c6dbe4;font-size:12px}.war-logistics small{font-size:12px}.war-logistics strong{font-size:15px;color:#eff6fa}.war-logistics>span>span{font-size:11px;color:#9ed6c6}.war-logistics>span.critical>span,.war-logistics>span.critical strong{color:#ffa9b3}
+#command-dock .operation-grid{gap:9px}
+#command-dock .operation-grid .strategy-action{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;min-height:123px;padding:12px!important;text-align:left}
+.war-order-heading{display:flex;align-items:center;gap:8px}.war-order-icon{width:21px;height:21px;color:#a4ead6;flex-shrink:0}
+#command-dock .operation-grid .war-order-heading strong{padding:0;font-size:18px!important;min-height:0;line-height:1.4}
+#command-dock .operation-grid .war-order-effect{display:block;margin:8px 0 9px;font-size:13px;line-height:1.5;color:#d1e1e8;flex:1}
+.war-order-cost{display:block;font-size:16px;font-weight:650;line-height:1.4;color:#fff0ed;font-variant-numeric:tabular-nums}
+#command-dock .operation-grid .strategy-action:disabled .war-order-cost{color:#c5d1d9;font-size:13px}
+.war-cost-caption{font-size:12px;line-height:1.6;color:#c0d4dd;margin:10px 0 2px;text-align:center}
+.war-rules{border:1px solid #ffffff18;border-radius:11px;padding:0 11px;margin-bottom:10px}.war-rules summary{display:flex;align-items:center;min-height:44px;font-size:13px;color:#d1e3eb}.war-rules p{font-size:13px;color:#c3d6df;line-height:1.7}
+#game[data-view=war] #command-dock footer{display:none}
+#game[data-view=war] #command-dock .war-subtabs{margin-bottom:11px}
+@media(max-width:360px){.war-team-value strong{font-size:29px}.war-team-value small{font-size:9px}.war-matchup{gap:14px}#command-dock .operation-grid .war-order-heading strong{font-size:17px!important}.war-order-cost{font-size:14px}#command-dock .operation-grid .strategy-action{padding:10px!important;min-height:123px}}
+#game[data-view=war] #command-dock{max-height:min(66dvh,calc(100dvh - 286px))}
+#game[data-view=war][data-dock=open] #war-toast{display:none}
+.war-scoreboard{padding:11px}.war-logistics{margin-top:8px;padding-top:8px}
+#command-dock .operation-grid .strategy-action{min-height:112px}
+#command-dock .operation-grid .war-order-effect{margin:6px 0 7px}
+@media(max-width:360px){#command-dock .operation-grid .strategy-action{min-height:102px}.war-scoreboard{padding:9px}.war-team-value strong{font-size:27px}.war-logistics{margin-top:6px;padding-top:6px}.war-team-value{margin:4px 0}#command-dock .operation-grid .war-order-effect{font-size:12px;margin:5px 0}.war-cost-caption{font-size:11px}}

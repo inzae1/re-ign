@@ -38,22 +38,34 @@ export function renderWarRoom(s,setView,run){const root=document.getElementById(
 
 function compactWarRoom(root,s){
  const w=s.war;if(!w)return;
+ if(lastWarPhase!=='active'&&w.phase==='active')warTab='orders';
  if(lastWarPhase==='active'&&w.phase==='resolved')warTab='report';lastWarPhase=w.phase;
  if(w.phase!=='active'&&warTab==='orders')warTab='report';
  const nav=el('div',undefined,'war-subtabs');nav.setAttribute('role','tablist');nav.setAttribute('aria-label','전쟁 정보');
  const sections={orders:el('div',undefined,'war-subpane'),aid:el('div',undefined,'war-subpane'),report:el('div',undefined,'war-subpane')};
+ const oldMeters=root.querySelector('.war-meters');
+ if(oldMeters){const board=el('section',undefined,'war-scoreboard');board.setAttribute('aria-label','양측 전력');
+  const match=el('div',undefined,'war-matchup');
+  for(const [id,name,value,cl]of [['korea','대한제국',w.army,'own'],[w.enemyId,w.enemy,w.enemyArmy,'enemy']]){
+   const team=el('div',undefined,'war-team '+cl),label=el('div',undefined,'war-team-name');label.append(countryFlag(id,s.turn),el('span',name));label.title=name;
+   const valueLine=el('div',undefined,'war-team-value');valueLine.append(el('strong',value),el('small','전력 / 100'));const bar=el('progress');bar.max=100;bar.value=value;bar.setAttribute('aria-label',name+' 전력');team.append(label,valueLine,bar);match.append(team);
+  }
+  const logistics=el('div',undefined,'war-logistics');for(const [label,value,low]of [['보급',w.supplies,18],['사기',w.morale,30]]){const stat=el('span',undefined,value<low?'critical':'');stat.append(el('small',label),el('strong',value),el('span',value<low?'위험':'안정'));logistics.append(stat);}board.append(match,logistics);oldMeters.replaceWith(board);
+ }
  const ops=root.querySelector('.operation-grid');if(ops){
- const ids=['defend','assault','supply','truce'],notes=['전선 유지 · 손실 완화','적 피해↑ · 아군 소모↑','보급 +26 · 봉쇄 −8',w.mode==='offensive'?'철군 · 군사력 −12 · 민심 −4':'휴전 · 이권 양보 1단계'];
- [...ops.children].forEach((b,i)=>{const id=ids[i],forecast=previewStrategy(s,'operation',id);b.prepend(gameIcon(id,'order-emblem'));b.dataset.order=id;const small=b.querySelector('small');b.title=`작전비 ${won(orders[id].cost)} · ${b.title||small.textContent}`;small.textContent=currencyText(orderBlockReason(s,id)||notes[i]);b.insertBefore(el('span',forecast?`예상 국고 ${forecast.gold>=0?'+':'−'}${won(forecast.gold)}`:`비용 ${won(orders[id].cost)}`,'action-budget'),small);});sections.orders.append(ops,el('p','작전 1회 · 1분기 / 전비·결산 포함 예상 · 전투·사건 별도','action-footnote'));
- }else sections.orders.append(el('p','전투가 종료되었습니다. 전황 탭에서 결과와 복구를 확인하세요.','compact-note'));
+ const ids=['defend','assault','supply','truce'],titles=['방어',w.mode==='offensive'?'공세':'반격','보급','휴전'],notes=['전선 유지 · 손실 완화','적에게 큰 피해 · 병력 소모','보급 +26 · 봉쇄 −8',w.mode==='offensive'?'원정군 철수':'교전 중단 · 이권 양보'];
+ [...ops.children].forEach((b,i)=>{const id=ids[i],forecast=previewStrategy(s,'operation',id),reason=orderBlockReason(s,id);b.replaceChildren();b.dataset.order=id;const head=el('span',undefined,'war-order-heading');head.append(gameIcon(id,'war-order-icon'),el('strong',titles[i]));b.append(head,el('small',reason? (w.round<2&&id==='truce'?'2분기 교전 후 가능':reason):notes[i],'war-order-effect'),el('span',forecast?`${forecast.gold>=0?'+':'−'}${won(forecast.gold)}`:`작전비 ${won(orders[id].cost)}`,'war-order-cost'));b.setAttribute('aria-label',`${titles[i]} · ${reason||notes[i]} · ${forecast?'국고 예상 변화 '+(forecast.gold>=0?'+':'−')+won(forecast.gold):'작전비 '+won(orders[id].cost)}`);b.title=currencyText(`${orders[id].description} 기본 작전비 ${won(orders[id].cost)}`);});
+ sections.orders.append(ops,el('p','1회 = 1분기 · 금액은 국고 예상 변화','war-cost-caption'));
+ const details=el('details',undefined,'war-rules');details.append(el('summary','비용·교전 규칙'),el('p','표시 금액은 작전비·분기 전비·세입·체불 상환을 포함합니다. 전투·반란·돌발 사건에 따른 증감은 별도입니다.'),el('p',`해상 봉쇄 ${w.blockade}% · 분기 전비 ${won(-warCosts(s).gold)} · 3·5번째 교전에 적 증원 +6. 휴전은 군사력 −12·민심 −4${w.mode==='offensive'?'·철군':', 이권 양보 1단계(분기 국고 −10,000원·군사력 −2)'}.`));sections.report.append(details);
+ }else sections.orders.append(el('p','전투가 종료되었습니다. 전황 탭에서 결과를 확인하세요.','compact-note'));
 
  const aid=root.querySelector('.aid-section');if(aid)sections.aid.append(aid);else sections.aid.append(el('p','전시 동맹 지원은 교전 중에 요청할 수 있습니다.','compact-note'));
  const bill=root.querySelector('.war-economic'),report=root.querySelector('.campaign-report');if(report)sections.report.append(report);if(bill)sections.report.append(bill);
  const recovery=root.querySelector('.recovery-section');if(recovery){const fold=el('details',undefined,'recovery-fold');fold.append(el('summary','전후 피해와 복구 펼치기'));fold.append(recovery);sections.report.append(fold);}
  const back=root.querySelector(':scope > .strategy-action');if(back)back.remove();
- const costs=warCosts(s),impact=el('p',w.phase==='active'?`해상 봉쇄 ${w.blockade}% · 다음 적 증원 ${w.round<3?3-w.round:w.round<5?5-w.round:'없음'}${w.round<5?'분기 후':''}`:`전투 종료 · 이권 양보 ${s.concessions||0}단계(분기 국고 −${s.concessions||0}·군사력 −${(s.concessions||0)*2})`,'compact-impact');root.append(impact);
+
  const select=id=>{warTab=id;for(const [key,pane]of Object.entries(sections))pane.hidden=key!==id;for(const b of nav.children){b.classList.toggle('active',b.dataset.pane===id);b.setAttribute('aria-selected',String(b.dataset.pane===id));b.tabIndex=b.dataset.pane===id?0:-1;}};
- for(const [id,title]of [['orders','작전'],['aid','동맹 지원'],['report','전황·복구']]){const b=el('button',title);b.prepend(gameIcon({orders:'assault',aid:'diplomacy',report:'state'}[id],'tab-icon'));b.dataset.pane=id;b.setAttribute('role','tab');b.id='war-tab-'+id;b.setAttribute('aria-controls','war-pane-'+id);b.onclick=()=>select(id);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const all=[...nav.children],index=all.indexOf(b),next=all[(index+(e.key==='ArrowRight'?1:-1)+all.length)%all.length];next.click();next.focus();};nav.append(b);sections[id].id='war-pane-'+id;sections[id].setAttribute('role','tabpanel');sections[id].setAttribute('aria-labelledby',b.id);}
+ for(const [id,title]of [['orders','작전'],['aid','지원'],['report','전황']]){const b=el('button',title);b.prepend(gameIcon({orders:'assault',aid:'diplomacy',report:'state'}[id],'tab-icon'));b.dataset.pane=id;b.setAttribute('role','tab');b.id='war-tab-'+id;b.setAttribute('aria-controls','war-pane-'+id);b.onclick=()=>select(id);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const all=[...nav.children],index=all.indexOf(b),next=all[(index+(e.key==='ArrowRight'?1:-1)+all.length)%all.length];next.click();next.focus();};nav.append(b);sections[id].id='war-pane-'+id;sections[id].setAttribute('role','tabpanel');sections[id].setAttribute('aria-labelledby',b.id);}
  root.append(nav,...Object.values(sections));select(warTab);
 }
 
