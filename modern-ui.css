@@ -220,3 +220,30 @@ dialog{width:min(92vw,430px);padding:22px;border:1px solid #ffffff26;border-radi
 .map-city.rebelled:after{border-color:#ff8f7f;background:#7b3544}.map-city.rebelled:before{content:'⚑ ';color:#ffbc9e}.map-city.rebelled{color:#ffe0cf}
 
 .declaration-action{border-color:#fa727b!important;background:#422732!important;color:#ffe9eb!important;width:100%;margin-top:8px}.declaration-action:disabled{opacity:.5}.declaration-dialog{box-sizing:border-box;width:min(92vw,420px);max-height:85dvh;overflow:auto;background:#142235;color:#edf3fc;border:1px solid #fa727b;border-radius:20px;padding:22px;font-family:inherit}.declaration-dialog::backdrop{background:#050d1bd9}.declaration-dialog p{font-size:14px;line-height:1.65}.declaration-dialog h2{font-size:22px}.declaration-dialog .strategy-action{width:100%}
+
+/* Persistent wartime identity, visible from every gameplay panel. */
+#game[data-war=active] #national-hud{border-color:#ff737e;box-shadow:0 0 0 2px #ff647420,0 8px 28px #18070d66}
+#game[data-war=active] #national-hud header{background:linear-gradient(100deg,#572b38,#252331)}
+#game[data-war=active] #combat-alert{min-height:34px;padding:0 10px;background:#ed5368;color:#fff;border:1px solid #ff99a4;font-size:12px;font-weight:750;white-space:nowrap;box-shadow:0 0 14px #ef536835}
+#combat-alert i{width:6px;height:6px;background:#fff;animation:wartime-beacon 2.4s ease-in-out infinite}
+#war-banner{display:flex;align-items:center;gap:10px;width:100%;min-height:53px;padding:9px 12px;text-align:left;background:linear-gradient(110deg,#8e3045,#572c3c);border:0;border-top:1px solid #ff87986b;border-radius:0;color:#fff2f3;font-family:inherit}
+#war-banner[hidden]{display:none}
+.war-banner-mark{display:grid;place-items:center;flex:0 0 30px;height:30px;border:1px solid #ffacb45c;background:#ff647425;border-radius:9px;font-size:20px}
+.war-banner-copy{flex:1;min-width:0}.war-banner-copy strong{display:block;font-size:14px;font-weight:750;line-height:1.4}.war-banner-copy small{display:block;color:#ffd4dc;font-size:11px;line-height:1.6}
+#game[data-war=active] #command-dock{border-color:#ee708180;box-shadow:0 -2px 0 #f27889,0 10px 32px #080b18aa}
+#game[data-war=active] #dock-toggle{background:linear-gradient(100deg,#422b38,#1a2732);color:#ffd6de}
+#game[data-war=active] #map-actions button[data-view=war]{position:relative;background:#b83851;color:#fff;border:1px solid #ff9dab;box-shadow:0 0 0 3px #f1587026}
+#game[data-war=active] #map-actions button[data-view=war].active{background:#d44860;color:#fff}
+#game[data-war=active] #map-actions button[data-view=war]:after{content:'';position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 7px #ffd1d9;animation:wartime-beacon 2.4s ease-in-out infinite}
+#game[data-war=active] #war-toast{top:190px}
+@keyframes wartime-beacon{0%,100%{opacity:1}50%{opacity:.4}}
+@media(prefers-reduced-motion:reduce){#combat-alert i,#game[data-war=active] #map-actions button[data-view=war]:after{animation:none}}
+#country-inspector{position:absolute;z-index:9;left:12px;bottom:100px;box-sizing:border-box;width:min(366px,calc(100% - 24px));padding:12px;border:1px solid #ffe4a080;border-radius:16px;background:#172733f5;color:#edf5f6;box-shadow:0 8px 28px #06101870;cursor:default;touch-action:auto}
+#country-inspector[hidden],#game[data-map-only=true] #country-inspector{display:none}
+.country-inspector-heading{display:flex;align-items:center;justify-content:space-between}.country-inspector-heading strong{display:flex;align-items:center;gap:9px;font-size:16px}.country-inspector-heading img{width:28px;height:20px;object-fit:contain}.country-inspector-heading>button{width:36px;height:36px;border:0;border-radius:10px;background:#ffffff0c;color:#c9d6e2;font-size:23px}
+#country-inspector>small{display:block;color:#c5d0d8;font-size:11px;line-height:1.6;margin:2px 0 9px}.country-city-list{display:flex;flex-wrap:wrap;gap:6px}.country-city-list button{flex:1 1 auto;min-height:44px;padding:7px 10px;border:1px solid #efd08f60;border-radius:10px;background:#e8c37f16;color:#ffe8b5;font-size:13px;font-family:inherit}.country-diplomacy-link{margin-top:8px;width:100%;min-height:36px;border:0;background:transparent;color:#a8e8dc;font-size:12px;font-family:inherit}
+.map-foreign-city{pointer-events:auto;min-height:36px;padding:6px 9px;border:1px solid #ffe6a2;border-radius:8px;background:#28323bec;color:#fff2ce;font-size:12px;font-weight:650;font-family:inherit;box-shadow:0 2px 7px #07101d66;translate:0 -16px}.map-foreign-city:before{content:'◆ ';color:#ffcf70}.map-foreign-city:hover{background:#67503a}.map-foreign-city[hidden]{display:none}.city-operation-panel p{line-height:1.7}.city-operation-panel>small{display:block;margin-top:12px;color:#b8cbd6;font-size:12px}
+#game[data-dock=open] #country-inspector{display:none}
+
+#game[data-war=active] #map-controls{top:max(196px,calc(env(safe-area-inset-top) + 184px))}
+#game[data-war=active]::after{content:'';position:absolute;inset:0;border:2px solid #ff637955;pointer-events:none;z-index:19;box-sizing:border-box}

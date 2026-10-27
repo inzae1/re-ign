@@ -1,3 +1,4 @@
+import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {changeCountry} from './country-simulation.js';
 export const countries={
  qing:{name:'청',flag:'清',color:'#d5b25e',initial:42,aid:{supplies:32,gold:8,morale:5}},
@@ -57,5 +58,22 @@ export function declareCampaign(s,id){
  w.mode='offensive';w.capitalAssault=false;
  w.fronts=[{id:'coast',name:'원정 교두보',integrity:70},{id:'rail',name:'원정 보급로',integrity:80},{id:'capital',name:'원정군 본진',integrity:90}];
  w.report=[`${w.enemy}에 선전포고 · 동원비 200,000원 · 민심 −6 · 다른 국가 관계 −8`];
+ return true;
+}
+
+export function raidBlockReason(s,country,cityId,kind){
+ const city=findForeignCity(country,cityId),o=raidOrders[kind];
+ if(!city||!o)return '작전 대상을 선택하세요';
+ if(kind==='bombard'&&!city.coastal)return '해군 포격은 항구 도시에서만 가능';
+ return declarationBlockReason(s,country)||(s.gold<o.cost?`원정 준비비 ${o.cost}만 필요`:'');
+}
+export function raidCampaign(s,country,cityId,kind){
+ if(raidBlockReason(s,country,cityId,kind))return false;
+ const city=findForeignCity(country,cityId),o=raidOrders[kind];
+ declareCampaign(s,country);s.gold-=o.cost-20;s.stability=cap(s.stability-4);s.military=cap(s.military-o.ownMilitary);
+ for(const [id,d]of Object.entries(s.diplomacy))if(id!==country)d.relation=cap(d.relation-4);
+ changeCountry(s,country,{gold:-o.enemyGold,military:-o.enemyMilitary,stability:-3});
+ const w=s.war;w.cause='surprise';w.attackCity=cityId;w.raidKind=kind;w.enemyArmy=cap(w.enemyArmy-o.enemyMilitary-8);w.army=s.military;
+ w.fronts[0].name=city.name+' 교두보';w.report=[`${city.name} ${o.name} · 선전포고 없이 교전 개시`];
  return true;
 }
