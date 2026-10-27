@@ -218,3 +218,5 @@ dialog{width:min(92vw,430px);padding:22px;border:1px solid #ffffff26;border-radi
 .rebellion-panel>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-size:14px;font-weight:600;color:#ffe0d4}.rebellion-panel>summary:before{content:'＋';margin-right:6px}.rebellion-panel[open]>summary:before{content:'−'}
 #command-dock .choice .effect-chip{font-size:12px}
 .map-city.rebelled:after{border-color:#ff8f7f;background:#7b3544}.map-city.rebelled:before{content:'⚑ ';color:#ffbc9e}.map-city.rebelled{color:#ffe0cf}
+
+.declaration-action{border-color:#fa727b!important;background:#422732!important;color:#ffe9eb!important;width:100%;margin-top:8px}.declaration-action:disabled{opacity:.5}.declaration-dialog{box-sizing:border-box;width:min(92vw,420px);max-height:85dvh;overflow:auto;background:#142235;color:#edf3fc;border:1px solid #fa727b;border-radius:20px;padding:22px;font-family:inherit}.declaration-dialog::backdrop{background:#050d1bd9}.declaration-dialog p{font-size:14px;line-height:1.65}.declaration-dialog h2{font-size:22px}.declaration-dialog .strategy-action{width:100%}
