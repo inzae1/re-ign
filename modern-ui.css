@@ -226,3 +226,50 @@ dialog{width:min(92vw,430px);padding:22px;border:1px solid #ffffff26;border-radi
 @keyframes season-veil{0%{opacity:0}15%,75%{opacity:1}100%{opacity:0}}
 .quarter-summary p{font-size:13px;line-height:1.6;color:#d7e5e8}.quarter-summary-changes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}.quarter-summary-changes span{padding:5px 8px;border-radius:7px;background:#ffffff08;font-size:12px}.quarter-summary-changes .loss{color:#ffb1b4}.quarter-summary-changes .gain{color:#9ae7ce}
 @media(prefers-reduced-motion:reduce){.season-transition,.season-transition-title{animation:none}.season-transition::backdrop{backdrop-filter:none}}
+/* Readable decisions: outcome first, supporting detail on demand. */
+#command-dock .choice strong{font-size:16px}
+#command-dock .choice .effect-chip{font-size:13px;line-height:1.45;font-weight:550}
+#command-dock .choice .effect-chips{gap:5px}
+#command-dock #decision-body{font-size:12px;color:#bdd0d9;margin:4px 0 10px}
+#command-dock .goal{font-size:12px;padding:8px 13px}
+.state-supporting{margin-top:9px;border-top:1px solid #ffffff16}
+.state-supporting>summary,.foreign-overview>summary,.city-attack-details>summary{display:flex;align-items:center;min-height:44px;font-size:13px;color:#c9dce4;cursor:pointer}
+.state-supporting>summary:before,.foreign-overview>summary:before,.city-attack-details>summary:before{content:'＋';color:#9be5cf;margin-right:7px}
+.state-supporting[open]>summary:before,.foreign-overview[open]>summary:before,.city-attack-details[open]>summary:before{content:'−'}
+#command-dock .strategy-action:disabled,.city-attack-action:disabled{opacity:1;cursor:not-allowed;background:#26333e!important;border-color:#ffffff18!important}
+#command-dock .strategy-action:disabled strong,.city-attack-action:disabled strong{color:#aab9c3}
+#command-dock .strategy-action:disabled small,.city-attack-action:disabled small{color:#c6d4dc}
+#command-dock .strategy-action:disabled .action-budget,.city-attack-action:disabled .action-budget{color:#b3c4ce}
+#command-dock .strategy-action strong{font-size:15px}
+.action-budget{display:block;margin:5px 0 3px;font-size:14px;line-height:1.45;color:#f2f6f7;font-variant-numeric:tabular-nums;font-weight:600}
+.action-footnote{margin:8px 0;font-size:12px;line-height:1.6;color:#bdcfd8}
+#command-dock .foreign-actions .strategy-action{min-height:88px;padding:9px 10px;display:block;text-align:left}
+#command-dock .foreign-actions .strategy-action small{font-size:13px;line-height:1.45}
+#command-dock .foreign-heading{margin-bottom:5px;min-height:25px}
+#command-dock .foreign-heading .nation-token{width:28px;height:21px;object-fit:contain}
+#command-dock .foreign-card{padding:10px}
+#command-dock .foreign-card>.strategic-meter{display:grid;grid-template-columns:1fr auto;gap:3px;margin-bottom:9px;font-size:12px}
+#command-dock .foreign-card>.strategic-meter progress{grid-column:1/-1;height:3px}
+#command-dock .foreign-card>.strategic-meter b{font-size:14px}
+#command-dock .foreign-card>.declaration-action{min-height:76px;padding:9px 10px;text-align:left}
+#command-dock .foreign-card>.declaration-action small{font-size:13px}
+.foreign-overview p,.foreign-overview small{font-size:13px;line-height:1.65;color:#c2d4de}
+#command-dock .country-picker{font-size:12px;margin-bottom:8px}
+#command-dock .country-picker select{font-size:14px;min-height:44px}
+#command-dock .war-subpane .strategy-action{min-height:100px}
+#command-dock .operation-grid .strategy-action .action-budget{font-size:14px}
+#command-dock .operation-grid .strategy-action small{font-size:13px;line-height:1.5}
+.city-operation-panel p{font-size:14px}.city-attack-warning{color:#ffbdc2!important}
+.city-attack-action{padding:12px!important;text-align:left}
+.city-attack-action strong{display:block;font-size:16px}
+.city-attack-action .action-cost{display:block;font-size:13px;margin:5px 0 0;color:#d4c2ca}
+.city-attack-action .action-budget{font-size:17px;color:#fff1ee;margin:3px 0 7px}
+.city-attack-action small{display:block;font-size:13px;line-height:1.7;color:#eddee5}
+#war-banner .war-banner-copy small{font-size:12px}
+.map-briefing{position:absolute;left:12px;bottom:104px;z-index:9;box-sizing:border-box;width:min(360px,calc(100% - 24px));min-height:52px;padding:11px 13px;display:flex;align-items:center;gap:10px;border:1px solid #8be4ca55;border-radius:14px;background:#142b36f5;color:#eaf7f2;box-shadow:0 5px 18px #091b3055;text-align:left}
+.map-briefing strong{flex:1;min-width:0;font-size:14px;line-height:1.5}.map-briefing>span{flex-shrink:0;font-size:12px;color:#a8ecd4}
+.map-briefing[data-urgent=true]{border-color:#f5bd7d77;background:#3a3136}.map-briefing[data-urgent=true]>span{color:#ffd4a1}
+#map-briefing[hidden],#game[data-dock=open] #map-briefing,#game[data-map-only=true] #map-briefing,#game:has(#country-inspector:not([hidden])) #map-briefing{display:none}
+@media(max-width:360px){#command-dock .choice .effect-chip{font-size:12px}.action-budget,#command-dock .operation-grid .strategy-action .action-budget{font-size:13px}#command-dock .strategy-action strong{font-size:14px}}
+.state-supporting #history-news{padding:0;margin-top:8px}
+#game[data-war=active] #war-status{display:none}

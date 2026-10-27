@@ -55,3 +55,21 @@ export function restore(raw){try{const s=JSON.parse(raw);if(s.version<6){if(s.mi
 export function declareWarCommand(s,id){if(!ready(s)||!declareCampaign(s,id))return false;change(s,runningCosts(s));return advance(s,{},'hold',`${countries[id].name}에 선전포고 · 원정 개시`);}
 
 export function raidWarCommand(s,country,cityId,kind){if(!ready(s)||!raidCampaign(s,country,cityId,kind))return false;change(s,runningCosts(s));const done=advance(s,{},'hold',`${countries[country].name} · ${findForeignCity(country,cityId).name} ${raidOrders[kind].name} · 무선전 교전 개시`);s.war.report.unshift(`${findForeignCity(country,cityId).name} 선제타격 · 상대 군사력 최대 −${raidOrders[kind].enemyMilitary} · 상대 국고 최대 −${raidOrders[kind].enemyGold}만 · 기습으로 적 전선 전력 추가 −8`);s.strategyReport=s.war.report.join(' / ');return done;}
+
+// Deterministic treasury forecast only. Combat, rebellions and new events follow later.
+export function previewStrategy(s,type,a,b){
+ if(!ready(s))return null;
+ const projected=structuredClone(s);let q;
+ if(type==='operation'){
+  const order=orders[a];if(!order||projected.war?.phase!=='active'||projected.gold<order.cost||orderBlockReason(projected,a))return null;
+  q=runningCosts(projected);change(projected,{...q,gold:q.gold-order.cost});
+ }else if(type==='diplomacy'){
+  q=runningCosts(projected);if(!conductDiplomacy(projected,a,b))return null;change(projected,q);
+ }else if(type==='declare'){
+  if(!declareCampaign(projected,a))return null;change(projected,runningCosts(projected));
+ }else if(type==='raid'){
+  if(!raidCampaign(projected,a,b?.cityId,b?.kind))return null;change(projected,runningCosts(projected));
+ }else return null;
+ settleBudget(projected);
+ return {gold:projected.gold-s.gold,treasury:projected.gold,arrears:projected.arrears-(s.arrears||0)};
+}

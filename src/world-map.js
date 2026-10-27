@@ -49,7 +49,7 @@ export function createWorldMap(getState,onCity,onCountry,onForeignCity){
  function request(){dirty=true;if(reduce.matches)animate(performance.now());}
  function resize(){width=host.clientWidth;height=host.clientHeight;canvas.width=fx.width=Math.ceil(width/2);canvas.height=fx.height=Math.ceil(height/2);if(first){home();first=false;}else clamp();request();}
  function zoom(factor,x=width/2,y=height*.43){const p=unproject(x,y);camera.scale*=factor;clamp();const o=origin();camera.x=p[0]-(x-o[0])/camera.scale;camera.y=p[1]-(y-o[1])/camera.scale;clamp();request();}
- function home(){[camera.x,camera.y]=point([127.3,38.5]);camera.scale=Math.min(7,width/70);clamp();request();}
+ function home(){selectedNation=null;inspector.hidden=true;[camera.x,camera.y]=point([127.3,38.5]);camera.scale=Math.min(7,width/70);clamp();request();}
  function globe(){camera.x=W/2;camera.y=H/2;camera.scale=minimum();request();}
  const pointers=new Map();let previous=null;
  function metrics(){const a=[...pointers.values()];return a.length>=2?{x:(a[0].x+a[1].x)/2,y:(a[0].y+a[1].y)/2,d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)}:{...a[0],d:0};}
