@@ -1,53 +1,17 @@
 {
-  "seed": 4020695695,
+  "seed": 3668339987,
   "steps": [
     {
-      "action": "policy:garrison"
+      "action": "policy:railway"
     },
     {
-      "action": "policy:arms"
+      "action": "policy:railway"
     },
     {
       "action": "policy:loan"
     },
     {
       "action": "policy:railway"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:railway"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "railway1901",
-      "choice": "국내 기술자 양성을 지원한다"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "event": "reform",
-      "choice": "잠시 미룬다"
-    },
-    {
-      "action": "policy:railway"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:customs"
     },
     {
       "event": "harvest",
@@ -60,14 +24,50 @@
       "action": "policy:envoy"
     },
     {
-      "event": "yongampo1903",
-      "choice": "조차 인준을 거부하고 교섭한다"
+      "event": "railway1901",
+      "choice": "재정 지출을 보류한다"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "event": "trade",
+      "choice": "특혜를 거절한다"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "event": "harvest",
+      "choice": "지방의 힘을 빌린다"
+    },
+    {
+      "action": "policy:relief"
     },
     {
       "action": "policy:garrison"
     },
     {
-      "action": "policy:education"
+      "event": "yongampo1903",
+      "choice": "대응을 늦추며 재정을 지킨다"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:arms"
     },
     {
       "event": "crisis1904",
@@ -84,7 +84,7 @@
       "choice": "개간권 반대 운동을 뒷받침한다"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:customs"
     },
     {
       "action": "war:assault"
@@ -94,10 +94,10 @@
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:customs"
     },
     {
-      "action": "war:assault"
+      "action": "policy:tax"
     },
     {
       "event": "currency1905",
@@ -111,21 +111,21 @@
       "choice": "무효를 주장하고 국제 사회에 호소한다"
     },
     {
-      "action": "policy:customs"
+      "action": "policy:relief"
     },
     {
       "event": "reform",
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "policy:relief"
+      "action": "policy:loan"
     },
     {
       "event": "jagang1906",
       "choice": "교육과 산업 계몽을 후원한다"
     },
     {
-      "action": "policy:loan"
+      "action": "policy:garrison"
     },
     {
       "action": "policy:education"
@@ -138,60 +138,60 @@
       "choice": "자발적 모금과 공정한 관리를 지원한다"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:arms"
     },
     {
       "event": "hague1907",
       "choice": "특사와 해외 여론전을 지원한다"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:envoy"
     },
     {
       "event": "crisis1907",
       "choice": "해산을 거부하고 군대를 유지한다"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:loan"
     },
     {
-      "action": "policy:education"
+      "action": "policy:relief"
     },
     {
       "event": "righteous1908",
       "choice": "의병의 보급과 연락망을 지원한다"
     },
     {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:relief"
+      "action": "policy:arms"
     },
     {
       "action": "policy:envoy"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "event": "reform",
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:arms"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:envoy"
     },
     {
       "event": "judiciary1909",
       "choice": "법률가를 지원하며 위탁에 항의한다"
     },
     {
-      "action": "policy:arms"
+      "action": "policy:garrison"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:customs"
     }
   ]
 }
