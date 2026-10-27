@@ -1,16 +1,25 @@
-import {countries} from './strategy.js';
 import {currencyText,won} from './money.js';
 import {seasonDate,pendingQuarterReport} from './quarter-report.js';
 import {worldNewsAt} from './world-history.js';
-import {historyById} from './history.js';
-import {forcedCrises} from './crises.js';
 const el=(tag,text,cl)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=currencyText(text);if(cl)n.className=cl;return n;};
 function sourceLink(item){const a=el('a','자료 확인 ↗','brief-source');a.href=item.source;a.target='_blank';a.rel='noopener noreferrer';return a;}
 export function worldContext(turn){const section=el('section',undefined,'brief-world'),news=worldNewsAt(turn);section.append(el('small',news.recent?'직전 세계 소식 · 당시 보도 시점':'같은 시기, 세계에서는'),el('h3','세계의 흐름'));if(!news.items.length)section.append(el('p','이 시점에 등록된 세계 소식은 없습니다.'));for(const item of news.items){const article=el('article');article.append(el('small',item.when.replace('-','.')+' · '+item.region),el('strong',item.title),el('p',item.body),sourceLink(item));section.append(article);}section.append(el('small','실제 역사 자료 · 소식 자체로 자원이 변하지 않습니다.'));return section;}
+// A short date interlude replaces the blocking quarterly report.
 export function createQuarterBriefing(getState,onConfirm){
- const dialog=el('dialog',undefined,'quarter-briefing');dialog.id='quarter-briefing';dialog.setAttribute('aria-labelledby','quarter-title');dialog.addEventListener('cancel',e=>e.preventDefault());document.body.append(dialog);
- return s=>{if(!pendingQuarterReport(s)||dialog.open)return;const report=s.quarterReport,head=el('header',undefined,'brief-header'),title=el('h2',seasonDate(s.turn));title.id='quarter-title';title.tabIndex=-1;title.setAttribute('autofocus','');const months=s.turn%4*3+1;head.append(el('small','새로운 분기가 시작되었습니다'),title,el('p',`${months}~${months+2}월 · ${s.turn<40?40-s.turn+'분기 남음':'원정 종료'}`));
- const body=el('div',undefined,'brief-body'),result=el('section',undefined,'brief-results');result.append(el('h3','지난 선택의 결과'),el('p',report.action));const changes=el('div',undefined,'brief-changes');for(const [key,name]of [['gold','국고'],['stability','민심'],['military','군사력']]){const n=report.delta[key],box=el('div',undefined,n<0?'loss':'gain');box.append(el('small',name),el('strong',`${n>0?'+':n<0?'−':''}${Math.abs(n)}${key==='gold'?'만':''}`));changes.append(box);}result.append(changes,el('small','비용·결산·전투·체불·반란을 포함한 실제 증감'));body.append(result);
- const domestic=el('section',undefined,'brief-domestic');domestic.append(el('small','이번 분기, 대한제국'),el('h3',s.ended?s.ended.title:s.event?'대응할 사건이 도착했습니다':'국내 정세'));if(s.budgetReport?.remaining){domestic.append(el('strong',`군급·행정비 체불 ${won(s.budgetReport.remaining)}`),el('p',`이번 분기 상환 ${won(s.budgetReport.payment)} · 군사력 −${s.budgetReport.militaryLoss} · 민심 −${s.budgetReport.stabilityLoss} (위 결산에 포함)`,'brief-danger'));}if(s.rebellion){domestic.append(el('strong',`${{pyongyang:'평양',busan:'부산',wonsan:'원산',seoul:'한성'}[s.rebellion.city]} 반란`),el('p',`반란 세력 ${s.rebellion.strength} · 전쟁 화면에서 긴급 구휼·회유 또는 진압으로 대응하세요.`,'brief-danger'));}if(s.domesticReport?.length)for(const line of s.domesticReport)domestic.append(el('p',line));if(s.invasionReport?.turn===s.turn){const invasion=s.invasionReport;domestic.append(el('strong',countries[invasion.enemyId].name+' 침공'),el('p',`군사력 ${invasion.military}의 약화된 방비를 노리고 침공했습니다. 전쟁 화면에서 방어와 보급을 지휘하세요. 실제 전쟁 발발이 아닌 게임 속 가상 사건입니다.`,'brief-danger'));}if(s.crisisReport){const c=forcedCrises.find(c=>c.id===s.crisisReport.id);if(c)domestic.append(el('p',`강제 위기 · ${c.title} / 국고 −${s.crisisReport.goldLost}만, 민심 −${s.crisisReport.stabilityLoss} (위 결산에 포함)`,'brief-danger'));}if(s.event)domestic.append(el('strong',s.event.title),el('small',s.event.when?s.event.when+' · 역사 배경 / 대응은 가상':'게임 속 가상 사건'),el('p',s.event.body));for(const id of s.news||[]){const e=historyById[id];if(e){const extra=el('details',undefined,'brief-extra');extra.append(el('summary',e.title+' · 소식'),el('p',e.body),sourceLink(e));domestic.append(extra);}}if(s.ended)domestic.append(el('p',s.ended.body));else if(!s.event&&!s.news?.length&&!s.crisisReport&&!s.rebellion&&!s.invasionReport&&!s.arrears)domestic.append(el('p','새로운 국내 사건은 없습니다. 다음 국정 안건을 검토하세요.'));if(s.war?.phase==='active')domestic.append(el('p',`교전 ${s.war.round}분기 · 군사력 ${s.military} · 보급 ${s.war.supplies}`,'brief-danger'));body.append(domestic,worldContext(s.turn));
- const footer=el('footer',undefined,'brief-footer'),confirm=el('button',s.ended?'원정 결과 보기':s.event?'확인 · 사건 대응하기':'확인 · 다음 국정으로');confirm.type='button';confirm.onclick=()=>{const current=getState();if(current.quarterReport?.turn===report.turn)current.quarterReport.acknowledged=true;dialog.close();onConfirm();};footer.append(confirm);dialog.replaceChildren(head,body,footer);dialog.showModal();dialog.scrollTop=0;title.focus({preventScroll:true});};
+ const dialog=el('dialog',undefined,'season-transition');dialog.id='quarter-briefing';dialog.setAttribute('aria-labelledby','quarter-title');dialog.tabIndex=-1;document.body.append(dialog);
+ let timer=null,finish=null;
+ dialog.addEventListener('cancel',e=>{e.preventDefault();finish?.();});
+ dialog.addEventListener('click',()=>finish?.());
+ return s=>{
+  if(!pendingQuarterReport(s)||dialog.open)return;
+  const report=s.quarterReport,title=el('h2',undefined,'season-transition-title'),[year,season]=seasonDate(s.turn).split(' ');
+  title.id='quarter-title';title.append(el('span',year,'season-year'),document.createTextNode(' '),el('span',season,'season-name'));dialog.replaceChildren(title);
+  finish=()=>{if(!dialog.open)return;clearTimeout(timer);const current=getState();if(current===s&&current.quarterReport===report)report.acknowledged=true;dialog.close();finish=null;onConfirm();};
+  dialog.showModal();dialog.focus({preventScroll:true});timer=setTimeout(()=>finish?.(),1600);
+ };
+}
+export function worldHeadline(turn){return worldNewsAt(turn).items[0]?.title||'세계 소식';}
+export function quarterSummary(s){
+ const box=el('div',undefined,'quarter-summary'),r=s.quarterReport;if(!r||r.turn!==s.turn)return box;
+ box.append(el('p',r.action));const changes=el('div',undefined,'quarter-summary-changes');for(const [key,name]of [['gold','국고'],['stability','민심'],['military','군사력']]){const value=r.delta[key];changes.append(el('span',`${name} ${value>0?'+':value<0?'−':''}${key==='gold'?won(value):Math.abs(value)}`,value<0?'loss':'gain'));}box.append(changes);return box;
 }
