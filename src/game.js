@@ -2,7 +2,7 @@ import {advanceRelations} from './relations.js';
 import {spyCost,spyChance,spyBlockReason} from './intelligence.js';
 import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js';
-import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion} from './domestic.js';
+import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js';
 import {pickInvader,invasionThreat} from './invasions.js';
 import {applyForcedCrises,forcedCrises} from './crises.js';
 import {raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js';
@@ -50,7 +50,7 @@ export function actionBlockReason(s,channel){return s.actionUse?.[channel]===s.t
 function useAction(s,channel){s.actionUse??={war:-1,diplomacy:-1,civic:-1};s.actionUse[channel]=s.turn;}
 export function warCommand(s,id){const o=orders[id];if(!ready(s)||actionBlockReason(s,'war')||s.war?.phase!=='active'||!o||s.gold<o.cost||orderBlockReason(s,id))return false;s.gold-=o.cost;s.queuedOrder={turn:s.turn,id};useAction(s,'war');record(s,o.name+' 준비 완료 · 국정 정책 선택 시 교전');return true;}
 export function diplomacyCommand(s,country,action){if(!ready(s)||actionBlockReason(s,'diplomacy')||!conductDiplomacy(s,country,action))return false;useAction(s,'diplomacy');record(s,`${countries[country].name} · ${{envoy:'친선 사절 파견',trade:'통상 협약 체결',alliance:'방위 동맹 체결',aid:'전시 지원 도착'}[action]}`);return true;}
-export function rebellionCommand(s,kind){if(!ready(s)||actionBlockReason(s,'civic')||!respondToRebellion(s,kind))return false;useAction(s,'civic');if(s.rebellion?.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}record(s,kind==='relief'?'반란 지역 긴급 구휼·회유':'반란 진압 작전');checkEnd(s);return true;}
+export function rebellionCommand(s,kind){if(rebellionBlockReason(s,kind)||!respondToRebellion(s,kind))return false;useAction(s,'civic');if(s.rebellion?.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}record(s,kind==='relief'?'반란 지역 긴급 구휼·회유':'반란 진압 작전');checkEnd(s);return true;}
 export function recoveryCommand(s,id,kind='repair'){if(!ready(s)||actionBlockReason(s,'civic')||!(kind==='return'?negotiateReturn(s,id):repairCity(s,id)))return false;useAction(s,'civic');record(s,`${cities.find(c=>c.id===id).name} · ${kind==='return'?'점령군 철수 교섭 타결':'전후 복구 시행'}`);return true;}
 
 export function choose(s,index){if(!s.event||s.ended)return false;const c=s.event.choices[index];if(!c||(c.cost&&s.gold<c.cost))return false;change(s,c.delta);record(s,`${s.event.title} → ${c.name}`);if(historyById[s.event.id])s.decisions[s.event.id]=c.name;s.event=null;if(c.concession)s.concessions=Math.min(3,s.concessions+c.concession);if(c.startWar)startWar(s);checkEnd(s);if(!s.ended&&s.eventQueue.length)s.event={...historyById[s.eventQueue.shift()]};return true;}

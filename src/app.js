@@ -1,7 +1,7 @@
 import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {countries,raidBlockReason} from './strategy.js';
 import {advanceWorld} from './country-simulation.js';
-import {rebellionThreat} from './domestic.js';
+import {rebellionBlockReason,rebellionThreat} from './domestic.js';
 import {invasionThreat} from './invasions.js';
 import {currencyText,won} from './money.js';
 import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js';
@@ -9,16 +9,16 @@ import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from '.
 import {forcedCrises} from './crises.js';
 import {countryFlag} from './flags.js';
 import {gameIcon} from './ui-icons.js';
-import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-relations';
+import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-unrest-fix';
 import {historicalEvents,historyById} from './history.js';
-import {createWorldMap,worldNations} from './world-map.js?v=20261028-relations';
-import {spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-relations';
+import {createWorldMap,worldNations} from './world-map.js?v=20261028-unrest-fix';
+import {spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-unrest-fix';
 const $=id=>document.getElementById(id),key='age-of-collapse-simple-v2';let state;try{state=restore(localStorage.getItem(key));}catch{}state ||= createGame();let mapOnly=false;let mapController,dockOpen=false,lastDockEvent=null;let previousResources=null,titleEntered=false;let saveFailed=false,view='map',countryFocus='qing',warAnnounced=false,warToastTimer;const warPreview=new URLSearchParams(location.search).get('preview')==='war';if(warPreview){state=createGame(1904);state.turn=16;state.news=[];state.gold=60;state.stability=70;state.military=70;state.readiness=2;state.diplomacy.qing={relation:72,allied:true,trade:true};startWar(state);const ally=new URLSearchParams(location.search).get('ally');if(ally&&Object.hasOwn(state.diplomacy,ally)&&ally!=='japan')state.diplomacy[ally]={relation:72,allied:true,trade:true};view='war';}
 const historyPreview=new URLSearchParams(location.search).get('preview')==='history';if(historyPreview){const e=historyById[new URLSearchParams(location.search).get('event')]||historyById.hague1907;state=createGame(1907);state.turn=e.turn;state.gold=80;state.stability=70;state.military=65;state.news=historicalEvents.filter(x=>x.turn===e.turn&&x.type==='news').map(x=>x.id);state.event=e.type==='choice'?{...e}:null;state.historicalSeen=historicalEvents.filter(x=>x.turn<=e.turn).map(x=>x.id);state.historyLog=state.historicalSeen.slice();state.last='역사 사건 미리보기 · 본편 저장은 변경하지 않습니다.';}
 const diplomacyPreview=new URLSearchParams(location.search).get('preview')==='diplomacy';if(diplomacyPreview){state=createGame(1900);state.gold=90;view='diplomacy';countryFocus='russia';}
 const crisisPreview=new URLSearchParams(location.search).get('preview')==='crisis';if(crisisPreview){state=createGame(1905);state.turn=22;state.gold=100;state.stability=70;state.military=70;scheduleHistory(state);dockOpen=true;}
 const unrestPreview=['unrest','rebellion'].includes(new URLSearchParams(location.search).get('preview'));if(unrestPreview){state=createGame(1902);state.gold=0;state.stability=0;state.military=10;state.arrears=12;state.offers=['tax','relief','arms'];state.news=[];dockOpen=true;}
-if(new URLSearchParams(location.search).get('preview')==='rebellion'){state.gold=60;state.military=45;state.rebellion={city:'pyongyang',strength:55,turns:1,capitalThreat:false};dockOpen=false;}
+if(new URLSearchParams(location.search).get('preview')==='rebellion'){state.gold=60;state.military=45;state.rebellion={city:'pyongyang',strength:55,turns:1,capitalThreat:false};if(new URLSearchParams(location.search).has('event'))state.event={...historyById.hague1907};dockOpen=false;}
 const defeatPreview=new URLSearchParams(location.search).get('preview')==='defeat';if(defeatPreview){state=createGame(1910);state.turn=40;state.gold=0;state.military=12;state.stability=18;state.ended={win:false,title:'독립을 지켜내지 못했습니다',body:'수도와 국민을 지키지 못한 원정입니다.'};}
 const introPreview=new URLSearchParams(location.search).get('preview')==='intro';if(introPreview)state=createGame(1900);
 const crops={emblem:[29,9,49,44],gold:[222,16,22,26],people:[477,17,26,29],defend:[338,742,25,30],trade:[363,1020,76,43],school:[44,930,79,31],rail:[44,880,79,33],envoy:[642,167,65,68]};
@@ -98,11 +98,13 @@ function showRebellion(){
  const body=el('div',undefined,'unrest-response'),city=cities.find(c=>c.id===r.city).name;
  const hero=el('div',undefined,'unrest-hero');hero.append(el('span','🔥','unrest-symbol'),el('div'));hero.lastChild.append(el('strong',city+' 반란'),el('small',r.capitalThreat?'수도 진격 위험':'세력 '+r.strength));body.append(hero);
  const bar=el('progress');bar.max=100;bar.value=r.strength;bar.setAttribute('aria-label','반란 세력');body.append(bar);
- const actions=el('div',undefined,'unrest-actions'),blocked=!!state.event||!!state.ended||!!actionBlockReason(state,'civic');
+ const actions=el('div',undefined,'unrest-actions');body.append(el('p',`국고 ${won(state.gold)} · 군사력 ${state.military}`,'unrest-resources'));
  for(const [kind,title,effects]of [['relief','🕊 회유','민심 +12 · 반란 −20'],['suppress','🛡 진압',`반란 −${22+Math.floor(Math.max(0,state.military-5)/5)} · 군사 −5 · 민심 −3`]]){
-  const b=el('button',undefined,'unrest-action');b.append(el('strong',title),el('b',won(8)),el('small',effects));const reason=state.event?'사건 대응 필요':actionBlockReason(state,'civic')?'이번 대응 완료':state.gold<8?'국고 부족':kind==='suppress'&&state.military<25?'군사력 25 필요':'';b.disabled=blocked||state.gold<8||(kind==='suppress'&&state.military<25);if(reason)b.append(el('small',reason));b.onclick=()=>{$('modal').close();runStrategy('rebellion',kind);if(state.rebellion)showRebellion();};actions.append(b);
+  const b=el('button',undefined,'unrest-action');b.append(el('strong',title),el('b',won(8)),el('small',effects));const reason=rebellionBlockReason(state,kind);b.disabled=!!reason;if(reason)b.append(el('small',reason));b.onclick=()=>{$('modal').close();runStrategy('rebellion',kind);if(state.rebellion)showRebellion();};actions.append(b);
  }
- body.append(actions);show('국내 치안',body);
+ body.append(actions);
+ if(rebellionBlockReason(state,'relief')&&!state.ended){const next=el('button',state.event?'사건 대응으로 가기 →':state.gold<8?'국고 확보하러 가기 →':'다음 계절 준비 →','unrest-next');next.onclick=()=>{$('modal').close();setView('state');};body.append(next);}
+ show('국내 치안',body);
 }
 
 function renderMapBriefing(){

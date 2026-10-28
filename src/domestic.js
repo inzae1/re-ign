@@ -5,3 +5,13 @@ export function settleBudget(s){initializeDomestic(s);let added=0,payment=0;if(s
 export function domesticTurn(s,policy,roll){initializeDomestic(s);s.domesticReport=[];const r=s.rebellion;if(r){if(r.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;s.domesticReport.push('반란을 수습했습니다.');return;}r.turns++;r.strength=cap(r.strength+(s.stability<30?7:s.stability>=50?-8:2)-(policy.group==='civil'?9:0));const loot=Math.min(s.gold,3);s.gold-=loot;const militaryLoss=Math.min(2,s.military);s.military=cap(s.military-2);s.cityDamage[r.city]=cap(s.cityDamage[r.city]+4);s.domesticReport.push(`반란군 활동 · 국고 −${loot}만 · 군사력 −${militaryLoss}`);if(r.strength===0){s.domesticReport.push('민생 회복과 대응으로 반란이 진정되었습니다.');s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}else if(r.turns>=4&&r.strength>=65){r.capitalThreat=true;s.domesticReport.push('반란군이 한성으로 진격했습니다. 다음 분기까지 진정시키거나 진압해야 합니다.');if(r.turns>=5&&r.strength>=75)r.capitalTaken=true;}return;}
  const chance=rebellionThreat(s);if(chance&&roll()<chance){const places=['pyongyang','busan','wonsan'];const city=places[Math.floor(roll()*places.length)];s.rebellion={city,strength:Math.min(75,35+Math.floor((30-s.stability)*.8)),turns:0,capitalThreat:false,capitalTaken:false};s.domesticReport.push('낮은 민심으로 지방 반란이 발생했습니다. 구휼·회유·진압으로 수습하세요.');}}
 export function respondToRebellion(s,kind){if(!s.rebellion)return false;if(kind==='suppress'){if(s.gold<8||s.military<25)return false;s.gold-=8;s.military=cap(s.military-5);s.stability=cap(s.stability-3);s.rebellion.strength=cap(s.rebellion.strength-22-Math.floor(s.military/5));return true;}if(kind==='relief'){if(s.gold<8)return false;s.gold-=8;s.stability=cap(s.stability+12);s.rebellion.strength=cap(s.rebellion.strength-20);return true;}return false;}
+
+export function rebellionBlockReason(s,kind){
+ if(s.ended)return '원정 종료';
+ if(!s.rebellion)return '반란 없음';
+ if(!['relief','suppress'].includes(kind))return '잘못된 대응';
+ if(s.actionUse?.civic===s.turn)return '이번 대응 완료 · 다음 계절에 가능';
+ if(s.gold<8)return '국고 80,000원 필요';
+ if(kind==='suppress'&&s.military<25)return '군사력 25 필요';
+ return '';
+}
