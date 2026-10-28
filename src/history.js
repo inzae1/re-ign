@@ -1,4 +1,4 @@
-import {earlyHistory} from './history-early.js?v=20261028-quiet';
+import {earlyHistory} from './history-early.js?v=20261028-fx';
 // Dates are grouped into calendar quarters. Facts and sources are separate from fictional player responses.
 const nh=id=>'https://contents.history.go.kr/front/nh/view.do?levelId='+id;
 const kc=id=>'https://contents.history.go.kr/mobile/kc/view.do?levelId='+id;

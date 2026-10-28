@@ -1,21 +1,22 @@
-import {yearOf,finalTurn,ownNationName,nationName} from './calendar.js?v=20261028-quiet';
-import {strongestInfluence,influenceState,loanCreditor} from './influence.js?v=20261028-quiet';
-import {occupyCity,occupierOf} from './occupation.js?v=20261028-quiet';
-import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-quiet';
-import {campaignTurn,countries,raidBlockReason,recoveryBlockReason,orders,orderBlockReason} from './strategy.js?v=20261028-quiet';
-import {advanceWorld} from './country-simulation.js?v=20261028-quiet';
-import {rebellionBlockReason,rebellionThreat} from './domestic.js?v=20261028-quiet';
-import {invasionThreat} from './invasions.js?v=20261028-quiet';
-import {currencyText,won,setCurrencyUnit} from './money.js?v=20261028-quiet';
-import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js?v=20261028-quiet';
-import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from './quarter-ui.js?v=20261028-quiet';
-import {forcedCrises} from './crises.js?v=20261028-quiet';
-import {countryFlag} from './flags.js?v=20261028-quiet';
-import {gameIcon} from './ui-icons.js?v=20261028-quiet';
-import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-quiet';
-import {historicalEvents,historyById} from './history.js?v=20261028-quiet';
-import {createWorldMap,worldNations} from './world-map.js?v=20261028-quiet';
-import {treatyCommand,policyOf,spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-quiet';
+import {initGameFx,actionFx} from './game-fx.js?v=20261028-fx';
+import {yearOf,finalTurn,ownNationName,nationName} from './calendar.js?v=20261028-fx';
+import {strongestInfluence,influenceState,loanCreditor} from './influence.js?v=20261028-fx';
+import {occupyCity,occupierOf} from './occupation.js?v=20261028-fx';
+import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-fx';
+import {campaignTurn,countries,raidBlockReason,recoveryBlockReason,orders,orderBlockReason} from './strategy.js?v=20261028-fx';
+import {advanceWorld} from './country-simulation.js?v=20261028-fx';
+import {rebellionBlockReason,rebellionThreat} from './domestic.js?v=20261028-fx';
+import {invasionThreat} from './invasions.js?v=20261028-fx';
+import {currencyText,won,setCurrencyUnit} from './money.js?v=20261028-fx';
+import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js?v=20261028-fx';
+import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from './quarter-ui.js?v=20261028-fx';
+import {forcedCrises} from './crises.js?v=20261028-fx';
+import {countryFlag} from './flags.js?v=20261028-fx';
+import {gameIcon} from './ui-icons.js?v=20261028-fx';
+import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-fx';
+import {historicalEvents,historyById} from './history.js?v=20261028-fx';
+import {createWorldMap,worldNations} from './world-map.js?v=20261028-fx';
+import {treatyCommand,policyOf,spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-fx';
 const $=id=>document.getElementById(id),key='age-of-collapse-simple-v2';let state;try{state=restore(localStorage.getItem(key));}catch{}state ||= createGame();let mapOnly=false;let mapController,dockOpen=false,lastDockEvent=null;let previousResources=null,titleEntered=false;let saveFailed=false,view='map',countryFocus='qing',warAnnounced=false,warToastTimer;const warPreview=new URLSearchParams(location.search).get('preview')==='war';if(warPreview){state=createGame(1904,1900);state.turn=16;state.news=[];state.gold=60;state.stability=70;state.military=70;state.readiness=2;state.diplomacy.qing={relation:72,allied:true,trade:true};startWar(state);const ally=new URLSearchParams(location.search).get('ally');if(ally&&Object.hasOwn(state.diplomacy,ally)&&ally!=='japan')state.diplomacy[ally]={relation:72,allied:true,trade:true};view='war';}
 if(warPreview&&new URLSearchParams(location.search).get('result')==='victory'){state.war.enemyArmy=1;campaignTurn(state,{},'defend');}
 const historyPreview=new URLSearchParams(location.search).get('preview')==='history';if(historyPreview){const e=historyById[new URLSearchParams(location.search).get('event')]||historyById.hague1907;state=createGame(1907,1900);state.turn=e.turn;state.gold=80;state.stability=70;state.military=65;state.news=historicalEvents.filter(x=>x.turn===e.turn&&x.type==='news').map(x=>x.id);state.event=e.type==='choice'?{...e}:null;state.historicalSeen=historicalEvents.filter(x=>x.turn<=e.turn).map(x=>x.id);state.historyLog=state.historicalSeen.slice();state.last='역사 사건 미리보기 · 본편 저장은 변경하지 않습니다.';}
@@ -33,7 +34,7 @@ function save(){if(warPreview||historyPreview||diplomacyPreview||crisisPreview||
 function show(title,body){const d=el('div');d.append(el('h2',title));if(typeof body==='string')d.append(el('p',body));else d.append(body);const close=el('button','돌아가기');close.onclick=()=>$('modal').close();d.append(close);$('modal-content').replaceChildren(d);$('modal').showModal();}
 function restart(){const d=el('div');d.append(el('p','진행 중인 간단 모드 원정을 처음부터 시작합니다.'));const yes=el('button','1870년부터 다시 시작');yes.onclick=()=>{$('modal').close();beginNewCampaign();};d.append(yes);show('새 원정',d);}
 function choiceButton(name,desc,art,disabled,run){const b=el('button',undefined,'choice');if(art)b.append(sprite(art));const text=el('span');text.append(el('strong',name));const effects=el('small',undefined,'effect-chips');for(const part of desc.split(' · ')){const chip=el('span',part.startsWith('국고 ')?currencyText(part).replace(/^국고 /,''):part,/[-−]\d/.test(part)?'effect-chip loss':/[+]\d/.test(part)?'effect-chip gain':'effect-chip');if(part.startsWith('국고 '))chip.setAttribute('aria-label',currencyText(part));effects.append(chip);}text.append(effects);if(disabled)text.append(el('span','국고가 부족합니다','unavailable'));b.append(text,el('span','›','arrow'));b.disabled=disabled;b.onclick=run;return b;}
-function performAction(run,label){if(pendingQuarterReport(state))return;const before=quarterSnapshot(state);if(!run())return;const report=makeQuarterReport(before,state);if(report){if(label)report.action=label;state.quarterReport=report;resetToCountryMap();document.querySelector('.dock-body').scrollTop=0;}render();}
+function performAction(run,label){if(pendingQuarterReport(state))return;const before=quarterSnapshot(state),fxBefore={round:state.war?.round||0,phase:state.war?.phase,enemy:state.war?.enemyId};if(!run())return;const report=makeQuarterReport(before,state);if(report){if(label)report.action=label;state.quarterReport=report;resetToCountryMap();document.querySelector('.dock-body').scrollTop=0;}render();actionFx(fxBefore,state);}
 function resetToCountryMap(){view='map';dockOpen=false;mapOnly=false;syncMapView();syncDock();mapController?.home();}
 const showQuarterBriefing=createQuarterBriefing(()=>state,()=>{save();resetToCountryMap();for(const section of document.querySelectorAll('.state-supporting,.state-supporting details'))section.open=false;renderScreens();if(state.ended)showCampaignResult();else $('world-viewport').focus({preventScroll:true});},resetToCountryMap);
 
@@ -189,3 +190,5 @@ function renderInfluenceHud(){let b=$('influence-hud');if(!b){b=el('button',unde
 function showInfluence(){const body=el('div',undefined,'influence-list');body.append(el('p','한 국가 100: 즉시 독립 상실 · 1910년에는 모두 80 미만','city-war-context'));for(const [id,value]of Object.entries(state.influence).sort((a,b)=>b[1]-a[1])){const row=el('div',undefined,'influence-row');row.append(countryFlag(id,state.turn,state.startYear??1900),el('strong',nationLabel(id)),el('b',value));const bar=el('progress');bar.max=100;bar.value=value;row.append(bar);body.append(row);}const log=state.influenceLog.slice(0,4);for(const item of log)body.append(el('small',`${nationLabel(item.id)} ${item.delta>0?'+':''}${item.delta} · ${item.reason}`));body.append(el('p','군영·교육 정비와 외교의 내정 간섭 항의로 줄일 수 있습니다. 차관·이권·점령은 영향력을 키웁니다.','city-war-context'));show('외국의 국내 영향력',body);}
 
 function nationLabel(id){return nationName(id,state.turn,state.startYear??1900)||countries[id].name;}
+
+initGameFx();
