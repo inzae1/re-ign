@@ -2,10 +2,10 @@ import {historicalMilitary} from './military-history.js';
 import {advanceRelations} from './relations.js';
 import {spyCost,spyChance,spyBlockReason} from './intelligence.js';
 import {findForeignCity,raidOrders} from './foreign-cities.js';
-import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261028-historic-force';
+import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261028-city-repair';
 import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261028-unrest-fix';
 import {applyForcedCrises,forcedCrises} from './crises.js';
-import {raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261028-historic-force';
+import {recoveryBlockReason,raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261028-city-repair';
 import {historicalEvents,historyById} from './history.js';
 export const cities=[{id:'seoul',name:'한성',role:'황도 · 나라의 중심',x:49.4,y:61.5},{id:'pyongyang',name:'평양',role:'서북의 생산 거점',x:43.4,y:51.3},{id:'wonsan',name:'원산',role:'동해의 항구',x:59.8,y:52.5},{id:'busan',name:'부산',role:'남부의 교역 거점',x:64,y:73}];
 export const actions={
@@ -58,7 +58,14 @@ export function rebellionCommand(s,kind){
  if(s.rebellion.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}
  record(s,`${cities.find(c=>c.id===before.city).name} · ${kind==='relief'?'회유 시행':'진압 작전 완료'} · 반란 세력 ${before.strength} → ${s.rebellionResponse.after}${s.rebellion?'':' · 반란 수습'}`);checkEnd(s);return true;
 }
-export function recoveryCommand(s,id,kind='repair'){if(!ready(s)||actionBlockReason(s,'civic')||!(kind==='return'?negotiateReturn(s,id):repairCity(s,id)))return false;useAction(s,'civic');record(s,`${cities.find(c=>c.id===id).name} · ${kind==='return'?'점령군 철수 교섭 타결':'전후 복구 시행'}`);return true;}
+export function recoveryCommand(s,id,kind='repair'){
+ if(recoveryBlockReason(s,id,kind))return false;
+ const before={damage:s.cityDamage[id],gold:s.gold,stability:s.stability};
+ if(!(kind==='return'?negotiateReturn(s,id):repairCity(s,id)))return false;
+ useAction(s,'civic');s.recoveryResponse={turn:s.turn,city:id,kind,before:before.damage,after:s.cityDamage[id],gold:s.gold-before.gold,stability:s.stability-before.stability};
+ record(s,`${cities.find(c=>c.id===id).name} · ${kind==='return'?'점령군 철수 교섭 타결':`시설 복구 완료 · 피해 ${before.damage}% → ${s.cityDamage[id]}%`}`);return true;
+}
+
 
 export function choose(s,index){if(!s.event||s.ended)return false;const c=s.event.choices[index];if(!c||(c.cost&&s.gold<c.cost))return false;change(s,c.delta);record(s,`${s.event.title} → ${c.name}`);if(historyById[s.event.id])s.decisions[s.event.id]=c.name;s.event=null;if(c.concession)s.concessions=Math.min(3,s.concessions+c.concession);if(c.startWar)startWar(s);checkEnd(s);if(!s.ended&&s.eventQueue.length)s.event={...historyById[s.eventQueue.shift()]};return true;}
 export function serialize(s){return JSON.stringify({...s,event:s.event?.id||null});}

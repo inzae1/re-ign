@@ -1,6 +1,6 @@
 import {initialRelations} from './relations.js';
 import {findForeignCity,raidOrders} from './foreign-cities.js';
-import {changeCountry} from './country-simulation.js?v=20261028-historic-force';
+import {changeCountry} from './country-simulation.js?v=20261028-city-repair';
 export const countries={
  qing:{name:'청',flag:'清',color:'#d5b25e',initial:42,aid:{supplies:32,gold:8,morale:5}},
  russia:{name:'러시아 제국',flag:'Р',color:'#8baac3',initial:28,aid:{army:16,supplies:15,blockade:-18}},
@@ -77,4 +77,14 @@ export function raidCampaign(s,country,cityId,kind){
  const w=s.war;w.cause='surprise';w.attackCity=cityId;w.raidKind=kind;w.enemyArmy=cap(w.enemyArmy-o.enemyMilitary-8);w.army=s.military;
  w.fronts[0].name=city.name+' 교두보';w.report=[`${city.name} ${o.name} · 선전포고 없이 교전 개시`];
  return true;
+}
+
+export function recoveryBlockReason(s,id,kind='repair'){
+ if(!Object.hasOwn(s.cityDamage,id)||!['repair','return'].includes(kind))return '복구 대상 없음';
+ if(s.ended)return '원정 종료';
+ if(s.event)return '사건 대응 필요';
+ if(s.war?.phase==='active')return '교전 종료 후 가능';
+ if(s.actionUse?.civic===s.turn)return '이번 대응 완료 · 다음 계절에 가능';
+ if(kind==='return')return !s.occupied.includes(id)?'점령지 아님':s.gold<15?'국고 150,000원 필요':s.military<45?'군사력 45 필요':!Object.values(s.diplomacy).some(c=>c.allied)?'동맹국 1개 필요':'';
+ return s.occupied.includes(id)?'점령군 철수 후 가능':!s.cityDamage[id]?'복구할 피해 없음':s.gold<8?'국고 80,000원 필요':'';
 }
