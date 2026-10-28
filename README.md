@@ -69,3 +69,5 @@ Node.js 20 이상. 추가 패키지 설치·빌드 없이 `npm start`, 검증은
 - [1898 러시아 고문·교관 철수](https://contents.history.go.kr/front/nh/view.do?levelId=nh_041_0050_0020_0010)
 - [제2차 영일동맹과 1902년 동맹의 배경](https://contents.history.go.kr/front/hm/view.do?levelId=hm_121_0020)
 - [1905년 미국·영국·러시아와 일본의 협의](https://encykorea.aks.ac.kr/Article/E0061925)
+
+도시 전투: 전쟁 중 대한제국 도시 또는 적국 도시·교전 표식을 누르면 중앙 전투 창에서 작전을 준비할 수 있습니다. 같은 전쟁의 공통 작전이며 주 전장을 함께 표시합니다. 반란이 겹친 도시는 치안·전쟁 창 사이를 이동할 수 있습니다. 지도에는 관계 상태만 표시하고 수치는 국가 상세의 ‘외교 신뢰’로 분리합니다.

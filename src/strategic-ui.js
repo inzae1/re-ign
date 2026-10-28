@@ -1,7 +1,7 @@
 import {relationStatus} from './relations.js';
 import {readIntel} from './intelligence.js';
 import {seasonDate} from './quarter-report.js';
-import {actionBlockReason,previewStrategy} from './game.js?v=20261028-unrest-fix';
+import {actionBlockReason,previewStrategy} from './game.js?v=20261028-city-war';
 import {countryEvents,countryProfiles} from './country-simulation.js';
 import {invasionThreat} from './invasions.js';
 import {currencyText,won} from './money.js';
@@ -21,7 +21,7 @@ export function renderDiplomacy(s,focus,setFocus,setView,run){
  const picker=el('label',undefined,'country-picker');picker.append(el('span','대상 국가'));const select=el('select');select.setAttribute('aria-label','외교 대상 국가');
  for(const [id,c]of Object.entries(countries)){const option=el('option',c.name);option.value=id;option.selected=focus===id;select.append(option);}select.onchange=()=>setFocus(select.value);picker.append(select);root.append(picker);
  const c=countries[focus],d=s.diplomacy[focus],card=el('section',undefined,'foreign-card'),head=el('div',undefined,'foreign-heading'),flag=countryFlag(focus,s.turn);flag.classList.add('nation-token');
- head.append(flag,el('h3',c.name),el('span',relationStatus(s,focus).label,'treaty-pill'));card.append(head,meter('관계',d.relation));
+ head.append(flag,el('h3',c.name),el('span',relationStatus(s,focus).label,'treaty-pill'));card.append(head,meter('외교 신뢰',d.relation));
  const active=s.war?.phase==='active'&&s.war.enemyId===focus,list=el('div',undefined,'foreign-actions');
  const names={envoy:'사절 파견',trade:'통상 협약',alliance:'방위 동맹',aid:'지원 요청'},effects={envoy:'관계 +18',trade:'분기 수입 +10,000원',alliance:'전시 지원 해금',aid:c.specialty};
  for(const o of diplomacyOptions(s,focus)){
