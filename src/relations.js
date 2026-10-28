@@ -1,8 +1,8 @@
-import {historyTurn} from './calendar.js?v=20261028-command';
+import {historyTurn} from './calendar.js?v=20261028-midnight';
 // Scores model diplomatic alignment, not historical measurements.
 export const initialRelations={qing:50,russia:45,japan:20,britain:40,france:50,germany:40,usa:50,italy:40,austria:40,ottoman:40,siam:40,brazil:40};
 export const relationOrigins={qing:'1899 한청통상조약 · 대등한 국교 회복',russia:'1898 고문 철수 이후 · 일본 견제와 이권 경쟁',japan:'1895 을미사변 이후 · 침략 압력',britain:'수교 상태 · 러시아 견제 우선',france:'1900 파리박람회 지원 · 기술·외교 교류',germany:'수교·통상 · 적극적 안전 보장 없음',usa:'수교·통상 · 외교 지원에 대한 기대',italy:'수교·통상 · 제한적 교류',austria:'1892 수교 · 제한적 교류',ottoman:'직접 수교 없음 · 제한적 접촉',siam:'직접 수교 없음 · 제한적 접촉',brazil:'직접 수교 없음 · 제한적 접촉'};
-export function relationStatus(s,id){const d=s.diplomacy[id];if(s.war?.phase==='active'&&s.war.enemyId===id)return {label:'교전',tone:'hostile'};if(d.allied)return {label:'동맹',tone:'friendly'};return d.relation>=60?{label:'우호',tone:'friendly'}:d.relation<30?{label:'적대',tone:'hostile'}:{label:'중립',tone:'neutral'};}
+export function relationStatus(s,id){const d=s.diplomacy[id];if(s.annexed?.[id])return {label:'편입',tone:'friendly'};if(s.war?.phase==='active'&&s.war.enemyId===id)return {label:'교전',tone:'hostile'};if(d.allied)return {label:'동맹',tone:'friendly'};return d.relation>=60?{label:'우호',tone:'friendly'}:d.relation<30?{label:'적대',tone:'hostile'}:{label:'중립',tone:'neutral'};}
 export const relationEvents=[
  {turn:8,id:'anglo-japanese',name:'영일동맹',deltas:{britain:-8,japan:-4}},
  {turn:13,id:'yongampo',name:'용암포 사건',deltas:{russia:-8}},

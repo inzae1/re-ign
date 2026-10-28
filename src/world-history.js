@@ -1,4 +1,4 @@
-import {earlyWorld} from './world-early.js?v=20261028-command';
+import {earlyWorld} from './world-early.js?v=20261028-midnight';
 // Researched real-world context. These cards never alter the alternate-history simulation.
 const entry=(id,when,region,title,body,source)=>({id,when,turn:(Number(when.slice(0,4))-1900)*4+Math.floor((Number(when.slice(5,7))-1)/3),region,title,body,source});
 export const worldEvents=[...earlyWorld,

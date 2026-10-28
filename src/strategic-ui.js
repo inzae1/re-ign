@@ -1,20 +1,21 @@
-import {foreignOccupation} from './conquest.js?v=20261028-command';
-import {findForeignCity} from './foreign-cities.js?v=20261028-command';
-import {allianceConditions,aidReason} from './alliance.js?v=20261028-command';
-import {military1870} from './setup-1870.js?v=20261028-command';
-import {yearOf,ownNationName,nationName} from './calendar.js?v=20261028-command';
-import {influenceState} from './influence.js?v=20261028-command';
-import {historicalMilitary,militarySource} from './military-history.js?v=20261028-command';
-import {relationStatus} from './relations.js?v=20261028-command';
-import {readIntel} from './intelligence.js?v=20261028-command';
-import {seasonDate} from './quarter-report.js?v=20261028-command';
-import {actionBlockReason,previewStrategy} from './game.js?v=20261028-command';
-import {countryEvents,countryProfiles} from './country-simulation.js?v=20261028-command';
-import {invasionThreat} from './invasions.js?v=20261028-command';
-import {currencyText,won} from './money.js?v=20261028-command';
-import {countryFlag} from './flags.js?v=20261028-command';
-import {gameIcon} from './ui-icons.js?v=20261028-command';
-import {treatyOptions,peacePosition,declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261028-command';
+import {foreignOccupation} from './conquest.js?v=20261028-midnight';
+import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261028-midnight';
+import {allianceConditions,aidReason} from './alliance.js?v=20261028-midnight';
+import {military1870} from './setup-1870.js?v=20261028-midnight';
+import {yearOf,ownNationName,nationName} from './calendar.js?v=20261028-midnight';
+import {influenceState} from './influence.js?v=20261028-midnight';
+import {historicalMilitary,militarySource} from './military-history.js?v=20261028-midnight';
+import {relationStatus} from './relations.js?v=20261028-midnight';
+import {readIntel} from './intelligence.js?v=20261028-midnight';
+import {seasonDate} from './quarter-report.js?v=20261028-midnight';
+import {actionBlockReason,previewStrategy} from './game.js?v=20261028-midnight';
+import {countryEvents,countryProfiles} from './country-simulation.js?v=20261028-midnight';
+import {invasionThreat} from './invasions.js?v=20261028-midnight';
+import {currencyText,won} from './money.js?v=20261028-midnight';
+import {countryFlag} from './flags.js?v=20261028-midnight';
+import {gameIcon} from './ui-icons.js?v=20261028-midnight';
+import {surrenderReason} from './conquest.js?v=20261028-midnight';
+import {treatyOptions,peacePosition,declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261028-midnight';
 const el=(tag,text,cl)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=currencyText(text);if(cl)n.className=cl;return n;};
 function meter(label,value,color=''){const d=el('div',undefined,'strategic-meter '+color);d.append(el('span',label),el('b',value));const bar=el('progress');bar.max=100;bar.value=value;bar.setAttribute('aria-label',label);d.append(bar);return d;}
 function button(title,note,disabled,onclick,cl='strategy-action'){const b=el('button',undefined,cl);b.append(el('strong',title),el('small',note));b.disabled=disabled;b.onclick=onclick;return b;}
@@ -27,8 +28,9 @@ export function renderDiplomacy(s,focus,setFocus,setView,run){
  const root=document.getElementById('diplomacy-room');root.replaceChildren();const warn=warning(s,setView);if(warn)root.append(warn);
  const picker=el('label',undefined,'country-picker');picker.append(el('span','대상 국가'));const select=el('select');select.setAttribute('aria-label','외교 대상 국가');
  for(const [id,c]of Object.entries(countries)){const option=el('option',nationName(id,s.turn,s.startYear??1900)||c.name);option.value=id;option.selected=focus===id;select.append(option);}select.onchange=()=>setFocus(select.value);picker.append(select);root.append(picker);
- const c=countries[focus],d=s.diplomacy[focus],card=el('section',undefined,'foreign-card'),head=el('div',undefined,'foreign-heading'),flag=countryFlag(focus,s.turn,s.startYear??1900);flag.classList.add('nation-token');
+ const c=countries[focus],d=s.diplomacy[focus],card=el('section',undefined,'foreign-card'),head=el('div',undefined,'foreign-heading'),flag=countryFlag(s.annexed?.[focus]?'korea':focus,s.turn,s.startYear??1900);flag.classList.add('nation-token');
  head.append(flag,el('h3',nationName(focus,s.turn,s.startYear??1900)||c.name),el('span',relationStatus(s,focus).label,'treaty-pill'));card.append(head,meter('외교 신뢰',d.relation),meter(ownNationName(s)+' 내 영향력',s.influence?.[focus]||0,'red'));
+ if(s.annexed?.[focus]){const n=s.countryStates[focus],stats=el('div',undefined,'foreign-national');for(const [name,value]of [['국고',won(n.gold)],['군사력',n.military],['민심',n.stability]]){const item=el('div');item.append(el('small',name),el('strong',value));stats.append(item);}card.append(stats);for(const city of foreignCities[focus])card.append(button(city.name,'주둔 관리',false,()=>run('inspectcity',focus,city.id)));root.append(card);return;}
  const active=s.war?.phase==='active'&&s.war.enemyId===focus,list=el('div',undefined,'foreign-actions');
  const names={resist:'내정 간섭 항의',envoy:'사절 파견',trade:'통상 협약',alliance:'방위 동맹',aid:'지원 요청'},effects={resist:'국내 영향력 −10 · 관계 −6',envoy:'관계 +18',trade:'분기 수입 +10,000원',alliance:'4년 방위 조약',aid:'지속 지원 · 분담금 2만/분기'};
  for(const o of diplomacyOptions(s,focus)){
@@ -39,7 +41,7 @@ export function renderDiplomacy(s,focus,setFocus,setView,run){
  const pact=el('details',undefined,'alliance-checklist');const conditions=allianceConditions(s,focus);pact.append(el('summary',d.allied?`동맹 · ${Math.max(0,(d.allianceUntil??s.turn+16)-s.turn)}분기`:`동맹 조건 ${conditions.filter(c=>c.ok).length}/4`));for(const c of conditions)pact.append(el('span',(c.ok?'✓ ':'○ ')+c.label,c.ok?'met':'unmet'));card.append(pact,list);const reason=actionBlockReason(s,'war')||declarationBlockReason(s,focus);card.append(pricedButton(active?'교전 중':'선전포고',20,previewStrategy(s,'declare',focus),reason||'민심 −6 · 다른 국가 관계 −8',!!reason,()=>confirmDeclaration(s,focus,run),'strategy-action declaration-action'));
  root.append(card);
  const fold=el('details',undefined,'foreign-overview');fold.append(el('summary','상대 국력·지원·역사'));
- const intel=readIntel(s,focus),stats=el('div',undefined,'foreign-national');for(const [label,value]of [['군사력',intel?.military??'?'],['국고',intel?won(intel.gold):'?'],['민심',intel?.stability??'?']]){const box=el('div');box.append(el('small',label),el('strong',value));stats.append(box);}fold.append(stats,el('p',intel?seasonDate(intel.turn,s.startYear??1900)+' 첩보 보고 · 현재 값과 다를 수 있습니다.':'첩보 성공 전에는 국력 정보를 볼 수 없습니다. 지도에서 국가를 선택해 조사하세요.'),el('p',countryProfiles[focus].context));
+ const intel=readIntel(s,focus),stats=el('div',undefined,'foreign-national');for(const [label,value]of [['군사력',intel?.military??'?'],['국고',intel?won(intel.gold):'?'],['민심',intel?.stability??'?']]){const box=el('div');box.append(el('small',label),el('strong',value));stats.append(box);}fold.append(stats,el('p',intel?(s.intelUntil?.[focus]>=s.turn?'정보망 · '+Math.max(0,s.intelUntil[focus]-s.turn)+'분기':seasonDate(intel.turn,s.startYear??1900)+' 과거 보고'):'첩보 성공 전에는 국력 정보를 볼 수 없습니다. 지도에서 국가를 선택해 조사하세요.'),el('p',countryProfiles[focus].context));
 
  const baseline=(s.startYear??1900)<1900?military1870[focus]:historicalMilitary[focus],source=el('a','군사력 산정 자료 ↗');source.href=militarySource;source.target='_blank';source.rel='noopener noreferrer';fold.append(el('p',`${s.startYear??1900}년 기준 · ${baseline.personnelThousands===null?'병력 관측 없음':(baseline.personnelThousands*1000).toLocaleString('ko-KR')+'명'} · 군사력 ${baseline.score}${baseline.estimated?' (게임 추정)':' (게임 환산)'}`),source);
  fold.append(el('p','지원 효과 · '+c.specialty),el('p','방어전 자동 지원 · 침략전은 이해관계에 따라 참전 거절 · 지원 중 분담금 2만/분기'),el('strong',`통상 수입 +${treatyIncome(s)}만/분기`));root.append(fold);
@@ -51,7 +53,7 @@ export function renderWarRoom(s,setView,run){const root=document.getElementById(
 
 function compactWarRoom(root,s,setView,run){
  const w=s.war,blocked=!!s.event||!!s.ended;if(!w)return;
- if(w.phase==='resolved'){const result=el('section',undefined,'treaty-result');result.append(el('h2',({victory:'승전',defeat:'패전',truce:'휴전'})[w.outcome]));const terms=el('div',undefined,'peace-tags');for(const t of w.terms||[])terms.append(el('span',t));result.append(terms);const details=el('details',undefined,'result-details');details.append(el('summary','피해 · 동맹 기여'));if(w.summary){const summary=el('div',undefined,'result-stats');summary.append(el('span','전력 −'+w.summary.militaryLoss),el('span','국고 '+(w.summary.treasuryChange>=0?'+':'−')+won(w.summary.treasuryChange)),el('span','피해 '+w.summary.damage+'%'));details.append(summary);for(const a of w.summary.allies)details.append(el('p',countries[a.id].name+` · 지원 ${a.delivered}회 · 병력 +${a.army} · 보급 +${a.supplies}`));}if(w.pendingTreaty){const choices=el('div',undefined,'peace-choices');for(const o of treatyOptions(s)){const note={'return-city':'영향력 −12',reparations:'최대 20만',sovereignty:'영향력 −8',pay:'20만',concession:'이권 +1'}[o.id];const b=button(o.name,note,blocked,()=>run('treaty',o.id));b.title=o.note;choices.append(b);}result.append(choices);}result.append(details);root.querySelector('.war-title')?.after(result);root.querySelector('.war-scoreboard')?.remove();}
+ if(w.phase==='resolved'){const result=el('section',undefined,'treaty-result');result.append(el('h2',({victory:'승전',defeat:'패전',truce:'휴전'})[w.outcome]));const terms=el('div',undefined,'peace-tags');for(const t of w.terms||[])terms.append(el('span',t));result.append(terms);const details=el('details',undefined,'result-details');details.append(el('summary','피해 · 동맹 기여'));if(w.summary){const summary=el('div',undefined,'result-stats');summary.append(el('span','전력 −'+w.summary.militaryLoss),el('span','국고 '+(w.summary.treasuryChange>=0?'+':'−')+won(w.summary.treasuryChange)),el('span','피해 '+w.summary.damage+'%'));details.append(summary);for(const a of w.summary.allies)details.append(el('p',countries[a.id].name+` · 지원 ${a.delivered}회 · 병력 +${a.army} · 보급 +${a.supplies}`));}if(w.pendingTreaty){const choices=el('div',undefined,'peace-choices');for(const o of treatyOptions(s)){const note={surrender:surrenderReason(s)?'수도 + 국력 ↓':'국가 편입','return-city':'영향력 −12',reparations:'최대 20만',sovereignty:'영향력 −8',pay:'20만',concession:'이권 +1'}[o.id];const b=button(o.name,note,blocked||!!o.disabled,()=>run('treaty',o.id));b.title=o.note;b.prepend(gameIcon(({surrender:'diplomacy','return-city':'truce',reparations:'gold',sovereignty:'defend',pay:'gold',concession:'state'})[o.id]||'state','peace-choice-icon'));choices.append(b);}result.append(choices);}result.append(details);root.querySelector('.war-title')?.after(result);root.querySelector('.war-scoreboard')?.remove();}
 
  if(lastWarPhase!=='active'&&w.phase==='active')warTab='orders';
  if(lastWarPhase==='active'&&w.phase==='resolved')warTab='report';lastWarPhase=w.phase;

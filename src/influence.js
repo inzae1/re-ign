@@ -1,10 +1,10 @@
-import {influence1870} from './setup-1870.js?v=20261028-command';
-import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-command';
+import {influence1870} from './setup-1870.js?v=20261028-midnight';
+import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-midnight';
 const initial1900={qing:8,russia:18,japan:24,britain:5,france:4,germany:3,usa:4,italy:1,austria:1,ottoman:0,siam:0,brazil:0};
 const cap=n=>Math.max(0,Math.min(100,Math.round(n)));
 export function initializeInfluence(s){if(s.influence===undefined)s.influence={...(startYear(s)<1900?influence1870:initial1900)};s.influenceLog??=[];s.influenceTurn??=s.turn;}
 export function strongestInfluence(s){initializeInfluence(s);const [id,value]=Object.entries(s.influence).sort((a,b)=>b[1]-a[1])[0];return {id,value};}
-export function changeInfluence(s,id,delta,reason){initializeInfluence(s);if(!Object.hasOwn(s.influence,id))return;const before=s.influence[id];s.influence[id]=cap(before+delta);if(before!==s.influence[id])s.influenceLog.unshift({turn:s.turn,id,delta:s.influence[id]-before,reason});s.influenceLog=s.influenceLog.slice(0,50);}
+export function changeInfluence(s,id,delta,reason){initializeInfluence(s);if(!Object.hasOwn(s.influence,id)||s.annexed?.[id])return;const before=s.influence[id];s.influence[id]=cap(before+delta);if(before!==s.influence[id])s.influenceLog.unshift({turn:s.turn,id,delta:s.influence[id]-before,reason});s.influenceLog=s.influenceLog.slice(0,50);}
 export function influenceChanges(s,delta,reason){for(const [id,n]of Object.entries(delta||{}))changeInfluence(s,id,n,reason);}
 export function loanCreditor(s){initializeInfluence(s);return Object.keys(s.diplomacy).filter(id=>s.diplomacy[id].relation>=30&&!(s.war?.phase==='active'&&s.war.enemyId===id)).sort((a,b)=>(s.influence[b]+s.diplomacy[b].relation/5)-(s.influence[a]+s.diplomacy[a].relation/5))[0]||null;}
 export function policyInfluence(s,id){if(id==='loan'&&yearOf(s)>=1882){const creditor=loanCreditor(s);if(creditor)changeInfluence(s,creditor,8,'차관 의존');}else if(['arms','envoy','garrison','education'].includes(id)){const top=strongestInfluence(s);if(top.value)changeInfluence(s,top.id,yearOf(s)<1882?-1:-2,'자주 역량 확충');}}
