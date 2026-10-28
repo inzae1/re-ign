@@ -1,4 +1,4 @@
-import {countries} from './strategy.js?v=20261028-fx';
+import {countries} from './strategy.js?v=20261028-command';
 export const spyCost=6;
 export function readIntel(s,id){return s.intelligence?.[id]||null;}
 export function spyChance(s,id){return Math.min(85,55+Math.floor((s.diplomacy[id]?.relation||0)/5)+(s.readiness||0)*3);}
