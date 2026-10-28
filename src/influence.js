@@ -1,5 +1,5 @@
-import {influence1870} from './setup-1870.js?v=20261028-1870';
-import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-1870';
+import {influence1870} from './setup-1870.js?v=20261028-alliance';
+import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-alliance';
 const initial1900={qing:8,russia:18,japan:24,britain:5,france:4,germany:3,usa:4,italy:1,austria:1,ottoman:0,siam:0,brazil:0};
 const cap=n=>Math.max(0,Math.min(100,Math.round(n)));
 export function initializeInfluence(s){if(s.influence===undefined)s.influence={...(startYear(s)<1900?influence1870:initial1900)};s.influenceLog??=[];s.influenceTurn??=s.turn;}
@@ -15,7 +15,7 @@ export function advanceInfluence(s){initializeInfluence(s);if(s.influenceTurn===
  for(const [id,d]of Object.entries(s.diplomacy))if(d.trade&&s.influence[id]>=20&&s.turn%4===0)changeInfluence(s,id,1,'통상 의존 지속');
  if(s.arrears>=10||s.military<15||s.stability<20){const top=strongestInfluence(s);if(top.value>=25)changeInfluence(s,top.id,1,'내정 취약·체불');}
 }
-export function influenceWarResult(s){const w=s.war;if(w?.phase==='resolved')changeInfluence(s,w.enemyId,w.outcome==='victory'?-20:w.outcome==='defeat'?18:10,w.outcome==='victory'?'승전·외세 철수':w.outcome==='defeat'?'패전·개입 확대':'휴전 이권 양보');}
+export function influenceWarResult(s){const w=s.war;if(w?.phase==='resolved')changeInfluence(s,w.enemyId,w.outcome==='victory'?-20:w.outcome==='defeat'?18:w.settlement==='favorable'?-8:w.settlement==='white'?0:8,w.outcome==='victory'?'승전·외세 철수':w.outcome==='defeat'?'패전·개입 확대':'휴전 이권 양보');}
 export function influenceNews(s,e){if(e.japanSettlement&&(s.war?.enemyId==='japan'||s.warArchive.some(w=>w.enemyId==='japan')))return;influenceChanges(s,e.influence,e.title);}
 export const influenceState=value=>value>=100?'독립 상실':value>=80?'지배 위험':value>=60?'간섭 확대':value>=30?'영향력 존재':'제한적 관여';
 export function validInfluence(s){return Array.isArray(s.influenceLog)&&s.influenceLog.every(r=>r&&Object.hasOwn(s.diplomacy,r.id)&&Number.isInteger(r.turn)&&r.turn>=0&&r.turn<=s.turn&&Number.isInteger(r.delta)&&typeof r.reason==='string')&&s.influence&&typeof s.influence==='object'&&!Array.isArray(s.influence)&&Object.keys(s.diplomacy).every(id=>Number.isInteger(s.influence[id])&&s.influence[id]>=0&&s.influence[id]<=100)&&Number.isInteger(s.influenceTurn)&&s.influenceTurn>=0&&s.influenceTurn<=s.turn;}
