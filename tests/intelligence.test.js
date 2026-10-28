@@ -1,5 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createGame,spyCommand,serialize,restore,command} from '../src/game.js';import {readIntel} from '../src/intelligence.js';
+import {createGame as createCampaign,spyCommand,serialize,restore,command} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+import {readIntel} from '../src/intelligence.js';
 function outcome(success){for(let seed=1;seed<100;seed++){const s=createGame(seed);s.gold=100;spyCommand(s,'japan');if(s.lastIntel.success===success)return s;}throw Error('seed not found');}
 test('foreign nation resources are undiscovered until a seeded spy mission succeeds',()=>{const fresh=createGame(4);assert.equal(readIntel(fresh,'japan'),null);const s=outcome(true);assert.equal(s.turn,0);assert.equal(s.gold,94);assert.deepEqual(readIntel(s,'japan'),{turn:0,gold:s.countryStates.japan.gold,military:s.countryStates.japan.military,stability:s.countryStates.japan.stability});const known=structuredClone(readIntel(s,'japan'));s.countryStates.japan.military=1;assert.deepEqual(readIntel(s,'japan'),known,'intelligence is a dated snapshot, not a live secret feed');assert.deepEqual(readIntel(restore(serialize(s)),'japan'),known);});
 test('failed espionage costs money and relationship, never advances calendar or reveals resources',()=>{const s=outcome(false);assert.equal(s.gold,94);assert.equal(s.turn,0);assert.equal(s.diplomacy.japan.relation,5);assert.equal(readIntel(s,'japan'),null);const before=serialize(s);assert.equal(spyCommand(s,'russia'),false);assert.equal(serialize(s),before);assert.equal(restore(before).lastIntel.success,false);});

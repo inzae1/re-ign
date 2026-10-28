@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,serialize,restore,diplomacyCommand,declareWarCommand} from '../src/game.js';
+import {createGame as createCampaign,serialize,restore,diplomacyCommand,declareWarCommand} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {advanceRelations,relationStatus} from '../src/relations.js';
 test('historical diplomatic pressures apply once, retain envoy gains and survive reload',()=>{const s=createGame(1);s.gold=100;diplomacyCommand(s,'britain','envoy');const before=s.diplomacy.britain.relation;s.turn=8;advanceRelations(s);assert.equal(s.diplomacy.britain.relation,before-8);advanceRelations(s);assert.equal(s.diplomacy.britain.relation,before-8);assert(restore(serialize(s)).relationSeen.includes('anglo-japanese'));});
 test('alliance and war create alternate diplomatic paths without restoring historical relations',()=>{const s=createGame(1);s.gold=100;s.diplomacy.britain.relation=70;assert(diplomacyCommand(s,'britain','alliance'));s.turn=8;advanceRelations(s);assert.equal(s.diplomacy.britain.relation,78);const w=createGame(1);w.gold=100;w.military=75;assert(declareWarCommand(w,'japan'));const before=w.diplomacy.usa.relation;w.turn=22;advanceRelations(w);assert.equal(w.diplomacy.usa.relation,before);assert.equal(relationStatus(w,'japan').label,'교전');assert.equal(relationStatus(s,'britain').label,'동맹');});

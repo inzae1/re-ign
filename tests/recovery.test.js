@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,recoveryCommand,serialize,restore,command} from '../src/game.js';
+import {createGame as createCampaign,recoveryCommand,serialize,restore,command} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {recoveryBlockReason,beginCampaign} from '../src/strategy.js';
 test('direct city repair pays once, reduces real damage, records capped morale and allows finishing next quarter',()=>{const s=createGame(1);s.gold=100;s.stability=99;s.cityDamage.busan=50;assert(recoveryCommand(s,'busan'));assert.equal(s.turn,0);assert.equal(s.gold,92);assert.equal(s.cityDamage.busan,15);assert.equal(s.stability,100);assert.deepEqual(restore(serialize(s)).recoveryResponse,{turn:0,city:'busan',kind:'repair',before:50,after:15,gold:-8,stability:1});const raw=serialize(s);assert.equal(recoveryCommand(s,'busan'),false);assert.equal(serialize(s),raw);s.offers=['tax','relief','arms'];assert(command(s,'tax'));assert(recoveryCommand(s,'busan'));assert.equal(s.cityDamage.busan,0);});
 test('repairs and occupied-city return use the same real restrictions and invalid commands never spend money',()=>{for(const setup of [s=>s.gold=7,s=>beginCampaign(s),s=>s.occupied=['busan'],s=>s.event={id:'test'},s=>s.actionUse.civic=s.turn]){const s=createGame(1);s.cityDamage.busan=70;setup(s);const raw=serialize(s);assert(recoveryBlockReason(s,'busan'));assert.equal(recoveryCommand(s,'busan'),false);assert.equal(serialize(s),raw);}const s=createGame(1);s.gold=100;s.military=50;s.occupied=['busan'];s.cityDamage.busan=70;assert.equal(recoveryCommand(s,'busan','return'),false);s.diplomacy.britain.allied=true;assert(recoveryCommand(s,'busan','return'));assert.equal(s.gold,85);assert.deepEqual(s.occupied,[]);assert.equal(s.cityDamage.busan,70);assert.equal(s.recoveryResponse.kind,'return');assert.equal(recoveryCommand(s,'unknown'),false);});

@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {existsSync} from 'node:fs';
+import {flagPath} from '../src/flags.js';
+test('period flag assets exist and change with the campaign calendar, not the old 1900 clock',()=>{for(const [id,turn,asset]of [['usa',0,'usa37'],['usa',30,'usa38'],['usa',82,'usa43'],['usa',86,'usa44'],['usa',106,'usa'],['usa',154,'usa46'],['qing',0,'qing1862'],['brazil',0,'brazilEmpire'],['russia',0,'russia1858'],['korea',52,'korea1882'],['korea',120,'korea']]){const path=flagPath(id,turn,1870);assert.equal(path,`assets/flags/${asset}.svg`);assert(existsSync(new URL('../'+path,import.meta.url)));}});

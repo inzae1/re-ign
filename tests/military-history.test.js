@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {historicalMilitary,militaryAnnualChange,militarySource} from '../src/military-history.js';
-import {createGame,declareWarCommand,command} from '../src/game.js';
+import {createGame as createCampaign,declareWarCommand,command} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {countryProfiles,changeCountry,advanceWorld} from '../src/country-simulation.js';
 test('all national military starts use one sourced, reproducible 1900 index; Korea starts below Japan',()=>{const s=createGame(1);assert.equal(s.military,26);assert.equal(s.countryStates.japan.military,60);assert(s.military<s.countryStates.japan.military);assert.match(militarySource,/correlatesofwar/);const max=Math.max(...Object.values(historicalMilitary).map(d=>Math.sqrt(d.personnelThousands*d.spendingThousandsGBP)));for(const [id,d]of Object.entries(historicalMilitary)){assert.equal(d.score,Math.round(90*(Math.sqrt(d.personnelThousands*d.spendingThousandsGBP)/max)**.25));if(id!=='korea')assert.equal(countryProfiles[id].military,d.score);}assert(historicalMilitary.siam.notes.length);assert(historicalMilitary.korea.notes.length);assert.equal(declareWarCommand(s,'japan'),false);});
 test('military weakness does not create unprovoked wars across peaceful national turns',()=>{const s=createGame(3);s.military=0;for(let t=0;t<3;t++){s.offers=['tax','relief','arms'];assert(command(s,'tax'));assert.equal(s.war,null);assert.equal(s.invasionReport,null);}});

@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,command,choose,restore,serialize,rebellionCommand,diplomacyCommand} from '../src/game.js';
+import {createGame as createCampaign,command,choose,restore,serialize,rebellionCommand,diplomacyCommand} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {rebellionThreat,settleBudget,domesticTurn} from '../src/domestic.js';
 import {invasionThreat,pickInvader} from '../src/invasions.js';
 import {advanceWorld,countryEvents} from '../src/country-simulation.js';

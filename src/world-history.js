@@ -1,6 +1,7 @@
+import {earlyWorld} from './world-early.js?v=20261028-1870';
 // Researched real-world context. These cards never alter the alternate-history simulation.
 const entry=(id,when,region,title,body,source)=>({id,when,turn:(Number(when.slice(0,4))-1900)*4+Math.floor((Number(when.slice(5,7))-1)/3),region,title,body,source});
-export const worldEvents=[
+export const worldEvents=[...earlyWorld,
 entry('gold1900','1900-03','미국','금본위법 제정','3월 14일 금본위법이 제정되어 미국 통화의 금본위 체제가 법으로 명확해졌습니다.','https://fraser.stlouisfed.org/title/report-congress-commission-role-gold-domestic-international-monetary-systems-339/volume-i-6346/fulltext'),
 entry('canal1903','1903-01','미국·콜롬비아','헤이·에란 조약 서명','1월 22일 파나마 지협 운하 건설에 관한 조약이 서명됐습니다. 이 조약은 뒤에 콜롬비아에서 비준되지 않았습니다.','https://history.state.gov/historicaldocuments/frus1903/d321'),
 entry('cordiale1904','1904-04','영국·프랑스','영불협상 체결','4월 8일 영국과 프랑스가 식민지 문제 등에 관한 협정을 체결했습니다. 두 열강의 관계가 가까워졌습니다.','https://www.defense.gouv.fr/terre/actualites/cest-quoi-lentente-cordiale'),
@@ -42,4 +43,4 @@ entry('scouthq1909','1909-05','영국','스카우트 본부 개설','5월 런던
 entry('rally1909','1909-09','영국','크리스털 팰리스 스카우트 집회','9월 크리스털 팰리스 집회에 약 1만 1천 명의 스카우트가 모였습니다.','https://cms.scouts.org.uk/media/12901/fs295306-milestones-of-scouting.pdf'),
 entry('wireless1909','1909-12','유럽','무선 통신 연구에 노벨상','마르코니와 브라운이 무선 전신 발전에 기여한 공로로 노벨물리학상을 받았습니다.','https://www.nobelprize.org/prizes/physics/1909/marconi/facts/')
 ].sort((a,b)=>a.turn-b.turn);
-export function worldNewsAt(turn){const current=worldEvents.filter(e=>e.turn===turn);if(current.length)return {recent:false,items:current};const previous=worldEvents.filter(e=>e.turn<turn).slice(-1);return {recent:true,items:previous};}
+export function worldNewsAt(turn,startYear=1900){turn+=(startYear-1900)*4;const current=worldEvents.filter(e=>e.turn===turn);if(current.length)return {recent:false,items:current};const previous=worldEvents.filter(e=>e.turn<turn).slice(-1);return {recent:true,items:previous};}

@@ -1,9 +1,10 @@
+import {earlyHistory} from './history-early.js?v=20261028-1870';
 // Dates are grouped into calendar quarters. Facts and sources are separate from fictional player responses.
 const nh=id=>'https://contents.history.go.kr/front/nh/view.do?levelId='+id;
 const kc=id=>'https://contents.history.go.kr/mobile/kc/view.do?levelId='+id;
 const hm=id=>'https://contents.history.go.kr/front/hm/view.do?levelId='+id;
 const option=(name,desc,delta,cost)=>({name,desc,delta,...(cost?{cost}:{})});
-export const historicalEvents=[
+export const historicalEvents=[...earlyHistory,
 {id:'upu1900',turn:0,when:'1900.01',type:'news',title:'만국우편연합 가입',body:'대한제국이 국제우편 업무를 시작하며 만국우편연합의 정식 회원국이 되었습니다.',source:'https://stamp.epost.go.kr/board/board.jsp?cate=&deptcode=&desc=asc&edate=&emonth=&eyear=&id=spsw0101&idx=5492&key=subject&menuID=spsw0101&mode=view&order=&pg=5&sdate=&search=&site=&smonth=&syear='},
 {id:'hangang1900',turn:2,when:'1900.07',type:'news',title:'한강철교와 경인선 연결',body:'한강철교 준공과 노량진~서대문 구간 개통으로 경인선의 한성 연결이 이뤄졌습니다.',source:'https://www.molit.go.kr/USR/policyData/m_34681/dtl.jsp?id=3898'},
 {id:'decree1900',turn:3,when:'1900.10',type:'news',title:'대한제국 칙령 제41호',body:'울릉도를 울도군으로 개편하고 관할 구역을 정하는 칙령이 공포되었습니다.',source:'https://dokdo.mofa.go.kr/kor/dokdo/faq.jsp'},
@@ -31,4 +32,7 @@ export const historicalEvents=[
 {id:'judiciary1909',turn:38,when:'1909.07',type:'choice',title:'기유각서와 사법권 침탈',body:'실제 역사에서 기유각서를 통해 사법과 감옥 사무가 일본에 넘어갑니다. 남은 국가 권한을 지킬 방안을 선택하세요.',source:hm('hm_121_0110'),choices:[option('법률가를 지원하며 위탁에 항의한다','국고 −8 · 군사력 −2',{gold:-8,military:-2},8),option('지출을 줄이고 압박을 감수한다','군사력 −7',{military:-7})]},
 {id:'harbin1909',turn:39,when:'1909.10',type:'news',title:'안중근 하얼빈 의거',body:'안중근이 하얼빈역에서 이토 히로부미를 처단했습니다. 이 역사 소식은 게임 속 병합 저지나 외교적 승리를 자동으로 뜻하지 않습니다.',source:'https://contents.history.go.kr/front/kc/main.do?levelId=kc_n402100'}
 ];
+// Game effects attached to sourced historical pressures; numbers are not historical measurements.
+const influenceChoices={crisis1905:[{japan:8},{japan:18}],debt1907:[{japan:-6},{}],hague1907:[{japan:-4},{japan:6}],crisis1907:[{japan:-5},{japan:12}],judiciary1909:[{japan:-4},{japan:14}]};
+for(const e of historicalEvents){if(influenceChoices[e.id])e.choices.forEach((c,i)=>{c.influence=influenceChoices[e.id][i]||{};for(const [id,n]of Object.entries(c.influence))c.desc+=` · 일본 영향력 ${n>0?'+':''}${n}`;});if(e.id==='residency1906'){e.influence={japan:6};e.japanSettlement=true;}if(e.id==='abdication1907')e.body=e.body.replace('군사력 수치에 따라','외국 영향력과 플레이어 선택에 따라');}
 export const historyById=Object.fromEntries(historicalEvents.map(e=>[e.id,e]));

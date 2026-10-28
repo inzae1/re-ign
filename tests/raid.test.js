@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,raidWarCommand,restore,serialize} from '../src/game.js';
+import {createGame as createCampaign,raidWarCommand,restore,serialize} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {raidCampaign,raidBlockReason,countries} from '../src/strategy.js';
 import {foreignCities} from '../src/foreign-cities.js';
 test('all twelve nations have city targets; surprise attacks inflict real losses and persist through saves',()=>{for(const id of Object.keys(countries)){const s=createGame(3);s.gold=100;s.military=75;const city=foreignCities[id][0],before={...s.countryStates[id]};assert(raidWarCommand(s,id,city.id,'raid'));assert.equal(s.turn,0);assert.equal(s.war.cause,'surprise');assert.equal(s.war.attackCity,city.id);assert(['active','resolved'].includes(s.war.phase));assert(s.countryStates[id].military<before.military);assert(s.gold<100);assert.equal(restore(serialize(s)).war.attackCity,city.id);assert.deepEqual(s.occupied,[]);}});

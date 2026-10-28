@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,serialize,restore,recoveryCommand} from '../src/game.js';
+import {createGame as createCampaign,serialize,restore,recoveryCommand} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {beginCampaign,campaignTurn,countries} from '../src/strategy.js';
 import {occupyCity,occupierOf} from '../src/occupation.js';
 test('defensive defeats record the actual occupying country for every enemy and preserve it through saves',()=>{for(const id of Object.keys(countries)){const s=createGame(1);s.gold=100;s.military=0;beginCampaign(s,'busan',id);campaignTurn(s,{},'hold');assert(s.occupied.includes('busan'),id);assert.equal(occupierOf(s,'busan'),id);assert.equal(occupierOf(restore(serialize(s)),'busan'),id);}});

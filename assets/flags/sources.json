@@ -163,5 +163,69 @@
     "licenseUrl": "",
     "sha256": "4fe5746b128101524c3422d4bef92e0e21a0b4e155c8a92270f7047c7820808b",
     "bytes": 4011
+  },
+  {
+    "id": "usa37",
+    "file": "Flag of the United States (1867–1877).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_%281867%E2%80%931877%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_the_United_States_%281867%E2%80%931877%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "6a31c8f446e7478e0cc6ccce19ddce94803e49060ed9175e28749ea8ed7189db"
+  },
+  {
+    "id": "usa38",
+    "file": "Flag of the United States (1877–1890).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_%281877%E2%80%931890%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/80/Flag_of_the_United_States_%281877%E2%80%931890%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "8314da3afd73ccbb9157e03060636ba561c956db406197180741cfa7cf50d0a2"
+  },
+  {
+    "id": "usa43",
+    "file": "Flag of the United States (1890–1891).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_%281890%E2%80%931891%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_States_%281890%E2%80%931891%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "313119327c14bc12f52339669eb166db91860beb1db4264f8def98fdcc28add9"
+  },
+  {
+    "id": "usa44",
+    "file": "Flag of the United States (1891–1896).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States_%281891%E2%80%931896%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_United_States_%281891%E2%80%931896%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "cecde515707354fb410c60e796d08b8a179de6f9903bf0366fd6f8149ad1a278"
+  },
+  {
+    "id": "korea1882",
+    "file": "Flag of Korea (1882–1910).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Korea_%281882%E2%80%931910%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Korea_%281882%E2%80%931910%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "ccd1c71a03df3441bef4edb1abcce22a41806bce674c0cde937efec1b5a83ccd"
+  },
+  {
+    "id": "qing1862",
+    "file": "Flag of China (1862–1889).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_China_%281862%E2%80%931889%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/86/Flag_of_China_%281862%E2%80%931889%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "ff6730cb2387eaf562623b2c35cfc2a55ebafcc9045e441ef0c85a0ae3eb3d20"
+  },
+  {
+    "id": "brazilEmpire",
+    "file": "Flag of Brazil (1853-1889).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Brazil_%281853-1889%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Brazil_%281853-1889%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "cfd0167a4fe340beaced1fd53b2672ed31ddbc36b829975e2924e9f6ee0d7650"
+  },
+  {
+    "id": "russia1858",
+    "file": "Flag of Russia (1858–1896).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia_%281858%E2%80%931896%29.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Russia_%281858%E2%80%931896%29.svg",
+    "license": "Public domain historical flag; see source",
+    "sha256": "669d0e02184ea5a1fee262b1b3d9e3baca621915d71782c30ea91f4d432ba7d6"
   }
 ]

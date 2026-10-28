@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,declareWarCommand,restore,serialize} from '../src/game.js';
+import {createGame as createCampaign,declareWarCommand,restore,serialize} from '../src/game.js';
+const createGame=seed=>createCampaign(seed,1900);
+
 import {countries,declareCampaign,campaignTurn,declarationBlockReason} from '../src/strategy.js';
 test('all twelve nations can be declared on, keep the same quarter, break treaties and survive reload',()=>{for(const id of Object.keys(countries)){const s=createGame(8);s.gold=100;s.military=75;s.diplomacy[id].allied=true;s.diplomacy[id].trade=true;const relation=s.diplomacy[id==='usa'?'qing':'usa'].relation;assert(declareWarCommand(s,id));assert.equal(s.turn,0);assert.equal(s.war.enemyId,id);assert.equal(s.war.mode,'offensive');assert.equal(s.war.round,0);assert.equal(s.diplomacy[id].allied,false);assert.equal(s.diplomacy[id].trade,false);assert(s.gold<=80);assert(s.stability<65);assert.equal(s.diplomacy[id==='usa'?'qing':'usa'].relation,Math.max(0,relation-8));assert.equal(restore(serialize(s)).war.enemyId,id);assert.deepEqual(s.cityDamage,{seoul:0,pyongyang:0,wonsan:0,busan:0});}});
 test('blocked declarations do not mutate the state',()=>{for(const setup of [s=>s.gold=19,s=>s.military=34,s=>s.event={id:'test'},s=>s.ended='lost',s=>declareCampaign(s,'japan')]){const s=createGame(3);setup(s);const before=serialize(s);assert.equal(declareWarCommand(s,'usa'),false);assert.equal(serialize(s),before);}const s=createGame();assert.equal(declareWarCommand(s,'unknown'),false);});
