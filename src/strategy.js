@@ -1,12 +1,12 @@
-import {annexCountry,surrenderReason,foreignOccupation,captureForeignCity,releaseForeignCity,advanceConquest} from './conquest.js?v=20261028-midnight';
-import {changeInfluence} from './influence.js?v=20261028-midnight';
-import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261028-midnight';
-import {relations1870} from './setup-1870.js?v=20261028-midnight';
-import {startYear} from './calendar.js?v=20261028-midnight';
-import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261028-midnight';
-import {initialRelations} from './relations.js?v=20261028-midnight';
-import {foreignCities,findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-midnight';
-import {changeCountry} from './country-simulation.js?v=20261028-midnight';
+import {annexCountry,surrenderReason,foreignOccupation,captureForeignCity,releaseForeignCity,advanceConquest} from './conquest.js?v=20261028-influence';
+import {changeInfluence} from './influence.js?v=20261028-influence';
+import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261028-influence';
+import {relations1870} from './setup-1870.js?v=20261028-influence';
+import {startYear} from './calendar.js?v=20261028-influence';
+import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261028-influence';
+import {initialRelations} from './relations.js?v=20261028-influence';
+import {foreignCities,findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-influence';
+import {changeCountry} from './country-simulation.js?v=20261028-influence';
 export const countries={
  qing:{name:'청',flag:'清',color:'#d5b25e',initial:42,aid:{supplies:32,gold:8,morale:5}},
  russia:{name:'러시아 제국',flag:'Р',color:'#8baac3',initial:28,aid:{army:16,supplies:15,blockade:-18}},

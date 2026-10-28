@@ -1,5 +1,5 @@
-import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261028-midnight';
-import {changeCountry} from './country-simulation.js?v=20261028-midnight';
+import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261028-influence';
+import {changeCountry} from './country-simulation.js?v=20261028-influence';
 export const occupationKey=(country,city)=>country+':'+city;
 export const foreignOccupation=(s,country,city)=>s.foreignOccupation?.[occupationKey(country,city)]||null;
 export function captureForeignCity(s,country,city){if(!findForeignCity(country,city)||foreignOccupation(s,country,city))return false;s.foreignOccupation??={};s.foreignOccupation[occupationKey(country,city)]={country,city,since:s.turn,resistance:35,damage:35};return true;}
