@@ -1,3 +1,4 @@
+import {advanceRelations} from './relations.js';
 import {spyCost,spyChance,spyBlockReason} from './intelligence.js';
 import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js';
@@ -37,7 +38,7 @@ function checkEnd(s){if(s.occupied.includes('seoul')||s.rebellion?.capitalTaken)
 export function startWar(s){if(s.war?.phase==='active'){s.military=Math.min(100,s.military+6);s.war.army=s.military;s.war.supplies=Math.min(100,s.war.supplies+12);record(s,'기존 전선 방어 동원 · 군사력 +6 · 보급 +12');return;}beginCampaign(s,random(s)<.5?'busan':'wonsan');record(s,'전쟁 발발 · 상륙 저지, 보급선 확보와 동맹 지원이 필요합니다.');}
 export function preview(s,id){const a=actions[id];if(!a)return null;const q=runningCosts(s),delta=effectivePolicy(s,id,a),projected={...s};for(const key of ['gold','stability','military']){const raw=s[key]+(delta[key]||0)+q[key];projected[key]=Math.max(0,key==='gold'?raw:Math.min(100,raw));if(key==='gold'&&raw<0)projected.arrears=(s.arrears||0)-raw;}settleBudget(projected);return Object.fromEntries(['gold','stability','military'].map(key=>[key,projected[key]-s[key]]));}
 function advance(s,policy={},order='hold',message='한 분기가 지났습니다.'){
- s.invasionReport=null;s.turn++;advanceWorld(s);record(s,message);const wasActive=s.war?.phase==='active';campaignTurn(s,policy,order);
+ s.invasionReport=null;s.turn++;advanceWorld(s);advanceRelations(s);record(s,message);for(const c of s.relationChanges||[])s.log.unshift(`${date(s)} · ${c.reason} · ${countries[c.id].name} 관계 ${c.delta}`);const wasActive=s.war?.phase==='active';campaignTurn(s,policy,order);
  if(wasActive&&s.war?.report?.length&&s.war.round)s.log.unshift(`${date(s)} · 전황: ${s.war.report.join(' / ')}`);
  checkEnd(s);if(!s.ended){scheduleHistory(s);settleBudget(s);domesticTurn(s,policy,()=>random(s));checkEnd(s);}
  if(!s.ended){const invader=pickInvader(s,()=>random(s));if(invader){const strength=s.military;beginCampaign(s,invader.target,invader.id);s.war.enemyArmy=invader.army;s.war.blockade=invader.blockade;s.invasionReport={turn:s.turn,enemyId:invader.id,military:strength,target:invader.target};s.log.unshift(`${date(s)} · 군사력 약화(${strength})를 틈탄 ${countries[invader.id].name}의 침공`);}if(!s.event&&s.turn%4===0)s.event={...events[Math.floor(random(s)*events.length)]};drawPolicies(s);}
@@ -48,7 +49,7 @@ export function command(s,id){const a=actions[id];if(!a||!s.offers.includes(id)|
 export function actionBlockReason(s,channel){return s.actionUse?.[channel]===s.turn?{war:'이번 분기 작전 준비 완료',diplomacy:'이번 분기 외교 완료',civic:'이번 분기 민생·복구 대응 완료'}[channel]:'';}
 function useAction(s,channel){s.actionUse??={war:-1,diplomacy:-1,civic:-1};s.actionUse[channel]=s.turn;}
 export function warCommand(s,id){const o=orders[id];if(!ready(s)||actionBlockReason(s,'war')||s.war?.phase!=='active'||!o||s.gold<o.cost||orderBlockReason(s,id))return false;s.gold-=o.cost;s.queuedOrder={turn:s.turn,id};useAction(s,'war');record(s,o.name+' 준비 완료 · 국정 정책 선택 시 교전');return true;}
-export function diplomacyCommand(s,country,action){if(!ready(s)||actionBlockReason(s,'diplomacy')||!conductDiplomacy(s,country,action))return false;useAction(s,'diplomacy');record(s,`${countries[country].name} · ${{envoy:'친선 사절 파견',trade:'통상 협약 체결',alliance:'방위 동맹 체결',aid:'전시 지원 도착'}[action]} · 분기 유지`);return true;}
+export function diplomacyCommand(s,country,action){if(!ready(s)||actionBlockReason(s,'diplomacy')||!conductDiplomacy(s,country,action))return false;useAction(s,'diplomacy');record(s,`${countries[country].name} · ${{envoy:'친선 사절 파견',trade:'통상 협약 체결',alliance:'방위 동맹 체결',aid:'전시 지원 도착'}[action]}`);return true;}
 export function rebellionCommand(s,kind){if(!ready(s)||actionBlockReason(s,'civic')||!respondToRebellion(s,kind))return false;useAction(s,'civic');if(s.rebellion?.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}record(s,kind==='relief'?'반란 지역 긴급 구휼·회유':'반란 진압 작전');checkEnd(s);return true;}
 export function recoveryCommand(s,id,kind='repair'){if(!ready(s)||actionBlockReason(s,'civic')||!(kind==='return'?negotiateReturn(s,id):repairCity(s,id)))return false;useAction(s,'civic');record(s,`${cities.find(c=>c.id===id).name} · ${kind==='return'?'점령군 철수 교섭 타결':'전후 복구 시행'}`);return true;}
 
