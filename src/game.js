@@ -2,7 +2,7 @@ import {advanceRelations} from './relations.js';
 import {spyCost,spyChance,spyBlockReason} from './intelligence.js';
 import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js';
-import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js';
+import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261028-unrest-fix';
 import {pickInvader,invasionThreat} from './invasions.js';
 import {applyForcedCrises,forcedCrises} from './crises.js';
 import {raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js';

@@ -1,7 +1,7 @@
 import {findForeignCity,raidOrders} from './foreign-cities.js';
 import {countries,raidBlockReason,orders,orderBlockReason} from './strategy.js';
 import {advanceWorld} from './country-simulation.js';
-import {rebellionBlockReason,rebellionThreat} from './domestic.js';
+import {rebellionBlockReason,rebellionThreat} from './domestic.js?v=20261028-unrest-fix';
 import {invasionThreat} from './invasions.js';
 import {currencyText,won} from './money.js';
 import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js';
@@ -9,10 +9,10 @@ import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from '.
 import {forcedCrises} from './crises.js';
 import {countryFlag} from './flags.js';
 import {gameIcon} from './ui-icons.js';
-import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-city-war';
+import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261028-city-war2';
 import {historicalEvents,historyById} from './history.js';
-import {createWorldMap,worldNations} from './world-map.js?v=20261028-city-war';
-import {spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-city-war';
+import {createWorldMap,worldNations} from './world-map.js?v=20261028-city-war2';
+import {spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261028-city-war2';
 const $=id=>document.getElementById(id),key='age-of-collapse-simple-v2';let state;try{state=restore(localStorage.getItem(key));}catch{}state ||= createGame();let mapOnly=false;let mapController,dockOpen=false,lastDockEvent=null;let previousResources=null,titleEntered=false;let saveFailed=false,view='map',countryFocus='qing',warAnnounced=false,warToastTimer;const warPreview=new URLSearchParams(location.search).get('preview')==='war';if(warPreview){state=createGame(1904);state.turn=16;state.news=[];state.gold=60;state.stability=70;state.military=70;state.readiness=2;state.diplomacy.qing={relation:72,allied:true,trade:true};startWar(state);const ally=new URLSearchParams(location.search).get('ally');if(ally&&Object.hasOwn(state.diplomacy,ally)&&ally!=='japan')state.diplomacy[ally]={relation:72,allied:true,trade:true};view='war';}
 const historyPreview=new URLSearchParams(location.search).get('preview')==='history';if(historyPreview){const e=historyById[new URLSearchParams(location.search).get('event')]||historyById.hague1907;state=createGame(1907);state.turn=e.turn;state.gold=80;state.stability=70;state.military=65;state.news=historicalEvents.filter(x=>x.turn===e.turn&&x.type==='news').map(x=>x.id);state.event=e.type==='choice'?{...e}:null;state.historicalSeen=historicalEvents.filter(x=>x.turn<=e.turn).map(x=>x.id);state.historyLog=state.historicalSeen.slice();state.last='역사 사건 미리보기 · 본편 저장은 변경하지 않습니다.';}
 const diplomacyPreview=new URLSearchParams(location.search).get('preview')==='diplomacy';if(diplomacyPreview){state=createGame(1900);state.gold=90;view='diplomacy';countryFocus='russia';}
