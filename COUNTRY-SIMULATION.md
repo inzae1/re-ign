@@ -56,3 +56,18 @@
 | 1908-10 | 오스트리아·헝가리의 보스니아 병합 | 오스트리아-헝가리·오스만제국 | [출처](https://hansard.parliament.uk/commons/1910-04-11/debates/14f5684e-4b66-4a2b-9489-42b73ebb98d0/BosniaAndHerzegovina) |
 | 1908-12 | 메시나 대지진과 복구 부담 | 이탈리아 왕국 | [출처](https://www.protezionecivile.gov.it/en/pubblicazione/emergency-management-earthquake-calabria-sicily-december-28-1908/) |
 | 1909-02 | 백색함대 세계 순항 귀환 | 미국 | [출처](https://www.loc.gov/collections/theodore-roosevelt-films/articles-and-essays/timeline-of-theodore-roosevelts-life/1906-to-1910/) |
+
+## 2026-10-28 개편: 역사 기준 군사력과 교전 조건
+
+위 문서의 초기 군사력 표와 자동 침공 규칙은 아래 규칙으로 대체합니다. 국정만 분기를 진행하며 외교·첩보·작전 준비·반란 대응은 시간을 진행시키지 않습니다.
+
+- 군사력이 낮아져도 임의로 전쟁을 시작하지 않습니다. 직접 선전포고·기습을 했거나 실제 역사 전쟁 사건(1904년 러일전쟁 관련 대응)을 통해서만 교전이 시작됩니다. 상대국은 시작된 전쟁 안에서 반격·증원합니다. 실제 러일전쟁과 가상의 대한제국 항만 방어 시나리오는 구분합니다.
+- COW National Material Capabilities **v7.0**, 1900년 `milper`(천 명), `milex`(당시 천 파운드)를 공통 기준으로 사용합니다. 자료: https://correlatesofwar.org/data-sets/national-material-capabilities/ . 원문 ZIP: https://correlatesofwar.org/wp-content/uploads/NMCv7.zip . 출처: Singer, Bremer & Stuckey (1972), “Capability Distribution, Uncertainty, and Major Power War, 1820–1965”; Singer (1988), “Reconstructing the Correlates of War Dataset on Material Capabilities of States, 1816–1985”.
+- 산식은 `round(90 × (sqrt(병력 × 군사비) / 1900년 13개국 최대값)^0.25)`입니다. 차이를 화면용으로 압축한 **게임 설계 지수**이며 COW의 CINC, 실제 전투력·승률·육해군별 전력 또는 정확한 병사 수가 아닙니다. 동원 범위·장비·훈련·수송·해군력의 차이와 자료의 불확실성까지 정확히 재현한 수치는 아닙니다.
+- 대한제국 COW 1900 병력 5천 대신 국사편찬위원회가 설명한 **1900년 7월 지방 진위대 편제 약 1만7천**을 보수적 기준으로 사용했습니다. 이는 중앙군까지 합한 전체 실병력이 아닙니다. 실제 총 병력으로 표시하지 않습니다. https://db.history.go.kr/diachronic/level.do?levelId=nh_042_0030_0010_0030_0010 . 1904년 실병력 약 1만6천, 군축 후 1907년 약 8,800이라는 설명도 참고했습니다: https://contents.history.go.kr/front/nh/print.do?levelId=nh_042_0060_0030 .
+- 시암의 1900 군사비는 결측(-9)으로 1901년을 대리 사용합니다. 결측을 0으로 해석하지 않습니다. 원자료·예외는 `src/military-history.js`에 보관합니다.
+- 새 초기값: 대한제국 **26**, 일본 **60**, 러시아 **88**, 청 **74**, 영국 **90**, 프랑스 **81**, 독일 **81**, 미국 **67**, 이탈리아 **64**, 오스트리아·헝가리 **66**, 오스만 **58**, 시암 **26**, 브라질 **38**. 청은 의화단 사건이 발생하면 별도로 감소합니다.
+- 외국 군사력의 일률적인 매년 +1을 없애고, 1901~1910 COW 병력 증감 방향으로 연간 변화(`round(log(해당연도/전년도)×5)`, 최대 ±3)를 반영합니다. 자료가 없는 연도는 추정 증가를 만들지 않습니다. 기존의 날짜가 확인된 군사 사건 효과도 적용하며 이 효과의 크기는 게임값입니다.
+- 플레이어와 전쟁을 벌이거나 군사지원·기습 피해로 군사력이 바뀐 국가는 실제 역사상 군사력 흐름을 강제로 덮어씌우지 않습니다. 전투 손실·전비·재정 고갈 효과는 계속 반영됩니다. 적에게 출처 없는 시작 전력 +8을 부여하던 규칙도 제거했습니다.
+- 새 원정과 아직 아무 조작도 하지 않은 1900년 초기 저장에 적용합니다. 진행한 저장의 정책·전쟁 결과와 자원 수치는 보존합니다. 국고·민심·세입·사건별 숫자는 여전히 역사적 실제 예산/지지율이 아닌 게임 모델입니다.
+- 대한제국 도시를 누르면 도시 역할·점령 여부·시설 피해·치안 상태가 열리고, 해당 창에서 반란 대응·전쟁 작전으로 이동합니다. 보유하지 않은 도시 인구·수입 통계는 만들어 표시하지 않습니다.
