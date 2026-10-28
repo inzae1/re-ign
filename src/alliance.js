@@ -1,5 +1,5 @@
-import {changeCountry} from './country-simulation.js?v=20261028-influence';
-import {changeInfluence} from './influence.js?v=20261028-influence';
+import {changeCountry} from './country-simulation.js?v=20261028-buttons';
+import {changeInfluence} from './influence.js?v=20261028-buttons';
 const interests={qing:['japan','russia'],russia:['japan','qing'],japan:['qing','russia'],britain:['russia'],france:['japan'],germany:['russia'],usa:['japan'],italy:['russia'],austria:['russia'],ottoman:['russia'],siam:['qing'],brazil:[]};
 export function sharedThreat(s,id){const targets=interests[id]||[];return targets.find(enemy=>enemy!==id&&(s.war?.phase==='active'&&s.war.enemyId===enemy||(s.influence?.[enemy]||0)>=25))||null;}
 export function allianceConditions(s,id){const d=s.diplomacy[id];return [{label:'신뢰 80',ok:d.relation>=80},{label:'통상 4분기',ok:d.trade&&s.turn-(d.tradeSince??s.turn)>=4},{label:'군사력 25',ok:s.military>=25},{label:'공동 위협',ok:!!sharedThreat(s,id)}];}

@@ -14,3 +14,26 @@
 
 #command-dock .choice>.sprite{flex:0 0 43px!important;width:43px!important;height:43px!important;max-width:43px!important;border:0;border-radius:0;background-color:transparent;image-rendering:pixelated;filter:none}
 .legacy-resume{display:block;margin:16px auto 0;padding:10px 14px;border:0;border-radius:12px;background:#15243acc;color:#a7b9d8;font:inherit;font-size:11px}.legacy-resume:hover{background:#253c5c;color:#e6efff}.country-seal{display:inline-flex;align-items:center;justify-content:center;background:#f0eadb!important;color:#674b3b!important;font-size:12px;font-weight:700;letter-spacing:-1px;border:1px solid #d6c7a7!important;border-radius:3px;min-width:24px;min-height:17px}#emblem.country-seal{min-width:36px;height:25px;font-size:15px}
+/* Shared interaction states: available, current view, completed and unavailable. */
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
+button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #c1d4ff!important;outline-offset:3px}
+#game button:disabled,#modal button:disabled,.declaration-dialog button:disabled{cursor:not-allowed;opacity:.48;filter:saturate(.35);box-shadow:none!important;border-style:dashed!important}
+#game button:active:enabled,#modal button:active:enabled,.declaration-dialog button:active:enabled{transform:translateY(2px) scale(.98);filter:brightness(1.3)}
+#game button.button-clicked:enabled,#modal button.button-clicked:enabled{animation:button-ack .42s ease-out}
+@keyframes button-ack{0%{box-shadow:inset 0 0 0 2px #c8e7ff;filter:brightness(1.45)}100%{box-shadow:inset 0 0 0 2px transparent}}
+#game #map-actions button.active,#game .war-subtabs button.active{position:relative;background:#496ab0!important;color:#fff!important;box-shadow:inset 0 0 0 2px #abc7ff!important}
+#game #map-actions button.active:after,#game .war-subtabs button.active:after{content:'';position:absolute;bottom:4px;left:35%;right:35%;height:3px;border-radius:3px;background:#d1e1ff}
+#game[data-war=active] #map-actions button[data-view=war].active{background:#853b55!important;box-shadow:inset 0 0 0 2px #ffabc1!important}
+#game button[aria-pressed=true]:not(.map-city):not(.map-nation):not(.strategy-action),#modal button[aria-pressed=true]{border-color:#a8d5ff!important;color:#f4fbff;box-shadow:inset 0 0 0 2px #a8d5ff!important}
+#game button[data-button-state],#modal button[data-button-state]{position:relative;display:flex;flex-wrap:wrap;gap:7px;align-items:center;text-align:left}
+#game #command-dock button[data-button-state],#modal button[data-button-state],#country-inspector button[data-button-state]{opacity:1!important;filter:none!important;background:#193f37!important;border:2px solid #8ce3c4!important;border-style:solid!important;box-shadow:inset 4px 0 #8ce3c4!important;color:#d9fff1!important;cursor:default;padding-right:14px!important}
+.button-state-badge{position:static!important;display:inline-flex!important;align-items:center;gap:4px;margin-top:5px;padding:4px 8px!important;border-radius:6px!important;background:#94e8c9!important;color:#10382c!important;font-size:11px!important;font-weight:750!important;line-height:1.4!important;white-space:nowrap}
+#game button[data-button-state]>.selection-check,#modal button[data-button-state]>.selection-check{display:none!important}
+#game #country-inspector button[data-result=failure]{background:#492b39!important;border-color:#f3a5b8!important;box-shadow:inset 4px 0 #f3a5b8!important}#country-inspector [data-result=failure] .button-state-badge{background:#f3a5b8!important;color:#492031!important}
+.decision-receipt{padding:10px 12px;margin-bottom:14px;background:#193f37;border-left:3px solid #94e8c9;border-radius:9px;color:#bdf6de;font-size:12px;line-height:1.5}
+.decision-receipt[hidden]{display:none}
+#game .map-city.selected{outline:2px solid #d5edff!important;outline-offset:3px;background:#345b92!important;color:white!important}
+#command-dock .strategy-action:disabled:not([data-button-state]) strong,#modal button:disabled:not([data-button-state]) strong{color:#8c9bb1!important}
+#command-dock .operation-grid [data-button-state] .war-order-heading{padding-right:0!important}
+@media(prefers-reduced-motion:reduce){button.button-clicked{animation:none!important}button:active:enabled{transform:none!important}}
+#game #command-dock button[data-result=war]{background:#542b3e!important;border-color:#f1a1b9!important;box-shadow:inset 4px 0 #f1a1b9!important}#game button[data-result=war] .button-state-badge{background:#f1a1b9!important;color:#4d1d2f!important}

@@ -1,5 +1,5 @@
-import {historyTurn} from './calendar.js?v=20261028-influence';
-import {changeInfluence} from './influence.js?v=20261028-influence';
+import {historyTurn} from './calendar.js?v=20261028-buttons';
+import {changeInfluence} from './influence.js?v=20261028-buttons';
 // Dates are historical lower bounds. Conditional demands and numerical terms are counterfactual.
 const rows=[
  ['qing',1882,3,'청 상인의 내지 통상 요구','1882년 조청상민수륙무역장정은 청 상인의 통상 특권과 청의 종주권 주장을 담았습니다.','https://contents.history.go.kr/mobile/hm/view.do?levelId=hm_115_0050','상업 특권'],

@@ -1,4 +1,4 @@
-import {countries} from './strategy.js?v=20261028-influence';
+import {countries} from './strategy.js?v=20261028-buttons';
 export const spyCost=6;
 export function readIntel(s,id){if(s.annexed?.[id]){const c=s.countryStates[id];return {turn:s.turn,gold:c.gold,military:c.military,stability:c.stability};}return s.intelligence?.[id]||null;}
 export function spyChance(s,id){return Math.min(85,55+Math.floor((s.diplomacy[id]?.relation||0)/5)+(s.readiness||0)*3);}
