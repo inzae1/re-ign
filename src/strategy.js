@@ -1,11 +1,11 @@
-import {changeInfluence} from './influence.js?v=20261028-alliance';
-import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261028-alliance';
-import {relations1870} from './setup-1870.js?v=20261028-alliance';
-import {startYear} from './calendar.js?v=20261028-alliance';
-import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261028-alliance';
-import {initialRelations} from './relations.js?v=20261028-alliance';
-import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-alliance';
-import {changeCountry} from './country-simulation.js?v=20261028-alliance';
+import {changeInfluence} from './influence.js?v=20261028-quiet';
+import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261028-quiet';
+import {relations1870} from './setup-1870.js?v=20261028-quiet';
+import {startYear} from './calendar.js?v=20261028-quiet';
+import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261028-quiet';
+import {initialRelations} from './relations.js?v=20261028-quiet';
+import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-quiet';
+import {changeCountry} from './country-simulation.js?v=20261028-quiet';
 export const countries={
  qing:{name:'청',flag:'清',color:'#d5b25e',initial:42,aid:{supplies:32,gold:8,morale:5}},
  russia:{name:'러시아 제국',flag:'Р',color:'#8baac3',initial:28,aid:{army:16,supplies:15,blockade:-18}},

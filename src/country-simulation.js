@@ -1,7 +1,7 @@
-import {startYear} from './calendar.js?v=20261028-alliance';
-import {military1870,personnel1870to1910,countryEconomy1870,stability1870} from './setup-1870.js?v=20261028-alliance';
-import {historicalMilitary,militaryAnnualChange} from './military-history.js?v=20261028-alliance';
-import {worldEvents} from './world-history.js?v=20261028-alliance';
+import {startYear} from './calendar.js?v=20261028-quiet';
+import {military1870,personnel1870to1910,countryEconomy1870,stability1870} from './setup-1870.js?v=20261028-quiet';
+import {historicalMilitary,militaryAnnualChange} from './military-history.js?v=20261028-quiet';
+import {worldEvents} from './world-history.js?v=20261028-quiet';
 // Initial scores, tax yields and all numerical effects are game modelling choices, not archival statistics.
 export const countryProfiles={
  qing:{gold:250,military:historicalMilitary.qing.score,stability:48,tax:14,maintenance:13,context:'의화단 사태·배상 부담과 신정 개혁'},

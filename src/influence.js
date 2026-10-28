@@ -1,5 +1,5 @@
-import {influence1870} from './setup-1870.js?v=20261028-alliance';
-import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-alliance';
+import {influence1870} from './setup-1870.js?v=20261028-quiet';
+import {yearOf,historyTurn,startYear} from './calendar.js?v=20261028-quiet';
 const initial1900={qing:8,russia:18,japan:24,britain:5,france:4,germany:3,usa:4,italy:1,austria:1,ottoman:0,siam:0,brazil:0};
 const cap=n=>Math.max(0,Math.min(100,Math.round(n)));
 export function initializeInfluence(s){if(s.influence===undefined)s.influence={...(startYear(s)<1900?influence1870:initial1900)};s.influenceLog??=[];s.influenceTurn??=s.turn;}

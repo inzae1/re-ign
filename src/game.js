@@ -1,17 +1,17 @@
-import {selectTreaty} from './strategy.js?v=20261028-alliance';
-import {validAllianceState,advanceAlliances} from './alliance.js?v=20261028-alliance';
-import {startYear,yearOf,finalTurn,historyTurn,ownNationName} from './calendar.js?v=20261028-alliance';
-import {setup1870} from './setup-1870.js?v=20261028-alliance';
-import {initializeInfluence,strongestInfluence,changeInfluence,influenceChanges,policyInfluence,diplomacyInfluence,advanceInfluence,influenceWarResult,influenceNews,validInfluence} from './influence.js?v=20261028-alliance';
-import {historicalMilitary} from './military-history.js?v=20261028-alliance';
-import {advanceRelations} from './relations.js?v=20261028-alliance';
-import {spyCost,spyChance,spyBlockReason} from './intelligence.js?v=20261028-alliance';
-import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-alliance';
-import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261028-alliance';
-import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261028-alliance';
-import {applyForcedCrises,forcedCrises} from './crises.js?v=20261028-alliance';
-import {recoveryBlockReason,raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261028-alliance';
-import {historicalEvents,historyById} from './history.js?v=20261028-alliance';
+import {selectTreaty} from './strategy.js?v=20261028-quiet';
+import {validAllianceState,advanceAlliances} from './alliance.js?v=20261028-quiet';
+import {startYear,yearOf,finalTurn,historyTurn,ownNationName} from './calendar.js?v=20261028-quiet';
+import {setup1870} from './setup-1870.js?v=20261028-quiet';
+import {initializeInfluence,strongestInfluence,changeInfluence,influenceChanges,policyInfluence,diplomacyInfluence,advanceInfluence,influenceWarResult,influenceNews,validInfluence} from './influence.js?v=20261028-quiet';
+import {historicalMilitary} from './military-history.js?v=20261028-quiet';
+import {advanceRelations} from './relations.js?v=20261028-quiet';
+import {spyCost,spyChance,spyBlockReason} from './intelligence.js?v=20261028-quiet';
+import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-quiet';
+import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261028-quiet';
+import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261028-quiet';
+import {applyForcedCrises,forcedCrises} from './crises.js?v=20261028-quiet';
+import {recoveryBlockReason,raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261028-quiet';
+import {historicalEvents,historyById} from './history.js?v=20261028-quiet';
 export const cities=[{id:'seoul',name:'한성',role:'황도 · 나라의 중심',x:49.4,y:61.5},{id:'pyongyang',name:'평양',role:'서북의 생산 거점',x:43.4,y:51.3},{id:'wonsan',name:'원산',role:'동해의 항구',x:59.8,y:52.5},{id:'busan',name:'부산',role:'남부의 교역 거점',x:64,y:73}];
 export const actions={
  tax:{name:'세금 징수',note:'토지세를 거두어 국고를 확보합니다.',delta:{gold:15,stability:-3},art:'gold',group:'finance'},
@@ -61,7 +61,7 @@ export function actionBlockReason(s,channel){return s.actionUse?.[channel]===s.t
 function useAction(s,channel){s.actionUse??={war:-1,diplomacy:-1,civic:-1};s.actionUse[channel]=s.turn;}
 export function treatyCommand(s,id){if(s.ended||s.event||!selectTreaty(s,id))return false;checkEnd(s);record(s,'전후 조약 · '+s.war.terms.at(-1));return true;}
 export function warCommand(s,id){const o=orders[id];if(!ready(s)||actionBlockReason(s,'war')||s.war?.phase!=='active'||!o||s.gold<o.cost||orderBlockReason(s,id))return false;s.gold-=o.cost;s.queuedOrder={turn:s.turn,id};useAction(s,'war');record(s,o.name+' 준비 완료 · 국정 정책 선택 시 교전');return true;}
-export function diplomacyCommand(s,country,action){if(!ready(s)||actionBlockReason(s,'diplomacy')||!conductDiplomacy(s,country,action))return false;useAction(s,'diplomacy');if(action==='envoy')s.contacts[country]=true;diplomacyInfluence(s,country,action);checkEnd(s);record(s,`${countries[country].name} · ${{resist:'내정 간섭 항의',envoy:'친선 사절 파견',trade:'통상 협약 체결',alliance:'방위 동맹 체결',aid:'참전 요청 접수'}[action]}`);return true;}
+export function diplomacyCommand(s,country,action){if(!ready(s)||actionBlockReason(s,'diplomacy')||!conductDiplomacy(s,country,action))return false;useAction(s,'diplomacy');s.lastDiplomacy={turn:s.turn,country,action};if(action==='envoy')s.contacts[country]=true;diplomacyInfluence(s,country,action);checkEnd(s);record(s,`${countries[country].name} · ${{resist:'내정 간섭 항의',envoy:'친선 사절 파견',trade:'통상 협약 체결',alliance:'방위 동맹 체결',aid:'참전 요청 접수'}[action]}`);return true;}
 export function rebellionCommand(s,kind){
  if(rebellionBlockReason(s,kind))return false;
  const before={city:s.rebellion.city,strength:s.rebellion.strength,gold:s.gold,stability:s.stability,military:s.military};

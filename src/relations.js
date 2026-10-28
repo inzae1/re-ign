@@ -1,4 +1,4 @@
-import {historyTurn} from './calendar.js?v=20261028-alliance';
+import {historyTurn} from './calendar.js?v=20261028-quiet';
 // Scores model diplomatic alignment, not historical measurements.
 export const initialRelations={qing:50,russia:45,japan:20,britain:40,france:50,germany:40,usa:50,italy:40,austria:40,ottoman:40,siam:40,brazil:40};
 export const relationOrigins={qing:'1899 한청통상조약 · 대등한 국교 회복',russia:'1898 고문 철수 이후 · 일본 견제와 이권 경쟁',japan:'1895 을미사변 이후 · 침략 압력',britain:'수교 상태 · 러시아 견제 우선',france:'1900 파리박람회 지원 · 기술·외교 교류',germany:'수교·통상 · 적극적 안전 보장 없음',usa:'수교·통상 · 외교 지원에 대한 기대',italy:'수교·통상 · 제한적 교류',austria:'1892 수교 · 제한적 교류',ottoman:'직접 수교 없음 · 제한적 접촉',siam:'직접 수교 없음 · 제한적 접촉',brazil:'직접 수교 없음 · 제한적 접촉'};
