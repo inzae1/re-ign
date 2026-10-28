@@ -2,13 +2,13 @@ import {historicalMilitary,militarySource} from './military-history.js';
 import {relationStatus} from './relations.js';
 import {readIntel} from './intelligence.js';
 import {seasonDate} from './quarter-report.js';
-import {actionBlockReason,previewStrategy} from './game.js?v=20261028-city-repair';
-import {countryEvents,countryProfiles} from './country-simulation.js?v=20261028-city-repair';
-import {invasionThreat} from './invasions.js?v=20261028-city-repair';
+import {actionBlockReason,previewStrategy} from './game.js?v=20261028-occupation-flags';
+import {countryEvents,countryProfiles} from './country-simulation.js?v=20261028-occupation-flags';
+import {invasionThreat} from './invasions.js?v=20261028-occupation-flags';
 import {currencyText,won} from './money.js';
 import {countryFlag} from './flags.js';
 import {gameIcon} from './ui-icons.js';
-import {declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261028-city-repair';
+import {declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261028-occupation-flags';
 const el=(tag,text,cl)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=currencyText(text);if(cl)n.className=cl;return n;};
 function meter(label,value,color=''){const d=el('div',undefined,'strategic-meter '+color);d.append(el('span',label),el('b',value));const bar=el('progress');bar.max=100;bar.value=value;bar.setAttribute('aria-label',label);d.append(bar);return d;}
 function button(title,note,disabled,onclick,cl='strategy-action'){const b=el('button',undefined,cl);b.append(el('strong',title),el('small',note));b.disabled=disabled;b.onclick=onclick;return b;}
