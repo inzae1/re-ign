@@ -1,23 +1,24 @@
-import {influenceFloor} from './influence.js?v=20261029-campaign2';
-import {markButton} from './button-state.js?v=20261029-campaign2';
-import {foreignOccupation} from './conquest.js?v=20261029-campaign2';
-import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261029-campaign2';
-import {allianceConditions,aidReason} from './alliance.js?v=20261029-campaign2';
-import {military1870} from './setup-1870.js?v=20261029-campaign2';
-import {yearOf,ownNationName,nationName} from './calendar.js?v=20261029-campaign2';
-import {influenceState} from './influence.js?v=20261029-campaign2';
-import {historicalMilitary,militarySource} from './military-history.js?v=20261029-campaign2';
-import {relationStatus} from './relations.js?v=20261029-campaign2';
-import {readIntel} from './intelligence.js?v=20261029-campaign2';
-import {seasonDate} from './quarter-report.js?v=20261029-campaign2';
-import {actionBlockReason,previewStrategy} from './game.js?v=20261029-campaign2';
-import {countryEvents,countryProfiles} from './country-simulation.js?v=20261029-campaign2';
-import {invasionThreat} from './invasions.js?v=20261029-campaign2';
-import {currencyText,won} from './money.js?v=20261029-campaign2';
-import {countryFlag} from './flags.js?v=20261029-campaign2';
-import {gameIcon} from './ui-icons.js?v=20261029-campaign2';
-import {surrenderReason} from './conquest.js?v=20261029-campaign2';
-import {treatyOptions,peacePosition,declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261029-campaign2';
+import {portSupport} from './conquest.js?v=20261029-finance';
+import {influenceFloor} from './influence.js?v=20261029-finance';
+import {markButton} from './button-state.js?v=20261029-finance';
+import {foreignOccupation} from './conquest.js?v=20261029-finance';
+import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261029-finance';
+import {allianceConditions,aidReason} from './alliance.js?v=20261029-finance';
+import {military1870} from './setup-1870.js?v=20261029-finance';
+import {yearOf,ownNationName,nationName} from './calendar.js?v=20261029-finance';
+import {influenceState} from './influence.js?v=20261029-finance';
+import {historicalMilitary,militarySource} from './military-history.js?v=20261029-finance';
+import {relationStatus} from './relations.js?v=20261029-finance';
+import {readIntel} from './intelligence.js?v=20261029-finance';
+import {seasonDate} from './quarter-report.js?v=20261029-finance';
+import {actionBlockReason,previewStrategy} from './game.js?v=20261029-finance';
+import {countryEvents,countryProfiles} from './country-simulation.js?v=20261029-finance';
+import {invasionThreat} from './invasions.js?v=20261029-finance';
+import {currencyText,won} from './money.js?v=20261029-finance';
+import {countryFlag} from './flags.js?v=20261029-finance';
+import {gameIcon} from './ui-icons.js?v=20261029-finance';
+import {surrenderReason} from './conquest.js?v=20261029-finance';
+import {treatyOptions,peacePosition,declarationBlockReason,orderBlockReason,countries,orders,diplomacyOptions,warCosts,economyDamage,treatyIncome} from './strategy.js?v=20261029-finance';
 const el=(tag,text,cl)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=currencyText(text);if(cl)n.className=cl;return n;};
 function meter(label,value,color=''){const d=el('div',undefined,'strategic-meter '+color);d.append(el('span',label),el('b',value));const bar=el('progress');bar.max=100;bar.value=value;bar.setAttribute('aria-label',label);d.append(bar);return d;}
 function button(title,note,disabled,onclick,cl='strategy-action'){const b=el('button',undefined,cl);b.append(el('strong',title),el('small',note));b.disabled=disabled;b.onclick=onclick;return b;}
@@ -69,7 +70,7 @@ function compactWarRoom(root,s,setView,run){
    const team=el('div',undefined,'war-team '+cl),label=el('div',undefined,'war-team-name');label.append(countryFlag(id,s.turn,s.startYear??1900),el('span',name));label.title=name;
    const valueLine=el('div',undefined,'war-team-value');valueLine.append(el('strong',value),el('small','전력 / 100'));const bar=el('progress');bar.max=100;bar.value=value;bar.setAttribute('aria-label',name+' 전력');team.append(label,valueLine,bar);match.append(team);
   }
-  const logistics=el('div',undefined,'war-logistics');for(const [label,value,low]of [['보급',w.supplies,18],['사기',w.morale,30]]){const stat=el('span',undefined,value<low?'critical':'');stat.append(el('small',label),el('strong',value),el('span',value<low?'위험':'안정'));logistics.append(stat);}board.append(match,logistics);oldMeters.replaceWith(board);
+  const logistics=el('div',undefined,'war-logistics');for(const [label,value,low]of [['보급',w.supplies,18],['사기',w.morale,30]]){const stat=el('span',undefined,value<low?'critical':'');stat.append(el('small',label),el('strong',value),el('span',value<low?'위험':'안정'));logistics.append(stat);}board.append(match,logistics);const ports=portSupport(s);if(ports.ports.length)board.append(el('p',`해외 항만 ${ports.ports.length}곳 · 보급 +${ports.supply}/분기 · 봉쇄 −${ports.blockade}%/분기`,'port-benefit'));oldMeters.replaceWith(board);
  }
  if(w.phase==='resolved'){root.querySelector('.war-scoreboard')?.remove();root.querySelector('.battlefield')?.classList.add('settled');}
  if(w.mode==='offensive'&&w.objectiveCity){const city=findForeignCity(w.enemyId,w.objectiveCity),taken=foreignOccupation(s,w.enemyId,w.objectiveCity),objective=el('div',undefined,'city-objective');objective.append(countryFlag(taken?'korea':w.enemyId,s.turn,s.startYear??1900),el('strong',city.name),el('span',taken?'점령':(w.cityProgress||0)+'%'));const progress=el('progress');progress.max=100;progress.value=taken?100:w.cityProgress||0;progress.setAttribute('aria-label',city.name+' 점령 진척');objective.append(progress);root.querySelector('.war-scoreboard')?.after(objective);}

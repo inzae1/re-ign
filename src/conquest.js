@@ -1,9 +1,10 @@
-import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261029-campaign2';
-import {changeCountry} from './country-simulation.js?v=20261029-campaign2';
+import {foreignCities,findForeignCity} from './foreign-cities.js?v=20261029-finance';
+import {changeCountry} from './country-simulation.js?v=20261029-finance';
 export const occupationKey=(country,city)=>country+':'+city;
 export const foreignOccupation=(s,country,city)=>s.foreignOccupation?.[occupationKey(country,city)]||null;
 export function captureForeignCity(s,country,city){if(!findForeignCity(country,city)||foreignOccupation(s,country,city))return false;s.foreignOccupation??={};s.foreignOccupation[occupationKey(country,city)]={country,city,since:s.turn,resistance:35,damage:35};return true;}
 export function releaseForeignCity(s,country,city){if(!foreignOccupation(s,country,city))return false;delete s.foreignOccupation[occupationKey(country,city)];return true;}
+export function portSupport(s){const ports=Object.values(s.foreignOccupation||{}).filter(c=>c.resistance<70&&findForeignCity(c.country,c.city)?.coastal).slice(0,2);return {ports:ports.map(c=>findForeignCity(c.country,c.city).name),supply:ports.length*2,blockade:ports.length*2,initialSupply:ports.length*6};}
 export function occupationLedger(s){return Object.values(s.foreignOccupation||{}).reduce((a,c)=>({gold:a.gold+(c.resistance<70?2:-2),military:a.military+1}),{gold:0,military:0});}
 export function advanceOccupiedCities(s){for(const [key,c]of Object.entries(s.foreignOccupation||{})){if(c.since===s.turn)continue;c.resistance=Math.min(100,c.resistance+(s.military<25?18:8));if(c.resistance>=100){delete s.foreignOccupation[key];s.log.unshift(findForeignCity(c.country,c.city).name+' · 저항군에 주둔지 상실');if(s.annexed?.[c.country]&&!Object.values(s.foreignOccupation).some(x=>x.country===c.country)){delete s.annexed[c.country];s.diplomacy[c.country].relation=10;s.log.unshift('편입 지역 독립 회복 · '+c.country);}}}}
 export function pacifyCity(s,country,city){const c=foreignOccupation(s,country,city);if(!c||s.gold<8||s.military<10||s.actionUse.civic===s.turn||s.ended||s.event)return false;s.gold-=8;s.military--;c.resistance=Math.max(0,c.resistance-35);c.damage=Math.max(0,c.damage-15);s.actionUse.civic=s.turn;return true;}

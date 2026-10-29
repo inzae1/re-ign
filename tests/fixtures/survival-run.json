@@ -234,20 +234,17 @@
       "action": "policy:garrison"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:customs"
     },
     {
       "event": "judiciary1909",
       "choice": "지출을 줄이고 압박을 감수한다"
     },
     {
+      "action": "policy:arms"
+    },
+    {
       "action": "policy:tax"
-    },
-    {
-      "action": "diplomacy:japan:resist"
-    },
-    {
-      "action": "policy:envoy"
     }
   ]
 }

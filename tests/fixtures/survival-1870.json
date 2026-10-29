@@ -711,7 +711,7 @@
       "action": "policy:garrison"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:tax"
     },
     {
       "event": "righteous1908",
@@ -721,27 +721,7 @@
       "action": "policy:tax"
     },
     {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
       "action": "policy:garrison"
-    },
-    {
-      "event": "judiciary1909",
-      "choice": "법률가를 지원하며 위탁에 항의한다"
     },
     {
       "action": "policy:loan"
@@ -751,16 +731,39 @@
     },
     {
       "action": "policy:envoy"
+    },
+    {
+      "event": "reform",
+      "choice": "잠시 미룬다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "policy:loan"
+    },
+    {
+      "event": "judiciary1909",
+      "choice": "지출을 줄이고 압박을 감수한다"
+    },
+    {
+      "action": "diplomacy:qing:resist"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:relief"
     }
   ],
   "ended": {
     "win": true,
     "title": "1910 · 대한제국 독립 유지",
-    "body": "최대 외국 영향력: 청 43/100. 1910년 독립 유지 기준은 모든 국가의 영향력 80 미만입니다. "
+    "body": "최대 외국 영향력: 청 51/100. 1910년 독립 유지 기준은 모든 국가의 영향력 80 미만입니다. "
   },
   "turn": 160,
   "influence": {
     "id": "qing",
-    "value": 43
+    "value": 51
   }
 }

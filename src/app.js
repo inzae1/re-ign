@@ -1,35 +1,35 @@
-import {aftermathTypes,aftermathCost,aftermathAidCountry,aftermathReason} from './aftermath.js?v=20261029-campaign2';
-import {markButton,setCurrent} from './button-state.js?v=20261029-campaign2';
-import {influenceEvents,scheduleInfluenceEvent} from './influence-events.js?v=20261029-campaign2';
-import {loadCampaign,saveCampaign} from './campaign-storage.js?v=20261029-campaign2';
-import {foreignOccupation,occupationLedger} from './conquest.js?v=20261029-campaign2';
-import {taxOptions} from './taxation.js?v=20261029-campaign2';
-import {initGameFx,actionFx} from './game-fx.js?v=20261029-campaign2';
-import {yearOf,finalTurn,ownNationName,nationName} from './calendar.js?v=20261029-campaign2';
-import {strongestInfluence,influenceState,loanCreditor} from './influence.js?v=20261029-campaign2';
-import {occupyCity,occupierOf} from './occupation.js?v=20261029-campaign2';
-import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261029-campaign2';
-import {campaignTurn,countries,raidBlockReason,recoveryBlockReason,orders,orderBlockReason} from './strategy.js?v=20261029-campaign2';
-import {advanceWorld} from './country-simulation.js?v=20261029-campaign2';
-import {rebellionBlockReason,rebellionThreat} from './domestic.js?v=20261029-campaign2';
-import {invasionThreat} from './invasions.js?v=20261029-campaign2';
-import {currencyText,won,setCurrencyUnit} from './money.js?v=20261029-campaign2';
-import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js?v=20261029-campaign2';
-import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from './quarter-ui.js?v=20261029-campaign2';
-import {forcedCrises} from './crises.js?v=20261029-campaign2';
-import {countryFlag} from './flags.js?v=20261029-campaign2';
-import {gameIcon} from './ui-icons.js?v=20261029-campaign2';
-import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261029-campaign2';
-import {historicalEvents,historyById} from './history.js?v=20261029-campaign2';
-import {createWorldMap,worldNations} from './world-map.js?v=20261029-campaign2';
-import {aftermathCommand,taxCommand,cityAssaultCommand,occupationCommand,treatyCommand,policyOf,spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261029-campaign2';
+import {addAftermath,aftermathTypes,aftermathCost,aftermathAidCountry,aftermathReason,aftermathWaitingCost,aftermathAidPreview} from './aftermath.js?v=20261029-finance';
+import {markButton,setCurrent} from './button-state.js?v=20261029-finance';
+import {influenceEvents,scheduleInfluenceEvent} from './influence-events.js?v=20261029-finance';
+import {loadCampaign,saveCampaign} from './campaign-storage.js?v=20261029-finance';
+import {portSupport,foreignOccupation,occupationLedger} from './conquest.js?v=20261029-finance';
+import {taxOptions} from './taxation.js?v=20261029-finance';
+import {initGameFx,actionFx} from './game-fx.js?v=20261029-finance';
+import {yearOf,finalTurn,ownNationName,nationName} from './calendar.js?v=20261029-finance';
+import {strongestInfluence,influenceState,loanCreditor} from './influence.js?v=20261029-finance';
+import {occupyCity,occupierOf} from './occupation.js?v=20261029-finance';
+import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261029-finance';
+import {campaignTurn,countries,raidBlockReason,recoveryBlockReason,orders,orderBlockReason} from './strategy.js?v=20261029-finance';
+import {advanceWorld} from './country-simulation.js?v=20261029-finance';
+import {rebellionBlockReason,rebellionThreat} from './domestic.js?v=20261029-finance';
+import {invasionThreat} from './invasions.js?v=20261029-finance';
+import {currencyText,won,setCurrencyUnit} from './money.js?v=20261029-finance';
+import {seasonDate,quarterSnapshot,makeQuarterReport,pendingQuarterReport} from './quarter-report.js?v=20261029-finance';
+import {createQuarterBriefing,worldContext,worldHeadline,quarterSummary} from './quarter-ui.js?v=20261029-finance';
+import {forcedCrises} from './crises.js?v=20261029-finance';
+import {countryFlag} from './flags.js?v=20261029-finance';
+import {gameIcon} from './ui-icons.js?v=20261029-finance';
+import {renderDiplomacy,renderWarRoom} from './strategic-ui.js?v=20261029-finance';
+import {historicalEvents,historyById} from './history.js?v=20261029-finance';
+import {createWorldMap,worldNations} from './world-map.js?v=20261029-finance';
+import {aftermathCommand,taxCommand,cityAssaultCommand,occupationCommand,treatyCommand,policyOf,spyCommand,actionBlockReason,previewStrategy,raidWarCommand,declareWarCommand,cities,actions,createGame,scheduleHistory,date,upkeep,preview,startWar,warCommand,diplomacyCommand,recoveryCommand,rebellionCommand,command,choose,serialize,restore} from './game.js?v=20261029-finance';
 const $=id=>document.getElementById(id);let loadedCampaign;try{loadedCampaign=loadCampaign(localStorage);}catch{loadedCampaign={state:createGame(),legacy:null};}let state=loadedCampaign.state;let mapOnly=false;let mapController,dockOpen=false,lastDockEvent=null;let previousResources=null,titleEntered=false;let saveFailed=false,view='map',countryFocus='qing',warAnnounced=false,warToastTimer;const warPreview=new URLSearchParams(location.search).get('preview')==='war';if(warPreview){state=createGame(1904,1900);state.turn=16;state.news=[];state.gold=60;state.stability=70;state.military=70;state.readiness=2;state.diplomacy.qing={relation:72,allied:true,trade:true};startWar(state);const ally=new URLSearchParams(location.search).get('ally');if(ally&&Object.hasOwn(state.diplomacy,ally)&&ally!=='japan')state.diplomacy[ally]={relation:72,allied:true,trade:true};view='war';}
 if(warPreview&&new URLSearchParams(location.search).has('offensive')){state.war.mode='offensive';state.war.objectiveCity='osaka';state.war.cityProgress=65;}
 if(warPreview&&new URLSearchParams(location.search).has('surrender')){state.war.mode='offensive';state.war.objectiveCity='tokyo';state.war.cityProgress=100;state.countryStates.japan.military=20;}
 if(warPreview&&new URLSearchParams(location.search).get('result')==='victory'){state.war.enemyArmy=1;campaignTurn(state,{},new URLSearchParams(location.search).has('surrender')?'assault':'defend');}
 const historyPreview=['history','influence','aftermath'].includes(new URLSearchParams(location.search).get('preview'));if(historyPreview){const e=historyById[new URLSearchParams(location.search).get('event')]||historyById.hague1907;state=createGame(1907,1900);state.turn=e.turn;state.gold=80;state.stability=70;state.military=65;state.news=historicalEvents.filter(x=>x.turn===e.turn&&x.type==='news').map(x=>x.id);state.event=e.type==='choice'?{...e}:null;state.historicalSeen=historicalEvents.filter(x=>x.turn<=e.turn).map(x=>x.id);state.historyLog=state.historicalSeen.slice();state.last='역사 사건 미리보기 · 본편 저장은 변경하지 않습니다.';}
 if(new URLSearchParams(location.search).get('preview')==='influence'){const country=new URLSearchParams(location.search).get('country')||'russia',e=influenceEvents.find(e=>e.country===country)||influenceEvents[0];state=createGame(7);state.turn=e.minTurn+120;state.event=null;state.eventQueue=[];state.news=[];state.gold=60;state.influence[e.country]=45;scheduleInfluenceEvent(state);dockOpen=true;}
-if(new URLSearchParams(location.search).get('preview')==='aftermath'){state=createGame(5,1900);state.turn=10;state.gold=60;state.stability=60;state.military=60;scheduleHistory(state);state.event=null;state.eventQueue=[];state.diplomacy.usa.trade=true;state.diplomacy.usa.relation=65;}
+if(new URLSearchParams(location.search).get('preview')==='aftermath'){state=createGame(5,1900);state.turn=10;state.gold=60;state.stability=60;state.military=60;scheduleHistory(state);state.event=null;state.eventQueue=[];state.diplomacy.usa.trade=true;state.diplomacy.usa.relation=65;const issue=new URLSearchParams(location.search).get('issue');if(aftermathTypes[issue]){state.aftermath=[];const r=addAftermath(state,issue,['loan','adviser'].includes(issue)?'russia':null);if(new URLSearchParams(location.search).get('remaining')==='1')r.remaining=1;}}
 const diplomacyPreview=new URLSearchParams(location.search).get('preview')==='diplomacy';if(diplomacyPreview){state=createGame(1900,1900);state.gold=90;view='diplomacy';countryFocus='russia';}
 const crisisPreview=new URLSearchParams(location.search).get('preview')==='crisis';if(crisisPreview){state=createGame(1905,1900);state.turn=22;state.gold=100;state.stability=70;state.military=70;scheduleHistory(state);dockOpen=true;}
 const unrestPreview=['unrest','rebellion','recovery'].includes(new URLSearchParams(location.search).get('preview'));if(unrestPreview){state=createGame(1902,1900);state.gold=0;state.stability=0;state.military=10;state.arrears=12;state.offers=['tax','relief','arms'];state.news=[];dockOpen=true;}
@@ -199,7 +199,26 @@ function returnToTitle(){
 }
 
 function renderAftermathHud(){let b=$('aftermath-hud');if(!b){b=el('button',undefined,'aftermath-hud');b.id='aftermath-hud';$('influence-hud').after(b);b.onclick=showAftermath;}const issues=state.aftermath||[],recent=state.aftermathResponse?.turn===state.turn;b.hidden=!issues.length&&!recent;b.textContent=issues.length?'⚑ 국내 현안 '+issues.length+' · '+issues.map(r=>aftermathTypes[r.type].label).join(' / '):'✓ 현안 대응 결과';}
-function showAftermath(){const body=el('div',undefined,'aftermath-list'),response=state.aftermathResponse;if(response?.turn===state.turn)body.append(el('p',response.kind==='aid'?'✓ 외교 지원 · 8만 수령 · 잔여 '+response.after+'분기':'✓ '+aftermathTypes[response.type].label+' 해소','decision-receipt'));for(const r of state.aftermath||[]){const def=aftermathTypes[r.type],card=el('section',undefined,'aftermath-card');card.append(el('strong',def.label+' · '+r.remaining+'분기'),el('p',`매 분기 국고 ${r.type==='loan'?-Math.ceil(r.principal/Math.max(1,r.remaining)):def.gold}만`+(def.stability?' · 민심 '+def.stability:'')+(def.military?' · 군사 '+def.military:'')),el('small',def.note+(r.country?' · '+nationLabel(r.country):'')));const actions=el('div',undefined,'aftermath-actions');for(const kind of ['domestic','aid']){const reason=aftermathReason(state,r.type,kind),donor=aftermathAidCountry(state),b=el('button');b.append(el('strong',kind==='domestic'?def.answer:'외교 지원'),el('small',kind==='domestic'?aftermathCost(r)+'만 · 즉시 해소'+(r.type==='adviser'?' · 군사 −4':''):'국고 +8만 · 기간 절반 · 영향력 +8'),el('small',reason||(kind==='aid'?(donor?nationLabel(donor):'')+' · 신뢰 −5':'')));b.disabled=!!reason;if(response?.turn===state.turn&&response.type===r.type&&response.kind===kind){b.replaceChildren(el('strong','외교 지원'),el('small',`8만 수령 · ${response.before}→${response.after}분기`));markButton(b,'done','지원받음');}b.onclick=()=>{$('modal').close();performAction(()=>aftermathCommand(state,r.type,kind));showAftermath();};actions.append(b);}card.append(actions);body.append(card);}if(!state.aftermath?.length)body.append(el('p','남아 있는 현안이 없습니다.'));body.append(el('small','위기 후유증과 계약 조건은 게임용 가상 전개입니다. 국정 정책만 계절을 넘깁니다.'));show('국내 현안',body);}
+function aidResultText(r){return r.principalPaid?`원금 ${r.principalPaid}만 대납 · 잔액 ${r.principalAfter}만`+(r.cash?' · 국고 +'+r.cash+'만':''):`국고 +${r.cash??8}만 · ${r.before}→${r.after}분기`;}
+function showAftermath(){
+ const body=el('div',undefined,'aftermath-list'),response=state.aftermathResponse;
+ if(response?.turn===state.turn)body.append(el('p',response.kind==='aid'?'✓ '+aidResultText(response):'✓ '+aftermathTypes[response.type].label+' 해소','decision-receipt'));
+ for(const r of state.aftermath||[]){
+  const def=aftermathTypes[r.type],card=el('section',undefined,'aftermath-card'),waiting=aftermathWaitingCost(r),plan=aftermathAidPreview(state,r);
+  card.append(el('strong',def.label+' · '+r.remaining+'분기'),el('p',`매 분기 국고 ${r.type==='loan'?-Math.ceil(r.principal/Math.max(1,r.remaining)):def.gold}만`+(def.stability?' · 민심 '+def.stability:'')+(def.military?' · 군사 '+def.military:'')),el('p',`추가 대응 없으면 국고 −${waiting.gold}만`+(waiting.stability?' · 민심 −'+waiting.stability:'')+(waiting.military?' · 군사 −'+waiting.military:''),'aftermath-waiting'),el('small',def.note+(r.country?' · '+nationLabel(r.country):'')+(r.type==='port'?' · 시설 피해는 별도':'')));
+  const actions=el('div',undefined,'aftermath-actions');
+  for(const kind of ['domestic','aid']){
+   const reason=aftermathReason(state,r.type,kind),b=el('button');
+   const aidEffect=r.type==='loan'?`원금 ${won(r.principal)} → ${won(plan.principalAfter)} · 영향력 +8`+(plan.cash?' · 국고 +'+plan.cash+'만':''):`국고 +8만 · ${plan.before}→${plan.after}분기 · 영향력 +8`;
+   b.append(el('strong',kind==='domestic'?def.answer:r.type==='loan'?'원금 대납 요청':'외교 지원'),el('small',kind==='domestic'?aftermathCost(r)+'만 · 즉시 해소'+(r.type==='adviser'?' · 군사 −4':''):aidEffect),el('small',reason||(kind==='aid'?(plan.country?nationLabel(plan.country):'')+' · 신뢰 −5':'')));b.disabled=!!reason;
+   if(response?.turn===state.turn&&response.type===r.type&&response.kind===kind){b.replaceChildren(el('strong',r.type==='loan'?'원금 대납':'외교 지원'),el('small',aidResultText(response)));markButton(b,'done',r.type==='loan'?'대납받음':'지원받음');}
+   b.onclick=()=>{$('modal').close();performAction(()=>aftermathCommand(state,r.type,kind));showAftermath();};actions.append(b);
+  }
+  card.append(actions);body.append(card);
+ }
+ if(!state.aftermath?.length)body.append(el('p','남아 있는 현안이 없습니다.'));
+ body.append(el('small','위기 후유증과 계약 조건은 게임용 가상 전개입니다. 국정 정책만 계절을 넘깁니다.'));show('국내 현안',body);
+}
 
 function renderInfluenceHud(){let b=$('influence-hud');if(!b){b=el('button',undefined,'influence-hud');b.id='influence-hud';$('resources').after(b);}const top=strongestInfluence(state);b.dataset.risk=top.value>=80?'high':top.value>=60?'medium':'low';b.replaceChildren(el('span','외국 영향력'),el('strong',nationLabel(top.id)+' '+top.value),el('small',influenceState(top.value)+' ↗'));b.onclick=showInfluence;}
 function showInfluence(){const body=el('div',undefined,'influence-list');body.append(el('p','한 국가 100: 즉시 독립 상실 · 1910년에는 모두 80 미만','city-war-context'));for(const [id,value]of Object.entries(state.influence).sort((a,b)=>b[1]-a[1])){const row=el('div',undefined,'influence-row');row.append(countryFlag(id,state.turn,state.startYear??1900),el('strong',nationLabel(id)),el('b',value));const bar=el('progress');bar.max=100;bar.value=value;row.append(bar);body.append(row);}for(const c of state.foreignContracts||[]){if(c.until<=state.turn||state.annexed?.[c.country])continue;body.append(el('p',`${nationLabel(c.country)} · ${c.label} · ${c.until-state.turn}분기 남음`),el('small',`매 분기 국고 −${c.fee}만 · 군사 +${c.training} · 연간 영향력 +1. 내정 간섭 항의로 해지.`));}const log=state.influenceLog.slice(0,4);for(const item of log)body.append(el('small',`${nationLabel(item.id)} ${item.delta>0?'+':''}${item.delta} · ${item.reason}`));body.append(el('p','군영·교육 정비와 외교의 내정 간섭 항의로 줄일 수 있습니다. 차관·이권·점령은 영향력을 키웁니다.','city-war-context'));show('외국의 국내 영향력',body);}
@@ -209,4 +228,4 @@ function nationLabel(id){return nationName(id,state.turn,state.startYear??1900)|
 initGameFx();
 
 function showTaxChoices(){const body=el('div',undefined,'tax-choice-list');for(const [mode,tax]of Object.entries(taxOptions)){const projected={...state,taxMode:mode},net=preview(projected,'tax'),b=el('button',undefined,'tax-option');b.dataset.tier=mode;b.append(gameIcon('gold'),el('strong',tax.name),el('b',(net.gold>=0?'+':'−')+won(Math.abs(net.gold))),el('small','민심 '+(net.stability>=0?'+':'')+net.stability));if(mode==='heavy')b.append(el('span','세원 소진','risk-chip'));b.onclick=()=>{$('modal').close();performAction(()=>taxCommand(state,mode),tax.name);};body.append(b);}if(state.taxBurden)body.append(el('small','세원 부담 '+state.taxBurden+'/8','tax-strain'));show('조세',body);}
-function showOccupiedCity(country,id){const c=foreignOccupation(state,country,id),city=findForeignCity(country,id);if(!c)return;const body=el('div',undefined,'occupied-city-panel'),hero=el('div',undefined,'conflict-hero');hero.append(countryFlag('korea',state.turn,state.startYear??1900),el('strong',city.name),el('span','점령 중','status-lozenge'));body.append(hero);const stats=el('div',undefined,'occupation-stats');for(const [name,value]of [['수입',c.resistance<70?'+4만':'중단'],['주둔비','−2만'],['주둔군','−1/분기'],['저항',c.resistance+'%']]){const item=el('div');item.append(el('small',name),el('strong',value));stats.append(item);}body.append(stats);const bar=el('progress');bar.max=100;bar.value=c.resistance;bar.setAttribute('aria-label','점령 저항');body.append(bar);const b=el('button',undefined,'occupation-pacify');b.append(gameIcon('defend'),el('strong','주둔 정비'),el('b',won(8)),el('small','저항 −35'));b.disabled=state.gold<8||state.military<10||state.actionUse.civic===state.turn||!!state.event||!!state.ended;if(state.lastOccupation?.turn===state.turn&&state.lastOccupation.country===country&&state.lastOccupation.city===id){markButton(b,'done','정비 완료');}b.onclick=()=>{$('modal').close();runStrategy('occupation',country,id);showOccupiedCity(country,id);};body.append(b);const fold=el('details');fold.append(el('summary','점령 규칙'),el('p','저항 70부터 수입 중단 · 100 도달 시 주둔지 상실. 패전과 불리한 휴전에는 적국 도시에서 철수합니다.'));body.append(fold);show('주둔지',body);}
+function showOccupiedCity(country,id){const c=foreignOccupation(state,country,id),city=findForeignCity(country,id);if(!c)return;const body=el('div',undefined,'occupied-city-panel'),hero=el('div',undefined,'conflict-hero');hero.append(countryFlag('korea',state.turn,state.startYear??1900),el('strong',city.name),el('span','점령 중','status-lozenge'));body.append(hero);if(city.coastal){const support=portSupport(state);body.append(el('p',c.resistance>=70?'항만 지원 중단 · 저항 70 미만 필요':`해외 항만 보급망 · 분기 보급 +${support.supply} · 봉쇄 −${support.blockade}% (최대 2항구)`,'port-benefit'));}const stats=el('div',undefined,'occupation-stats');for(const [name,value]of [['수입',c.resistance<70?'+4만':'중단'],['주둔비','−2만'],['주둔군','−1/분기'],['저항',c.resistance+'%']]){const item=el('div');item.append(el('small',name),el('strong',value));stats.append(item);}body.append(stats);const bar=el('progress');bar.max=100;bar.value=c.resistance;bar.setAttribute('aria-label','점령 저항');body.append(bar);const b=el('button',undefined,'occupation-pacify');b.append(gameIcon('defend'),el('strong','주둔 정비'),el('b',won(8)),el('small','저항 −35'));b.disabled=state.gold<8||state.military<10||state.actionUse.civic===state.turn||!!state.event||!!state.ended;if(state.lastOccupation?.turn===state.turn&&state.lastOccupation.country===country&&state.lastOccupation.city===id){markButton(b,'done','정비 완료');}b.onclick=()=>{$('modal').close();runStrategy('occupation',country,id);showOccupiedCity(country,id);};body.append(b);const fold=el('details');fold.append(el('summary','점령 규칙'),el('p','저항 70부터 수입 중단 · 100 도달 시 주둔지 상실. 패전과 불리한 휴전에는 적국 도시에서 철수합니다.'));body.append(fold);show('주둔지',body);}
