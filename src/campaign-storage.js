@@ -1,4 +1,4 @@
-import {createGame,restore,serialize} from './game.js?v=20261029-war';
+import {createGame,restore,serialize} from './game.js?v=20261029-campaign2';
 export const campaignKeys={current:'age-of-collapse-simple-v2',modern:'reign-campaign-1870',legacy:'reign-campaign-1900'};
 export function loadCampaign(storage){const read=key=>{try{return restore(storage.getItem(key));}catch{return null;}};const current=read(campaignKeys.current),savedLegacy=read(campaignKeys.legacy);let legacy=current?.startYear===1900?current:savedLegacy?.startYear===1900?savedLegacy:null;if(current?.startYear===1900){try{storage.setItem(campaignKeys.legacy,serialize(current));}catch{return {state:current,legacy:null};}}const modern=current?.startYear===1870?current:read(campaignKeys.modern);return {state:modern?.startYear===1870?modern:createGame(),legacy};}
 export function saveCampaign(storage,s){const value=serialize(s);storage.setItem(s.startYear===1870?campaignKeys.modern:campaignKeys.legacy,value);storage.setItem(campaignKeys.current,value);}

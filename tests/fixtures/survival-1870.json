@@ -1,105 +1,105 @@
 {
-  "seed": 2654435761,
+  "seed": 1013904226,
   "steps": [
     {
       "action": "policy:garrison"
     },
     {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "event": "harvest",
-      "choice": "구휼금을 푼다"
-    },
-    {
       "action": "policy:arms"
     },
     {
-      "event": "shinmi1871",
-      "choice": "해안 진지를 보강한다"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "event": "harvest",
-      "choice": "구휼금을 푼다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
       "action": "policy:garrison"
     },
     {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "action": "policy:education"
+      "action": "policy:tax"
     },
     {
       "event": "trade",
       "choice": "특혜를 거절한다"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:relief"
+    },
+    {
+      "event": "shinmi1871",
+      "choice": "해안 진지를 보강한다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:loan"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "trade",
+      "choice": "특혜를 거절한다"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "event": "reform",
+      "choice": "개혁을 지원한다"
+    },
+    {
+      "action": "policy:loan"
+    },
+    {
+      "action": "policy:education"
     },
     {
       "action": "policy:envoy"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "event": "unyo1875",
       "choice": "해안 방어를 정비한다"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:envoy"
     },
     {
-      "action": "policy:relief"
+      "action": "policy:education"
     },
     {
       "event": "ganghwa1876",
@@ -112,58 +112,42 @@
       "action": "policy:garrison"
     },
     {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "trade",
+      "choice": "특혜를 거절한다"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
       "action": "policy:garrison"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:education"
     },
     {
       "action": "policy:customs"
     },
     {
+      "action": "policy:relief"
+    },
+    {
       "event": "reform",
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "event": "trade",
-      "choice": "통상을 허용한다"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "action": "policy:envoy"
+      "action": "policy:garrison"
     },
     {
       "action": "policy:loan"
     },
     {
-      "action": "policy:education"
+      "action": "policy:envoy"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "event": "trade",
@@ -173,14 +157,30 @@
       "action": "policy:education"
     },
     {
-      "action": "policy:tax"
-    },
-    {
       "action": "policy:education"
     },
     {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "event": "reform",
+      "choice": "잠시 미룬다"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
       "event": "tongni1880",
-      "choice": "군사·외교 실무를 정비한다"
+      "choice": "기존 관제로 운영한다"
     },
     {
       "action": "policy:tax"
@@ -200,20 +200,20 @@
       "action": "policy:loan"
     },
     {
+      "action": "policy:arms"
+    },
+    {
       "action": "policy:envoy"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
     },
     {
       "action": "policy:relief"
     },
     {
-      "event": "trade",
-      "choice": "특혜를 거절한다"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:garrison"
+      "action": "policy:relief"
     },
     {
       "event": "imo1882",
@@ -227,50 +227,50 @@
     },
     {
       "event": "trade",
-      "choice": "특혜를 거절한다"
+      "choice": "통상을 허용한다"
     },
     {
-      "action": "policy:education"
+      "action": "policy:garrison"
     },
     {
-      "action": "policy:education"
+      "action": "policy:arms"
     },
     {
       "event": "school1883",
       "choice": "민간 운영을 지켜본다"
     },
     {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
       "action": "policy:customs"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:education"
+    },
+    {
+      "event": "trade",
+      "choice": "특혜를 거절한다"
     },
     {
       "action": "policy:relief"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "event": "gapsin1884",
       "choice": "자주적 개혁 기반을 마련한다"
     },
     {
-      "action": "policy:loan"
+      "action": "policy:tax"
     },
     {
-      "event": "harvest",
-      "choice": "구휼금을 푼다"
+      "event": "trade",
+      "choice": "특혜를 거절한다"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:garrison"
     },
     {
       "event": "geomundo1885",
@@ -280,39 +280,7 @@
       "action": "policy:education"
     },
     {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
       "action": "policy:education"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "event": "harvest",
-      "choice": "지방의 힘을 빌린다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "action": "policy:arms"
     },
     {
       "action": "policy:education"
@@ -322,39 +290,7 @@
       "choice": "통상을 허용한다"
     },
     {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
       "action": "policy:tax"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "event": "trade",
-      "choice": "특혜를 거절한다"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "event": "reform",
-      "choice": "개혁을 지원한다"
-    },
-    {
-      "action": "policy:customs"
     },
     {
       "action": "policy:garrison"
@@ -363,20 +299,36 @@
       "action": "policy:education"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:relief"
+    },
+    {
+      "event": "harvest",
+      "choice": "지방의 힘을 빌린다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:education"
     },
     {
       "event": "reform",
-      "choice": "개혁을 지원한다"
+      "choice": "잠시 미룬다"
+    },
+    {
+      "action": "policy:tax"
     },
     {
       "action": "policy:customs"
     },
     {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:envoy"
+      "action": "policy:education"
     },
     {
       "action": "policy:relief"
@@ -386,20 +338,36 @@
       "choice": "특혜를 거절한다"
     },
     {
-      "action": "policy:customs"
+      "action": "policy:education"
     },
     {
       "action": "policy:relief"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:education"
     },
     {
-      "action": "policy:education"
+      "action": "policy:relief"
     },
     {
       "event": "trade",
-      "choice": "특혜를 거절한다"
+      "choice": "통상을 허용한다"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "harvest",
+      "choice": "지방의 힘을 빌린다"
     },
     {
       "action": "policy:customs"
@@ -408,20 +376,52 @@
       "action": "policy:relief"
     },
     {
-      "action": "policy:education"
+      "action": "policy:arms"
     },
     {
       "action": "policy:education"
+    },
+    {
+      "event": "reform",
+      "choice": "잠시 미룬다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:garrison"
     },
     {
       "event": "donghak1894",
       "choice": "수탈을 조사하고 구휼한다"
     },
     {
-      "action": "policy:education"
+      "action": "policy:customs"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:garrison"
     },
     {
       "event": "sino-japanese1894",
@@ -429,26 +429,10 @@
     },
     {
       "event": "gabo1894",
-      "choice": "행정·재정 개혁을 추진한다"
+      "choice": "개혁 속도를 늦춘다"
     },
     {
       "action": "war:assault"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "war:assault"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "event": "trade",
-      "choice": "특혜를 거절한다"
-    },
-    {
-      "action": "war:supply"
     },
     {
       "action": "policy:customs"
@@ -457,101 +441,121 @@
       "action": "war:assault"
     },
     {
+      "action": "policy:garrison"
+    },
+    {
+      "event": "trade",
+      "choice": "통상을 허용한다"
+    },
+    {
+      "action": "war:supply"
+    },
+    {
       "action": "policy:tax"
     },
     {
-      "action": "policy:garrison"
+      "action": "war:assault"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:tax"
     },
     {
       "event": "eulmi1895",
       "choice": "진상을 조사하고 호위를 재편한다"
     },
     {
-      "action": "policy:loan"
+      "action": "policy:garrison"
     },
     {
       "event": "agwan1896",
       "choice": "자체 호위와 환궁을 준비한다"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:loan"
     },
     {
-      "action": "policy:loan"
+      "event": "influence-russia-0",
+      "choice": "특권 거부"
+    },
+    {
+      "action": "policy:tax"
     },
     {
       "event": "independent1896",
       "choice": "공론과 자주 개혁을 지원한다"
     },
     {
+      "action": "policy:railway"
+    },
+    {
       "action": "policy:garrison"
     },
     {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
       "action": "policy:railway"
-    },
-    {
-      "event": "reform",
-      "choice": "잠시 미룬다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:railway"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:envoy"
     },
     {
       "event": "assembly1898",
       "choice": "이권 요구를 재검토한다"
     },
     {
-      "action": "policy:railway"
-    },
-    {
       "action": "policy:customs"
     },
     {
-      "action": "policy:education"
+      "action": "policy:envoy"
     },
     {
       "action": "policy:envoy"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "event": "trade",
       "choice": "특혜를 거절한다"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:railway"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:garrison"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "action": "policy:tax"
     },
     {
       "action": "policy:garrison"
     },
     {
       "action": "policy:education"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "event": "harvest",
-      "choice": "지방의 힘을 빌린다"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:relief"
     },
     {
       "event": "harvest",
@@ -571,75 +575,7 @@
       "action": "policy:arms"
     },
     {
-      "action": "policy:relief"
-    },
-    {
-      "event": "harvest",
-      "choice": "지방의 힘을 빌린다"
-    },
-    {
-      "action": "policy:garrison"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "event": "harvest",
-      "choice": "구휼금을 푼다"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:arms"
-    },
-    {
-      "event": "yongampo1903",
-      "choice": "대응을 늦추며 재정을 지킨다"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:relief"
-    },
-    {
-      "event": "crisis1904",
-      "choice": "항만 방어를 동원한다"
-    },
-    {
-      "action": "war:assault"
-    },
-    {
       "action": "policy:tax"
-    },
-    {
-      "action": "war:assault"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "event": "boan1904",
-      "choice": "개간권 반대 운동을 뒷받침한다"
-    },
-    {
-      "action": "war:assault"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "war:assault"
-    },
-    {
-      "action": "policy:loan"
     },
     {
       "event": "trade",
@@ -649,7 +585,75 @@
       "action": "policy:arms"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "harvest",
+      "choice": "구휼금을 푼다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "yongampo1903",
+      "choice": "조차 인준을 거부하고 교섭한다"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "action": "policy:education"
+    },
+    {
+      "event": "crisis1904",
+      "choice": "항만 방어를 동원한다"
+    },
+    {
+      "action": "war:assault"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "action": "war:assault"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "event": "boan1904",
+      "choice": "개간권 반대 운동을 뒷받침한다"
+    },
+    {
+      "action": "war:assault"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "war:assault"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "reform",
+      "choice": "개혁을 지원한다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "policy:education"
     },
     {
       "event": "currency1905",
@@ -663,97 +667,100 @@
       "choice": "무효를 주장하고 국제 사회에 호소한다"
     },
     {
-      "action": "policy:relief"
+      "action": "policy:envoy"
     },
     {
-      "event": "trade",
-      "choice": "특혜를 거절한다"
+      "event": "influence-qing-0",
+      "choice": "특권 거부"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:loan"
     },
     {
       "event": "jagang1906",
       "choice": "교육과 산업 계몽을 후원한다"
     },
     {
-      "action": "policy:loan"
-    },
-    {
       "action": "policy:envoy"
     },
     {
-      "action": "policy:arms"
+      "action": "policy:garrison"
+    },
+    {
+      "action": "policy:tax"
     },
     {
       "event": "debt1907",
       "choice": "자발적 모금과 공정한 관리를 지원한다"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:education"
     },
     {
       "event": "hague1907",
       "choice": "특사와 해외 여론전을 지원한다"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:loan"
     },
     {
       "event": "crisis1907",
       "choice": "해산을 거부하고 군대를 유지한다"
     },
     {
-      "action": "policy:relief"
+      "action": "policy:garrison"
     },
     {
-      "action": "policy:arms"
+      "action": "policy:garrison"
     },
     {
       "event": "righteous1908",
-      "choice": "피난민 구호에 집중한다"
-    },
-    {
-      "action": "policy:arms"
+      "choice": "의병의 보급과 연락망을 지원한다"
     },
     {
       "action": "policy:tax"
     },
     {
-      "action": "policy:education"
+      "action": "policy:customs"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:arms"
+    },
+    {
+      "action": "policy:envoy"
     },
     {
       "event": "reform",
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:tax"
     },
     {
-      "action": "policy:envoy"
+      "action": "policy:garrison"
     },
     {
       "event": "judiciary1909",
       "choice": "법률가를 지원하며 위탁에 항의한다"
     },
     {
-      "action": "policy:tax"
+      "action": "policy:loan"
     },
     {
-      "action": "policy:education"
+      "action": "diplomacy:qing:resist"
+    },
+    {
+      "action": "policy:envoy"
     }
   ],
   "ended": {
     "win": true,
     "title": "1910 · 대한제국 독립 유지",
-    "body": "최대 외국 영향력: 청 0/100. 1910년 독립 유지 기준은 모든 국가의 영향력 80 미만입니다. "
+    "body": "최대 외국 영향력: 청 43/100. 1910년 독립 유지 기준은 모든 국가의 영향력 80 미만입니다. "
   },
   "turn": 160,
   "influence": {
     "id": "qing",
-    "value": 0
+    "value": 43
   }
 }
