@@ -1,6 +1,6 @@
-import {currencyText,won} from './money.js?v=20261028-buttons';
-import {seasonDate,pendingQuarterReport} from './quarter-report.js?v=20261028-buttons';
-import {worldNewsAt} from './world-history.js?v=20261028-buttons';
+import {currencyText,won} from './money.js?v=20261029-war';
+import {seasonDate,pendingQuarterReport} from './quarter-report.js?v=20261029-war';
+import {worldNewsAt} from './world-history.js?v=20261029-war';
 const el=(tag,text,cl)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=currencyText(text);if(cl)n.className=cl;return n;};
 function sourceLink(item){const a=el('a','자료 확인 ↗','brief-source');a.href=item.source;a.target='_blank';a.rel='noopener noreferrer';return a;}
 export function worldContext(turn,startYear=1900){const section=el('section',undefined,'brief-world'),news=worldNewsAt(turn,startYear);section.append(el('small',news.recent?'직전 세계 소식 · 당시 보도 시점':'같은 시기, 세계에서는'),el('h3','세계의 흐름'));if(!news.items.length)section.append(el('p','이 시점에 등록된 세계 소식은 없습니다.'));for(const item of news.items){const article=el('article');article.append(el('small',item.when.replace('-','.')+' · '+item.region),el('strong',item.title),el('p',item.body),sourceLink(item));section.append(article);}section.append(el('small','실제 역사 자료 · 소식 자체로 자원이 변하지 않습니다.'));return section;}

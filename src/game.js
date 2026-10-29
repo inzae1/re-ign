@@ -1,21 +1,21 @@
-import {influenceEvents,initializeInfluenceEvents,scheduleInfluenceEvent,applyInfluenceChoice,contractBalance,advanceContracts,validInfluenceEvents} from './influence-events.js?v=20261028-buttons';
-import {validAnnexation,foreignOccupation,occupationLedger,advanceOccupiedCities,pacifyCity,validConquest} from './conquest.js?v=20261028-buttons';
-import {taxOptions,taxPolicy,settleTaxation,validTaxation} from './taxation.js?v=20261028-buttons';
-import {findForeignCity as objectiveCity} from './foreign-cities.js?v=20261028-buttons';
-import {selectTreaty} from './strategy.js?v=20261028-buttons';
-import {validAllianceState,advanceAlliances} from './alliance.js?v=20261028-buttons';
-import {startYear,yearOf,finalTurn,historyTurn,ownNationName} from './calendar.js?v=20261028-buttons';
-import {setup1870} from './setup-1870.js?v=20261028-buttons';
-import {initializeInfluence,strongestInfluence,changeInfluence,influenceChanges,policyInfluence,diplomacyInfluence,advanceInfluence,influenceWarResult,influenceNews,validInfluence} from './influence.js?v=20261028-buttons';
-import {historicalMilitary} from './military-history.js?v=20261028-buttons';
-import {advanceRelations} from './relations.js?v=20261028-buttons';
-import {spyCost,spyChance,spyBlockReason} from './intelligence.js?v=20261028-buttons';
-import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261028-buttons';
-import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261028-buttons';
-import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261028-buttons';
-import {applyForcedCrises,forcedCrises} from './crises.js?v=20261028-buttons';
-import {recoveryBlockReason,raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261028-buttons';
-import {historicalEvents,historyById} from './history.js?v=20261028-buttons';
+import {influenceEvents,initializeInfluenceEvents,scheduleInfluenceEvent,applyInfluenceChoice,contractBalance,advanceContracts,validInfluenceEvents} from './influence-events.js?v=20261029-war';
+import {validAnnexation,foreignOccupation,occupationLedger,advanceOccupiedCities,pacifyCity,validConquest} from './conquest.js?v=20261029-war';
+import {taxOptions,taxPolicy,settleTaxation,validTaxation} from './taxation.js?v=20261029-war';
+import {findForeignCity as objectiveCity} from './foreign-cities.js?v=20261029-war';
+import {selectTreaty} from './strategy.js?v=20261029-war';
+import {validAllianceState,advanceAlliances} from './alliance.js?v=20261029-war';
+import {startYear,yearOf,finalTurn,historyTurn,ownNationName} from './calendar.js?v=20261029-war';
+import {setup1870} from './setup-1870.js?v=20261029-war';
+import {initializeInfluence,strongestInfluence,changeInfluence,influenceChanges,policyInfluence,diplomacyInfluence,advanceInfluence,influenceWarResult,influenceNews,validInfluence} from './influence.js?v=20261029-war';
+import {historicalMilitary} from './military-history.js?v=20261029-war';
+import {advanceRelations} from './relations.js?v=20261029-war';
+import {spyCost,spyChance,spyBlockReason} from './intelligence.js?v=20261029-war';
+import {findForeignCity,raidOrders} from './foreign-cities.js?v=20261029-war';
+import {initializeWorld,advanceWorld,validWorld} from './country-simulation.js?v=20261029-war';
+import {initializeDomestic,settleBudget,domesticTurn,respondToRebellion,rebellionBlockReason} from './domestic.js?v=20261029-war';
+import {applyForcedCrises,forcedCrises} from './crises.js?v=20261029-war';
+import {recoveryBlockReason,raidCampaign,declareCampaign,orderBlockReason,countries,initializeStrategy,economyDamage,treatyIncome,warCosts,effectivePolicy,beginCampaign,campaignTurn,conductDiplomacy,orders,repairCity,negotiateReturn} from './strategy.js?v=20261029-war';
+import {historicalEvents,historyById} from './history.js?v=20261029-war';
 export const cities=[{id:'seoul',name:'한성',role:'황도 · 나라의 중심',x:49.4,y:61.5},{id:'pyongyang',name:'평양',role:'서북의 생산 거점',x:43.4,y:51.3},{id:'wonsan',name:'원산',role:'동해의 항구',x:59.8,y:52.5},{id:'busan',name:'부산',role:'남부의 교역 거점',x:64,y:73}];
 export const actions={
  tax:{name:'세금 징수',note:'토지세를 거두어 국고를 확보합니다.',delta:{gold:15,stability:-3},art:'gold',group:'finance'},
@@ -72,7 +72,7 @@ export function rebellionCommand(s,kind){
  if(!respondToRebellion(s,kind))return false;
  useAction(s,'civic');s.rebellionResponse={turn:s.turn,city:before.city,kind,before:before.strength,after:s.rebellion.strength,gold:s.gold-before.gold,stability:s.stability-before.stability,military:s.military-before.military};
  if(s.rebellion.strength===0){s.rebellion=null;s.rebellionCooldownUntil=s.turn+4;}
- record(s,`${cities.find(c=>c.id===before.city).name} · ${kind==='relief'?'회유 시행':'진압 작전 완료'} · 반란 세력 ${before.strength} → ${s.rebellionResponse.after}${s.rebellion?'':' · 반란 수습'}`);checkEnd(s);return true;
+ record(s,`${cities.find(c=>c.id===before.city).name} · ${kind==='relief'?'회유 시행':'진압 시행'} · 반란 세력 ${before.strength} → ${s.rebellionResponse.after}${s.rebellion?'':' · 반란 수습'}`);checkEnd(s);return true;
 }
 export function recoveryCommand(s,id,kind='repair'){
  if(recoveryBlockReason(s,id,kind))return false;
