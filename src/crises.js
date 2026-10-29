@@ -1,5 +1,5 @@
-import {addAftermath} from './aftermath.js?v=20261029-finance';
-import {historyTurn} from './calendar.js?v=20261029-finance';
+import {addAftermath} from './aftermath.js?v=20261029-growth';
+import {historyTurn} from './calendar.js?v=20261029-growth';
 // Scripted fictional crises: separate from researched historical news.
 export const forcedCrises=[
  {id:'harvest-shock',turn:10,when:'1902년 3분기',title:'흉작과 곡가 폭등',body:'곡물 수입과 긴급 구휼비가 국고를 덮쳤습니다.',flat:10,rate:.25,stability:-4,military:0},

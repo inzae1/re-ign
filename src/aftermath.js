@@ -1,6 +1,6 @@
-import {yearOf} from './calendar.js?v=20261029-finance';
-import {changeInfluence,loanCreditor} from './influence.js?v=20261029-finance';
-import {changeCountry} from './country-simulation.js?v=20261029-finance';
+import {yearOf} from './calendar.js?v=20261029-growth';
+import {changeInfluence,loanCreditor} from './influence.js?v=20261029-growth';
+import {changeCountry} from './country-simulation.js?v=20261029-growth';
 export const aftermathTypes={
  harvest:{label:'곡물 부족',duration:4,gold:-4,stability:-1,military:0,cost:12,answer:'곡물 매입',counter:['relief','education'],note:'구휼·교육 정책으로 기간 단축'},
  credit:{label:'신용 경색',duration:6,gold:-5,stability:0,military:0,cost:20,answer:'유동성 공급',counter:['tax','customs'],note:'세금·관세 정비로 기간 단축'},

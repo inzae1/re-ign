@@ -1,6 +1,12 @@
 {
-  "seed": 1013904226,
+  "seed": 2027808452,
   "steps": [
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "action": "aftermath:adviser:domestic"
+    },
     {
       "action": "policy:garrison"
     },
@@ -8,7 +14,24 @@
       "action": "policy:arms"
     },
     {
+      "action": "policy:railway"
+    },
+    {
+      "event": "reform",
+      "choice": "개혁을 지원한다"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
       "action": "policy:garrison"
+    },
+    {
+      "event": "railway1901",
+      "choice": "국내 기술자 양성을 지원한다"
+    },
+    {
+      "action": "policy:customs"
     },
     {
       "action": "policy:envoy"
@@ -21,49 +44,30 @@
       "action": "aftermath:adviser:domestic"
     },
     {
-      "action": "policy:arms"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "railway1901",
-      "choice": "국내 기술자 양성을 지원한다"
-    },
-    {
       "action": "policy:garrison"
     },
     {
-      "action": "policy:loan"
-    },
-    {
-      "event": "influence-russia-0",
-      "choice": "특권 거부"
-    },
-    {
-      "action": "aftermath:loan:domestic"
-    },
-    {
-      "action": "policy:garrison"
+      "event": "growth-military",
+      "choice": "군급·군제 통합"
     },
     {
       "action": "policy:customs"
     },
     {
-      "action": "policy:customs"
+      "action": "policy:tax"
     },
     {
       "action": "policy:railway"
     },
     {
       "event": "reform",
-      "choice": "잠시 미룬다"
+      "choice": "개혁을 지원한다"
     },
     {
       "action": "policy:customs"
     },
     {
-      "action": "policy:garrison"
+      "action": "policy:education"
     },
     {
       "event": "yongampo1903",
@@ -73,178 +77,177 @@
       "action": "policy:customs"
     },
     {
-      "action": "policy:education"
+      "action": "policy:railway"
     },
     {
       "event": "crisis1904",
       "choice": "중립을 선언하고 교섭한다"
     },
     {
-      "action": "policy:loan"
+      "action": "policy:envoy"
     },
     {
-      "event": "influence-qing-0",
-      "choice": "요구 수용"
-    },
-    {
-      "action": "aftermath:loan:domestic"
-    },
-    {
-      "action": "policy:education"
+      "action": "policy:garrison"
     },
     {
       "event": "boan1904",
       "choice": "개간권 반대 운동을 뒷받침한다"
     },
     {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "event": "trade",
-      "choice": "특혜를 거절한다"
-    },
-    {
-      "action": "policy:railway"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "currency1905",
-      "choice": "교환 절차를 감시하며 버틴다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "crisis1905",
-      "choice": "재정을 보존하며 버틴다"
-    },
-    {
       "action": "policy:loan"
     },
     {
-      "event": "influence-japan-0",
+      "event": "influence-russia-0",
       "choice": "요구 수용"
     },
     {
-      "action": "diplomacy:japan:resist"
-    },
-    {
-      "action": "rebellion:relief"
-    },
-    {
-      "action": "policy:railway"
-    },
-    {
-      "event": "jagang1906",
-      "choice": "민간 활동을 지켜본다"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "action": "rebellion:relief"
-    },
-    {
-      "action": "policy:tax"
-    },
-    {
-      "event": "debt1907",
-      "choice": "자발적 모금과 공정한 관리를 지원한다"
-    },
-    {
-      "action": "aftermath:loan:domestic"
-    },
-    {
-      "action": "policy:education"
-    },
-    {
-      "event": "hague1907",
-      "choice": "특사와 해외 여론전을 지원한다"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "event": "crisis1907",
-      "choice": "군인들의 생계를 우선 지원한다"
-    },
-    {
-      "action": "diplomacy:japan:resist"
-    },
-    {
-      "action": "rebellion:relief"
-    },
-    {
-      "action": "policy:customs"
-    },
-    {
-      "action": "rebellion:relief"
+      "action": "aftermath:adviser:domestic"
     },
     {
       "action": "policy:arms"
-    },
-    {
-      "event": "righteous1908",
-      "choice": "의병의 보급과 연락망을 지원한다"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "action": "rebellion:relief"
-    },
-    {
-      "action": "policy:loan"
-    },
-    {
-      "event": "influence-qing-1",
-      "choice": "요구 수용"
-    },
-    {
-      "action": "diplomacy:qing:resist"
-    },
-    {
-      "action": "aftermath:port:domestic"
-    },
-    {
-      "action": "policy:envoy"
-    },
-    {
-      "action": "diplomacy:qing:resist"
-    },
-    {
-      "action": "policy:loan"
     },
     {
       "event": "reform",
       "choice": "개혁을 지원한다"
     },
     {
-      "action": "diplomacy:qing:resist"
+      "action": "policy:garrison"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "event": "currency1905",
+      "choice": "교환 절차를 감시하며 버틴다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "crisis1905",
+      "choice": "재정을 보존하며 버틴다"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "influence-japan-0",
+      "choice": "요구 수용"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "jagang1906",
+      "choice": "민간 활동을 지켜본다"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "rebellion:relief"
+    },
+    {
+      "action": "policy:loan"
+    },
+    {
+      "event": "debt1907",
+      "choice": "자발적 모금과 공정한 관리를 지원한다"
+    },
+    {
+      "action": "diplomacy:japan:resist"
+    },
+    {
+      "action": "rebellion:relief"
+    },
+    {
+      "action": "policy:envoy"
+    },
+    {
+      "event": "hague1907",
+      "choice": "국내 대응에 재정을 남긴다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "crisis1907",
+      "choice": "군인들의 생계를 우선 지원한다"
+    },
+    {
+      "action": "rebellion:relief"
+    },
+    {
+      "action": "policy:customs"
+    },
+    {
+      "event": "influence-japan-1",
+      "choice": "요구 수용"
+    },
+    {
+      "action": "diplomacy:japan:resist"
+    },
+    {
+      "action": "rebellion:relief"
     },
     {
       "action": "policy:garrison"
     },
     {
-      "action": "policy:customs"
+      "event": "righteous1908",
+      "choice": "피난민 구호에 집중한다"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "event": "influence-qing-0",
+      "choice": "요구 수용"
+    },
+    {
+      "action": "diplomacy:japan:resist"
+    },
+    {
+      "action": "policy:arms"
+    },
+    {
+      "event": "growth-military",
+      "choice": "군급·군제 통합"
+    },
+    {
+      "action": "policy:tax"
+    },
+    {
+      "action": "policy:relief"
+    },
+    {
+      "event": "reform",
+      "choice": "개혁을 지원한다"
+    },
+    {
+      "action": "policy:loan"
+    },
+    {
+      "action": "diplomacy:japan:resist"
+    },
+    {
+      "action": "policy:garrison"
     },
     {
       "event": "judiciary1909",
       "choice": "지출을 줄이고 압박을 감수한다"
     },
     {
-      "action": "policy:arms"
+      "action": "policy:customs"
     },
     {
-      "action": "policy:tax"
+      "action": "diplomacy:japan:resist"
+    },
+    {
+      "action": "policy:relief"
     }
   ]
 }

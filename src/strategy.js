@@ -1,12 +1,12 @@
-import {portSupport,annexCountry,surrenderReason,foreignOccupation,captureForeignCity,releaseForeignCity,advanceConquest} from './conquest.js?v=20261029-finance';
-import {changeInfluence,influenceFloor} from './influence.js?v=20261029-finance';
-import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261029-finance';
-import {relations1870} from './setup-1870.js?v=20261029-finance';
-import {startYear} from './calendar.js?v=20261029-finance';
-import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261029-finance';
-import {initialRelations} from './relations.js?v=20261029-finance';
-import {foreignCities,findForeignCity,raidOrders} from './foreign-cities.js?v=20261029-finance';
-import {changeCountry} from './country-simulation.js?v=20261029-finance';
+import {portSupport,annexCountry,surrenderReason,foreignOccupation,captureForeignCity,releaseForeignCity,advanceConquest} from './conquest.js?v=20261029-growth';
+import {changeInfluence,influenceFloor} from './influence.js?v=20261029-growth';
+import {allianceReason,aidReason,enlist,coalitionTurn} from './alliance.js?v=20261029-growth';
+import {relations1870} from './setup-1870.js?v=20261029-growth';
+import {startYear} from './calendar.js?v=20261029-growth';
+import {occupyCity,liberateCity,initializeOccupation} from './occupation.js?v=20261029-growth';
+import {initialRelations} from './relations.js?v=20261029-growth';
+import {foreignCities,findForeignCity,raidOrders} from './foreign-cities.js?v=20261029-growth';
+import {changeCountry} from './country-simulation.js?v=20261029-growth';
 export const countries={
  qing:{name:'청',flag:'清',color:'#d5b25e',initial:42,aid:{supplies:32,gold:8,morale:5}},
  russia:{name:'러시아 제국',flag:'Р',color:'#8baac3',initial:28,aid:{army:16,supplies:15,blockade:-18}},

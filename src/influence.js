@@ -1,5 +1,5 @@
-import {influence1870} from './setup-1870.js?v=20261029-finance';
-import {yearOf,historyTurn,startYear} from './calendar.js?v=20261029-finance';
+import {influence1870} from './setup-1870.js?v=20261029-growth';
+import {yearOf,historyTurn,startYear} from './calendar.js?v=20261029-growth';
 const initial1900={qing:8,russia:18,japan:24,britain:5,france:4,germany:3,usa:4,italy:1,austria:1,ottoman:0,siam:0,brazil:0};
 const cap=n=>Math.max(0,Math.min(100,Math.round(n)));
 export function initializeInfluence(s){if(s.influence===undefined)s.influence={...(startYear(s)<1900?influence1870:initial1900)};s.influenceLog??=[];s.influenceTurn??=s.turn;}
@@ -8,7 +8,7 @@ export function changeInfluence(s,id,delta,reason){initializeInfluence(s);if(!Ob
 export function influenceChanges(s,delta,reason){for(const [id,n]of Object.entries(delta||{}))changeInfluence(s,id,n,reason);}
 export function loanCreditor(s){initializeInfluence(s);return Object.keys(s.diplomacy).filter(id=>s.diplomacy[id].relation>=30&&!(s.war?.phase==='active'&&s.war.enemyId===id)).sort((a,b)=>(s.influence[b]+s.diplomacy[b].relation/5)-(s.influence[a]+s.diplomacy[a].relation/5))[0]||null;}
 export function policyInfluence(s,id){if(id==='loan'&&yearOf(s)>=1882){const creditor=loanCreditor(s);if(creditor)changeInfluence(s,creditor,8,'차관 의존');}else if(['arms','envoy','garrison','education'].includes(id)){const top=strongestInfluence(s);if(top.value)changeInfluence(s,top.id,yearOf(s)<1882?-1:-2,'자주 역량 확충');}}
-export function influenceFloor(s,id){return Math.max(0,...(s.aftermath||[]).filter(r=>r.country===id).map(r=>r.type==='loan'?35:r.type==='adviser'?30:0));}
+export function influenceFloor(s,id){return Math.max(0,...(s.aftermath||[]).filter(r=>r.country===id).map(r=>r.type==='loan'?35:r.type==='adviser'?30:0),...(s.growth?.active||[]).filter(r=>r.country===id).map(r=>r.mode==='customs'?60:r.mode==='command'?40:0));}
 export function diplomacyInfluence(s,id,action){if(action==='resist')changeInfluence(s,id,-Math.min(10,Math.max(0,s.influence[id]-influenceFloor(s,id))),'내정 간섭 항의');if(action==='trade')changeInfluence(s,id,3,'통상 의존');if(action==='aid')changeInfluence(s,id,4,'군사 지원 의존');if(action==='alliance'){const top=strongestInfluence(s);if(top.id!==id)changeInfluence(s,top.id,-6,'대항 동맹');changeInfluence(s,id,4,'동맹국 관여');}}
 export function advanceInfluence(s){initializeInfluence(s);if(s.influenceTurn===s.turn)return;s.influenceTurn=s.turn;
  for(const [city,id]of Object.entries(s.occupationOwners||{}))if(s.occupied.includes(city))changeInfluence(s,id,4,'도시 점령');
